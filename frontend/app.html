@@ -25,7 +25,7 @@
                 <a href="#" onclick="switchTab('tournaments')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-trophy w-5"></i> Tournaments</a>
                 <a href="#" onclick="switchTab('games')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-gamepad w-5"></i> Games</a>
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
+                <a href="#" onclick="switchTab('leaderboard')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW (Includes Free Fire Daily Slots Schedule) -->
+                <!-- TOURNAMENTS VIEW -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -172,7 +172,6 @@
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
                     
-                    <!-- Dynamic Tournaments List from DB -->
                     <div id="tournamentList" class="space-y-3">
                         <p class="text-slate-400 text-sm">Loading tournaments...</p>
                     </div>
@@ -194,52 +193,52 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-800 bg-[#111827]">
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-emerald-400">🟢 Slot 01</td>
                                         <td class="p-3 text-slate-300">10:00 AM – 11:00 AM</td>
                                         <td class="p-3 font-semibold text-white">Match 1</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-cyan-400">🔵 Slot 02</td>
                                         <td class="p-3 text-slate-300">11:15 AM – 12:15 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 2</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-purple-400">🟣 Slot 03</td>
                                         <td class="p-3 text-slate-300">12:30 PM – 1:30 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 3</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition bg-slate-900/50">
+                                    <tr class="bg-slate-900/50">
                                         <td class="p-3 font-bold text-amber-400">☕ Break</td>
                                         <td class="p-3 text-slate-300">1:30 PM – 2:00 PM</td>
                                         <td class="p-3 font-semibold text-slate-400">Break</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-red-400">🔴 Slot 04</td>
                                         <td class="p-3 text-slate-300">2:00 PM – 3:00 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 4</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-emerald-400">🟢 Slot 05</td>
                                         <td class="p-3 text-slate-300">3:15 PM – 4:15 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 5</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition bg-slate-900/50">
+                                    <tr class="bg-slate-900/50">
                                         <td class="p-3 font-bold text-amber-400">☕ Break</td>
                                         <td class="p-3 text-slate-300">4:15 PM – 4:45 PM</td>
                                         <td class="p-3 font-semibold text-slate-400">Break</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-cyan-400">🔵 Slot 06</td>
                                         <td class="p-3 text-slate-300">4:45 PM – 5:45 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 6</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition">
+                                    <tr>
                                         <td class="p-3 font-bold text-purple-400">🟣 Slot 07</td>
                                         <td class="p-3 text-slate-300">6:00 PM – 7:00 PM</td>
                                         <td class="p-3 font-semibold text-white">Match 7</td>
                                     </tr>
-                                    <tr class="hover:bg-slate-800/40 transition bg-indigo-950/30">
+                                    <tr class="bg-indigo-950/30">
                                         <td class="p-3 font-bold text-amber-300">🏆 Final Slot</td>
                                         <td class="p-3 text-slate-300">7:15 PM – 8:00 PM</td>
                                         <td class="p-3 font-bold text-amber-400">Final / Special Match</td>
@@ -250,15 +249,85 @@
                     </div>
                 </div>
 
-                <!-- PROFILE VIEW -->
+                <!-- LEADERBOARD VIEW -->
+                <div id="tab-leaderboard" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-3xl">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-amber-400"><i class="fa-solid fa-medal mr-2"></i> ZYROX Global Leaderboard</h2>
+                            <p class="text-xs text-slate-400">Top eSports players ranked by performance & wins.</p>
+                        </div>
+                        <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
+                    </div>
+                    
+                    <div class="overflow-x-auto rounded-xl border border-slate-800">
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]">
+                                <tr>
+                                    <th class="p-3">Rank</th>
+                                    <th class="p-3">Player / ZRX ID</th>
+                                    <th class="p-3">Wins</th>
+                                    <th class="p-3">Win Rate</th>
+                                    <th class="p-3">Badge</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800 bg-[#111827]">
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-amber-400">🥇 #1</td>
+                                    <td class="p-3 font-bold text-white">AlphaWolf <span class="text-[10px] text-slate-400 block">ZRX-1001</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">28</td>
+                                    <td class="p-3 text-indigo-300 font-bold">84%</td>
+                                    <td class="p-3"><span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-bold">Legendary</span></td>
+                                };
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-slate-300">🥈 #2</td>
+                                    <td class="p-3 font-bold text-white">Vortex_FF <span class="text-[10px] text-slate-400 block">ZRX-1042</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">21</td>
+                                    <td class="p-3 text-indigo-300 font-bold">76%</td>
+                                    <td class="p-3"><span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded font-bold">Master</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-amber-600">🥉 #3</td>
+                                    <td class="p-3 font-bold text-white">SniperKing <span class="text-[10px] text-slate-400 block">ZRX-1105</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">17</td>
+                                    <td class="p-3 text-indigo-300 font-bold">68%</td>
+                                    <td class="p-3"><span class="bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded font-bold">Diamond</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-bold text-slate-400">#4</td>
+                                    <td class="p-3 font-bold text-white">Shadow_OP <span class="text-[10px] text-slate-400 block">ZRX-1188</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">12</td>
+                                    <td class="p-3 text-indigo-300 font-bold">59%</td>
+                                    <td class="p-3"><span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-bold">Elite</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PROFILE VIEW (Shows personal data per user) -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
-                    <h2 class="text-xl font-bold text-indigo-300">My Profile & History</h2>
-                    <p class="text-xs text-slate-400">ZRX ID: <span id="profileZrx" class="text-amber-400 font-bold">-</span></p>
-                    <h3 class="text-md font-bold text-amber-400 mt-4">Match History</h3>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-indigo-300">My Profile & History</h2>
+                            <p class="text-xs text-slate-400">Personal Data for <span id="profileNameDisplay" class="text-white font-bold">Player</span></p>
+                        </div>
+                        <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 bg-[#1f2937] p-4 rounded-xl border border-slate-700 text-xs">
+                        <div>
+                            <p class="text-slate-400">ZRX ID</p>
+                            <p id="profileZrx" class="text-amber-400 font-bold text-sm mt-0.5">-</p>
+                        </div>
+                        <div>
+                            <p class="text-slate-400">Wallet Balance</p>
+                            <p id="profileWalletDisplay" class="text-emerald-400 font-bold text-sm mt-0.5">₹0</p>
+                        </div>
+                    </div>
+                    <h3 class="text-md font-bold text-amber-400 mt-4">My Match History</h3>
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW (Strictly Protected) -->
+                <!-- ADMIN VIEW -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -458,7 +527,7 @@
                 alert("Access Denied! Master Admin only.");
                 return;
             }
-            ['auth', 'games', 'tournaments', 'profile', 'admin'].forEach(t => { 
+            ['auth', 'games', 'tournaments', 'profile', 'leaderboard', 'admin'].forEach(t => { 
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden'); 
             });
@@ -470,8 +539,10 @@
         function showProfile(user) {
             document.getElementById("headerName").innerText = user.name || "Player";
             document.getElementById("rightProfileName").innerText = user.name || "Player";
+            document.getElementById("profileNameDisplay").innerText = user.name || "Player";
             document.getElementById("sidebarWallet").innerText = `₹${user.wallet}`;
             document.getElementById("headerWallet").innerText = user.wallet;
+            document.getElementById("profileWalletDisplay").innerText = `₹${user.wallet}`;
             document.getElementById("profileZrx").innerText = user.zrx_id;
 
             if(user.email === "shreyashrangari08@gmail.com") {
