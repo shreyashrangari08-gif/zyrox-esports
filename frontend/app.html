@@ -28,15 +28,15 @@
                 <a href="#" onclick="switchTab('games')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-gamepad w-5"></i> Games</a>
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-users w-5"></i> Community</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
+                <!-- Admin Tab (Only visible for admin) -->
+                <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
         </div>
 
         <div class="space-y-4 pt-4 border-t border-slate-800">
             <nav class="space-y-1 text-sm font-medium">
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-user w-5"></i> Profile</a>
-                <a href="#" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-gear w-5"></i> Settings</a>
                 <a href="#" onclick="logoutUser()" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-400 hover:text-white hover:bg-red-600/80 transition"><i class="fa-solid fa-right-from-bracket w-5"></i> Logout</a>
             </nav>
             <div class="bg-gradient-to-r from-indigo-900/40 to-purple-900/40 p-3 rounded-xl border border-indigo-500/20 text-center">
@@ -49,19 +49,16 @@
     <div class="flex-1 flex flex-col min-w-0">
         <!-- TOP HEADER -->
         <header class="bg-[#111827] border-b border-slate-800 px-6 py-3.5 flex justify-between items-center gap-4">
-            <!-- Search Bar -->
             <div class="relative w-full max-w-md">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
                 <input type="text" placeholder="Search games, tournaments, players..." class="w-full bg-[#1f2937] border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
             </div>
 
-            <!-- Header Right Icons & Profile -->
             <div class="flex items-center gap-4">
                 <button class="bg-[#1f2937] hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl relative transition"><i class="fa-regular fa-bell"></i></button>
-                <button class="bg-[#1f2937] hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl transition"><i class="fa-regular fa-envelope"></i></button>
                 <div class="flex items-center gap-3 pl-2 border-l border-slate-700">
                     <div class="relative">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-md">SR</div>
+                        <div id="userInitials" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-md">SR</div>
                         <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#111827] rounded-full"></span>
                     </div>
                     <div class="hidden sm:block text-left">
@@ -75,10 +72,10 @@
         <!-- DASHBOARD CONTAINER -->
         <main class="flex-1 p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <!-- LEFT 2 COLUMNS (Center Content) -->
+            <!-- LEFT 2 COLUMNS -->
             <div class="lg:col-span-2 space-y-6">
 
-                <!-- AUTH SECTION (Visible when logged out) -->
+                <!-- AUTH SECTION -->
                 <section id="tab-auth" class="space-y-6 bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
@@ -105,7 +102,7 @@
                 <!-- GAMES HUB & DASHBOARD MAIN VIEW -->
                 <div id="tab-games" class="space-y-6">
                     
-                    <!-- HERO SLIDING BANNER -->
+                    <!-- HERO SLIDING BANNER (Full Size Visible) -->
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center">
@@ -124,24 +121,13 @@
                     </div>
 
                     <!-- QUICK ACTION CARDS -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div onclick="switchTab('tournaments')" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
                             <div class="flex items-center gap-3">
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-trophy text-lg"></i></div>
                                 <div>
                                     <h4 class="text-xs font-bold text-white">Join Tournament</h4>
                                     <p class="text-[10px] text-slate-400">Compete & Win Prizes</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
-                        </div>
-
-                        <div onclick="switchTab('admin')" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-gamepad text-lg"></i></div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-white">Create Custom Room</h4>
-                                    <p class="text-[10px] text-slate-400">Play with Friends</p>
                                 </div>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
@@ -166,9 +152,7 @@
                             <button onclick="switchTab('tournaments')" class="text-xs text-indigo-400 hover:underline">View All</button>
                         </div>
 
-                        <!-- Game Cards Grid -->
                         <div class="grid sm:grid-cols-2 gap-4">
-                            <!-- Free Fire MAX Card -->
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-700 transition group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
@@ -181,7 +165,6 @@
                                 <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
                             </div>
 
-                            <!-- BGMI Card -->
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-700 transition group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
@@ -192,37 +175,6 @@
                                     <p class="text-[11px] text-slate-400 mt-0.5">🕒 Evening Clash • ₹50,000 Prize Pool</p>
                                 </div>
                                 <button onclick="selectGame('BGMI'); switchTab('tournaments')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- POPULAR GAMES STRIP -->
-                    <div class="space-y-4">
-                        <h3 class="text-base font-bold text-white">Popular Games</h3>
-                        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
-                            <div onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="bg-[#111827] border border-slate-800 hover:border-indigo-500 p-3 rounded-2xl text-center cursor-pointer transition">
-                                <div class="w-12 h-12 mx-auto bg-indigo-600/20 rounded-xl flex items-center justify-center text-indigo-400 font-bold mb-2">🔥</div>
-                                <span class="text-xs font-semibold">Free Fire</span>
-                            </div>
-                            <div onclick="selectGame('BGMI'); switchTab('tournaments')" class="bg-[#111827] border border-slate-800 hover:border-amber-500 p-3 rounded-2xl text-center cursor-pointer transition">
-                                <div class="w-12 h-12 mx-auto bg-amber-600/20 rounded-xl flex items-center justify-center text-amber-400 font-bold mb-2">🎯</div>
-                                <span class="text-xs font-semibold">BGMI</span>
-                            </div>
-                            <div onclick="selectGame('COD Mobile'); switchTab('tournaments')" class="bg-[#111827] border border-slate-800 hover:border-cyan-500 p-3 rounded-2xl text-center cursor-pointer transition">
-                                <div class="w-12 h-12 mx-auto bg-cyan-600/20 rounded-xl flex items-center justify-center text-cyan-400 font-bold mb-2">⚡</div>
-                                <span class="text-xs font-semibold">COD Mobile</span>
-                            </div>
-                            <div class="bg-[#111827] border border-slate-800 p-3 rounded-2xl text-center opacity-60">
-                                <div class="w-12 h-12 mx-auto bg-purple-600/20 rounded-xl flex items-center justify-center text-purple-400 font-bold mb-2">⚔️</div>
-                                <span class="text-xs font-semibold">Valorant</span>
-                            </div>
-                            <div class="bg-[#111827] border border-slate-800 p-3 rounded-2xl text-center opacity-60">
-                                <div class="w-12 h-12 mx-auto bg-emerald-600/20 rounded-xl flex items-center justify-center text-emerald-400 font-bold mb-2">🧱</div>
-                                <span class="text-xs font-semibold">Minecraft</span>
-                            </div>
-                            <div class="bg-[#111827] border border-slate-800 p-3 rounded-2xl text-center opacity-60">
-                                <div class="w-12 h-12 mx-auto bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400 font-bold mb-2">⚽</div>
-                                <span class="text-xs font-semibold">eFootball</span>
                             </div>
                         </div>
                     </div>
@@ -243,12 +195,12 @@
                 <!-- PROFILE VIEW -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
                     <h2 class="text-xl font-bold text-indigo-300">My Profile & History</h2>
-                    <p class="text-xs text-slate-400">ZRX ID: <span id="profileZrx" class="text-amber-400 font-bold"></span></p>
+                    <p class="text-xs text-slate-400">ZRX ID: <span id="profileZrx" class="text-amber-400 font-bold">-</span></p>
                     <h3 class="text-md font-bold text-amber-400 mt-4">Match History</h3>
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW -->
+                <!-- ADMIN VIEW (Protected) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -320,44 +272,43 @@
 
             </div>
 
-            <!-- RIGHT SIDEBAR (Stats & Recent Activity) -->
+            <!-- RIGHT SIDEBAR (Fresh 0 Stats for new users) -->
             <div class="space-y-6">
-                <!-- User Level & Stats Card -->
                 <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-lg text-white shadow-lg">SR</div>
+                        <div id="rightAvatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-lg text-white shadow-lg">SR</div>
                         <div>
-                            <h4 id="rightProfileName" class="font-bold text-white text-sm">Shreyash</h4>
-                            <p class="text-xs text-indigo-400 font-semibold">Level 12</p>
+                            <h4 id="rightProfileName" class="font-bold text-white text-sm">Player</h4>
+                            <p class="text-xs text-indigo-400 font-semibold" id="userLevelTxt">Level 1</p>
                         </div>
                     </div>
-                    <!-- XP Bar -->
+                    <!-- 0 XP Bar -->
                     <div class="space-y-1.5">
                         <div class="flex justify-between text-[11px] text-slate-400">
                             <span>XP Progress</span>
-                            <span class="text-indigo-400 font-bold">720 / 1000 XP</span>
+                            <span class="text-indigo-400 font-bold" id="xpTxt">0 / 500 XP</span>
                         </div>
                         <div class="w-full bg-[#1f2937] h-2 rounded-full overflow-hidden">
-                            <div class="bg-indigo-600 h-full w-[72%] rounded-full"></div>
+                            <div id="xpBarFill" class="bg-indigo-600 h-full w-[0%] rounded-full transition-all duration-500"></div>
                         </div>
                     </div>
-                    <!-- Stats Grid -->
+                    <!-- Fresh 0 Stats Grid -->
                     <div class="grid grid-cols-2 gap-3 pt-2">
                         <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
                             <p class="text-[10px] text-slate-400 uppercase font-semibold">Matches</p>
-                            <p class="text-base font-extrabold text-white">48</p>
+                            <p id="statMatches" class="text-base font-extrabold text-white">0</p>
                         </div>
                         <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
                             <p class="text-[10px] text-slate-400 uppercase font-semibold">Wins</p>
-                            <p class="text-base font-extrabold text-emerald-400">32</p>
+                            <p id="statWins" class="text-base font-extrabold text-emerald-400">0</p>
                         </div>
                         <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
                             <p class="text-[10px] text-slate-400 uppercase font-semibold">Win Rate</p>
-                            <p class="text-base font-extrabold text-indigo-400">66.7%</p>
+                            <p id="statWinRate" class="text-base font-extrabold text-indigo-400">0%</p>
                         </div>
                         <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
                             <p class="text-[10px] text-slate-400 uppercase font-semibold">Rank</p>
-                            <p class="text-base font-extrabold text-amber-400">Diamond</p>
+                            <p id="statRank" class="text-base font-extrabold text-amber-400">Rookie</p>
                         </div>
                     </div>
                 </div>
@@ -368,37 +319,6 @@
                     <h4 class="font-black text-lg text-white">BECOME A CHAMPION</h4>
                     <p class="text-xs text-slate-300">Join Tournaments, Win Prizes, Be a Part of the ZYROX Community!</p>
                     <button onclick="switchTab('tournaments')" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-indigo-600/40">Get Started →</button>
-                </div>
-
-                <!-- RECENT ACTIVITY FEED -->
-                <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-sm text-white">Recent Activity</h4>
-                        <a href="#" class="text-[11px] text-indigo-400 hover:underline">View All</a>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <div class="flex items-start gap-3">
-                            <div class="bg-indigo-600/20 text-indigo-400 p-2 rounded-lg mt-0.5"><i class="fa-solid fa-trophy"></i></div>
-                            <div>
-                                <p class="text-slate-300 font-medium">You joined BGMI Classic Battle</p>
-                                <span class="text-[10px] text-slate-500">2h ago</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="bg-emerald-600/20 text-emerald-400 p-2 rounded-lg mt-0.5"><i class="fa-solid fa-check"></i></div>
-                            <div>
-                                <p class="text-slate-300 font-medium">You won a match! BGMI - 4v4 Squad</p>
-                                <span class="text-[10px] text-slate-500">4h ago</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="bg-amber-600/20 text-amber-400 p-2 rounded-lg mt-0.5"><i class="fa-solid fa-coins"></i></div>
-                            <div>
-                                <p class="text-slate-300 font-medium">You earned 50 XP Daily Login Reward</p>
-                                <span class="text-[10px] text-slate-500">Yesterday</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -435,12 +355,11 @@
     </div>
 
     <script>
-        const API_URL = "http://127.0.0.1:8000";
+        const API_URL = "https://zyrox-esports.onrender.com";
         let loggedInUser = JSON.parse(localStorage.getItem("zyrox_user")) || null;
         let selectedTourneyId = null;
         let activeGameCategory = "Free Fire MAX";
 
-        // Auto-sliding welcome banner logic
         let currentSlideIdx = 0;
         setInterval(() => {
             const slides = document.querySelectorAll('.slide-item');
@@ -469,11 +388,17 @@
         }
 
         function showProfile(user) {
-            document.getElementById("headerName").innerText = user.name || "Shreyash";
-            document.getElementById("rightProfileName").innerText = user.name || "Shreyash";
+            document.getElementById("headerName").innerText = user.name || "Player";
+            document.getElementById("rightProfileName").innerText = user.name || "Player";
             document.getElementById("sidebarWallet").innerText = `₹${user.wallet}`;
             document.getElementById("headerWallet").innerText = user.wallet;
             document.getElementById("profileZrx").innerText = user.zrx_id;
+
+            if(user.email === "shreyashrangari08@gmail.com") {
+                document.getElementById("navAdminTab").classList.remove("hidden");
+            } else {
+                document.getElementById("navAdminTab").classList.add("hidden");
+            }
         }
 
         function logoutUser() {
@@ -492,13 +417,15 @@
 
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
             e.preventDefault();
+            const emailVal = document.getElementById("loginEmail").value.trim();
+            const passVal = document.getElementById("loginPass").value.trim();
             const res = await fetch(`${API_URL}/users/login`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: document.getElementById("loginEmail").value.trim(), password: document.getElementById("loginPass").value.trim() })
+                body: JSON.stringify({ email: emailVal, password: passVal })
             });
             const result = await res.json();
             if(res.ok) {
-                loggedInUser = { id: result.user_id, zrx_id: result.zrx_id, wallet: result.wallet, name: result.name };
+                loggedInUser = { id: result.user_id, zrx_id: result.zrx_id, wallet: result.wallet, name: result.name, email: emailVal };
                 localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
                 showProfile(loggedInUser);
                 switchTab('games');
