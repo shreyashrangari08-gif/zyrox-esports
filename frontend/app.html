@@ -9,10 +9,9 @@
 </head>
 <body class="bg-[#0b0f19] text-white min-h-screen flex font-sans">
 
-    <!-- LEFT SIDEBAR (Hidden by default, shown only after login) -->
+    <!-- LEFT SIDEBAR -->
     <aside id="appSidebar" class="w-64 bg-[#111827] border-r border-slate-800 flex flex-col justify-between p-5 select-none hidden">
         <div class="space-y-8">
-            <!-- Logo -->
             <div class="flex items-center gap-3">
                 <div class="bg-indigo-600 text-white font-black px-2.5 py-1.5 rounded-lg text-lg shadow-lg shadow-indigo-600/50">Z</div>
                 <div>
@@ -21,7 +20,6 @@
                 </div>
             </div>
 
-            <!-- Nav Links -->
             <nav class="space-y-1 text-sm font-medium">
                 <a href="#" onclick="switchTab('games')" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition"><i class="fa-solid fa-house w-5"></i> Dashboard</a>
                 <a href="#" onclick="switchTab('tournaments')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-trophy w-5"></i> Tournaments</a>
@@ -29,7 +27,6 @@
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
-                <!-- Admin Tab (Only visible for admin) -->
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
         </div>
@@ -47,7 +44,6 @@
 
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 flex flex-col min-w-0">
-        <!-- TOP HEADER (Hidden by default, shown only after login) -->
         <header id="appHeader" class="bg-[#111827] border-b border-slate-800 px-6 py-3.5 flex justify-between items-center gap-4 hidden">
             <div class="relative w-full max-w-md">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
@@ -69,13 +65,10 @@
             </div>
         </header>
 
-        <!-- DASHBOARD CONTAINER -->
         <main class="flex-1 p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            <!-- LEFT 2 COLUMNS -->
             <div id="mainDashboardCols" class="col-span-1 lg:col-span-3 space-y-6 w-full">
 
-                <!-- AUTH SECTION (Register First, Then Login) -->
+                <!-- AUTH SECTION -->
                 <section id="tab-auth" class="space-y-6 bg-[#111827] p-8 rounded-2xl border border-slate-800 max-w-xl mx-auto mt-6 shadow-2xl">
                     <div class="text-center space-y-2 mb-6">
                         <div class="inline-block bg-indigo-600 text-white font-black px-3 py-2 rounded-xl text-xl shadow-lg shadow-indigo-600/50 mb-2">Z</div>
@@ -83,7 +76,6 @@
                         <p class="text-xs text-slate-400">Register your account first, then login to access tournaments</p>
                     </div>
                     <div class="space-y-6">
-                        <!-- REGISTER FIRST -->
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
                             <h3 class="text-sm font-bold mb-3 text-indigo-300"><i class="fa-solid fa-user-plus mr-1.5"></i> 1. Player Register (New User)</h3>
                             <form id="registerForm" class="space-y-3" autocomplete="off">
@@ -95,7 +87,6 @@
                             <p id="regMsg" class="mt-2 text-xs text-indigo-400 text-center font-medium"></p>
                         </div>
                         
-                        <!-- LOGIN SECOND -->
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
                             <h3 class="text-sm font-bold mb-3 text-emerald-300"><i class="fa-solid fa-right-to-bracket mr-1.5"></i> 2. Player Login (Existing User)</h3>
                             <form id="loginForm" class="space-y-3" autocomplete="off">
@@ -111,64 +102,52 @@
                     </div>
                 </section>
 
-                <!-- GAMES HUB & DASHBOARD MAIN VIEW -->
+                <!-- GAMES HUB & DASHBOARD -->
                 <div id="tab-games" class="space-y-6 hidden">
-                    
-                    <!-- HERO SLIDING BANNER -->
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center">
-                                <img src="images/banner1.jpg" class="max-w-full max-h-full object-contain">
+                                <img src="images/banner1.jpg" class="w-full h-full object-cover">
                             </div>
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner2.jpg" class="max-w-full max-h-full object-contain">
+                                <img src="images/banner2.jpg" class="w-full h-full object-cover">
                             </div>
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner3.jpg" class="max-w-full max-h-full object-contain">
+                                <img src="images/banner3.jpg" class="w-full h-full object-cover">
                             </div>
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner4.jpg" class="max-w-full max-h-full object-contain">
+                                <img src="images/banner4.jpg" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
 
-                    <!-- QUICK ACTION CARDS -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div onclick="switchTab('tournaments')" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
                             <div class="flex items-center gap-3">
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-trophy text-lg"></i></div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-white">Join Tournament</h4>
-                                    <p class="text-[10px] text-slate-400">Compete & Win Prizes</p>
-                                </div>
+                                <div><h4 class="text-xs font-bold text-white">Join Tournament</h4><p class="text-[10px] text-slate-400">Compete & Win Prizes</p></div>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
                         </div>
-
                         <div onclick="openWalletModal()" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
                             <div class="flex items-center gap-3">
                                 <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl group-hover:bg-amber-600 group-hover:text-white transition"><i class="fa-solid fa-wallet text-lg"></i></div>
-                                <div>
-                                    <h4 class="text-xs font-bold text-white">Wallet Top-up</h4>
-                                    <p class="text-[10px] text-slate-400">Balance: ₹<span id="headerWallet">0</span></p>
-                                </div>
+                                <div><h4 class="text-xs font-bold text-white">Wallet Top-up</h4><p class="text-[10px] text-slate-400">Balance: ₹<span id="headerWallet">0</span></p></div>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
                         </div>
                     </div>
 
-                    <!-- TRENDING TOURNAMENTS -->
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
                             <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Trending Tournaments</h3>
                             <button onclick="switchTab('tournaments')" class="text-xs text-indigo-400 hover:underline">View All</button>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-4">
-                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-700 transition group">
+                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
-                                        <img src="images/freefire.jpg" class="max-w-full max-h-full object-contain group-hover:scale-105 transition duration-300">
+                                        <img src="images/freefire.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                                         <span class="absolute top-2 left-2 bg-indigo-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Squad | 4v4</span>
                                     </div>
                                     <h4 class="font-bold text-sm text-white">Free Fire Max Cup</h4>
@@ -176,8 +155,7 @@
                                 </div>
                                 <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
                             </div>
-
-                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-700 transition group">
+                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
                                         <span class="text-2xl font-extrabold text-amber-400">🎯 BGMI</span>
@@ -192,7 +170,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS LIST VIEW -->
+                <!-- TOURNAMENTS VIEW -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -212,7 +190,7 @@
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW (Protected) -->
+                <!-- ADMIN VIEW -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -281,10 +259,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- RIGHT SIDEBAR (Hidden by default, shown only after login) -->
+            <!-- RIGHT SIDEBAR -->
             <div id="rightSidebar" class="space-y-6 hidden">
                 <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
                     <div class="flex items-center gap-3">
@@ -294,7 +271,6 @@
                             <p class="text-xs text-indigo-400 font-semibold" id="userLevelTxt">Level 1</p>
                         </div>
                     </div>
-                    <!-- 0 XP Bar -->
                     <div class="space-y-1.5">
                         <div class="flex justify-between text-[11px] text-slate-400">
                             <span>XP Progress</span>
@@ -304,28 +280,14 @@
                             <div id="xpBarFill" class="bg-indigo-600 h-full w-[0%] rounded-full transition-all duration-500"></div>
                         </div>
                     </div>
-                    <!-- Fresh 0 Stats Grid -->
                     <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
-                            <p class="text-[10px] text-slate-400 uppercase font-semibold">Matches</p>
-                            <p id="statMatches" class="text-base font-extrabold text-white">0</p>
-                        </div>
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
-                            <p class="text-[10px] text-slate-400 uppercase font-semibold">Wins</p>
-                            <p id="statWins" class="text-base font-extrabold text-emerald-400">0</p>
-                        </div>
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
-                            <p class="text-[10px] text-slate-400 uppercase font-semibold">Win Rate</p>
-                            <p id="statWinRate" class="text-base font-extrabold text-indigo-400">0%</p>
-                        </div>
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center">
-                            <p class="text-[10px] text-slate-400 uppercase font-semibold">Rank</p>
-                            <p id="statRank" class="text-base font-extrabold text-amber-400">Rookie</p>
-                        </div>
+                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Matches</p><p id="statMatches" class="text-base font-extrabold text-white">0</p></div>
+                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Wins</p><p id="statWins" class="text-base font-extrabold text-emerald-400">0</p></div>
+                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Win Rate</p><p id="statWinRate" class="text-base font-extrabold text-indigo-400">0%</p></div>
+                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Rank</p><p id="statRank" class="text-base font-extrabold text-amber-400">Rookie</p></div>
                     </div>
                 </div>
 
-                <!-- BECOME A CHAMPION PROMO CARD -->
                 <div class="relative rounded-2xl overflow-hidden p-5 border border-indigo-500/30 bg-gradient-to-br from-indigo-950 via-[#111827] to-purple-950 shadow-xl space-y-3">
                     <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-600/20 rounded-full blur-2xl"></div>
                     <h4 class="font-black text-lg text-white">BECOME A CHAMPION</h4>
@@ -333,7 +295,6 @@
                     <button onclick="switchTab('tournaments')" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-indigo-600/40">Get Started →</button>
                 </div>
             </div>
-
         </main>
     </div>
 
@@ -356,9 +317,7 @@
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
             <h3 class="text-lg font-bold text-amber-400 mb-1">Recharge Wallet</h3>
             <p class="text-xs text-slate-400 mb-4">Pay to UPI: <span class="text-cyan-300 font-bold">9699343711@ptaxis</span></p>
-            <div class="bg-white p-3 rounded-xl inline-block mb-3 shadow">
-                <img id="walletQrImg" src="" class="w-32 h-32 mx-auto">
-            </div>
+            <div class="bg-white p-3 rounded-xl inline-block mb-3 shadow"><img id="walletQrImg" src="" class="w-32 h-32 mx-auto"></div>
             <input type="number" id="topupAmount" oninput="updateWalletQr()" value="100" class="w-full p-2.5 mb-2 rounded-xl bg-[#1f2937] border border-slate-700 text-sm font-bold text-amber-300 text-center">
             <input type="text" id="topupUtr" placeholder="12-Digit UTR Number" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-center">
             <div class="flex gap-2">
@@ -457,7 +416,6 @@
             switchTab('auth');
         }
 
-        // REGISTER SYSTEM API CALL
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const data = { 
@@ -483,7 +441,6 @@
             }
         });
 
-        // LOGIN SYSTEM API CALL
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const emailVal = document.getElementById("loginEmail").value.trim();
@@ -509,7 +466,6 @@
             }
         });
 
-        // FORGOT PASSWORD FUNCTIONS
         function openForgotModal() {
             document.getElementById("forgotEmail").value = "";
             document.getElementById("forgotNewPass").value = "";
