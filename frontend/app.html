@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW (Choose Your Battle with Paid Entry Fees & Rewards Modal) -->
+                <!-- TOURNAMENTS VIEW -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -172,16 +172,16 @@
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
 
-                    <!-- CHOOSE YOUR BATTLE CARDS -->
+                    <!-- CHOOSE YOUR BATTLE CARDS (FREE ENTRY) -->
                     <div class="space-y-3">
                         <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- SOLO CARD -->
+                            <!-- SOLO -->
                             <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">🏆 SOLO</span>
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹40</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Champion Reward</li>
@@ -192,12 +192,12 @@
                                 <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
-                            <!-- DUO CARD -->
+                            <!-- DUO -->
                             <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-purple-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">👥 DUO</span>
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹80</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Duo Champion Reward</li>
@@ -207,12 +207,12 @@
                                 <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
-                            <!-- SQUAD CARD -->
+                            <!-- SQUAD -->
                             <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-amber-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">👑 SQUAD</span>
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹160</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Squad Champion Reward</li>
@@ -725,13 +725,13 @@
             const contentEl = document.getElementById("rewardModalContent");
             if(battleType === 'SOLO') {
                 titleEl.innerText = "🏆 SOLO Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹40</p><p>🥇 1st — Champion Reward (₹500 + Trophy)</p><p>🥈 2nd — Runner-up Reward (₹300)</p><p>🥉 3rd — Bronze Reward (₹150)</p>`;
+                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Champion Reward</p><p>🥈 2nd — Runner-up Reward</p><p>🥉 3rd — Bronze Reward</p>`;
             } else if(battleType === 'DUO') {
                 titleEl.innerText = "👥 DUO Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹80</p><p>🥇 1st — Duo Champion Reward (₹1000)</p><p>🏅 Runner-up — Special Reward (₹500)</p>`;
+                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Duo Champion Reward</p><p>🏅 Runner-up — Special Reward</p>`;
             } else if(battleType === 'SQUAD') {
                 titleEl.innerText = "👑 SQUAD Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹160</p><p>🥇 1st — Squad Champion Reward (₹2000)</p><p>🏆 Team Champion Badge + Trophy</p>`;
+                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Squad Champion Reward</p><p>🏆 Team Champion Badge + Trophy</p>`;
             }
             document.getElementById("rewardModal").classList.remove("hidden");
         }
