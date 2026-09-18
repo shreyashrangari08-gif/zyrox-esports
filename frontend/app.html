@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW -->
+                <!-- TOURNAMENTS VIEW (Includes Choose Your Battle Cards & Free Fire Slots) -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -171,8 +171,61 @@
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
+
+                    <!-- CHOOSE YOUR BATTLE CARDS -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- SOLO CARD -->
+                            <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-black text-white text-sm">🏆 SOLO</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                    </div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
+                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Champion Reward</li>
+                                        <li>🥈 <span class="text-white font-semibold">2nd</span> — Runner-up Reward</li>
+                                        <li>🥉 <span class="text-white font-semibold">3rd</span> — Bronze Reward</li>
+                                    </ul>
+                                </div>
+                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+
+                            <!-- DUO CARD -->
+                            <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-purple-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-black text-white text-sm">👥 DUO</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                    </div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
+                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Duo Champion Reward</li>
+                                        <li>🏅 <span class="text-white font-semibold">Runner-up</span> — Special Reward</li>
+                                    </ul>
+                                </div>
+                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+
+                            <!-- SQUAD CARD -->
+                            <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-amber-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-black text-white text-sm">👑 SQUAD</span>
+                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                    </div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
+                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Squad Champion Reward</li>
+                                        <li>🏆 <span class="text-amber-300 font-semibold">Team Champion</span> Badge + Trophy</li>
+                                    </ul>
+                                </div>
+                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div id="tournamentList" class="space-y-3">
+                    <!-- Dynamic Tournaments List from DB -->
+                    <div id="tournamentList" class="space-y-3 pt-4">
                         <p class="text-slate-400 text-sm">Loading tournaments...</p>
                     </div>
 
@@ -277,7 +330,7 @@
                                     <td class="p-3 text-emerald-400 font-bold">28</td>
                                     <td class="p-3 text-indigo-300 font-bold">84%</td>
                                     <td class="p-3"><span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-bold">Legendary</span></td>
-                                };
+                                </tr>
                                 <tr class="hover:bg-slate-800/40 transition">
                                     <td class="p-3 font-extrabold text-slate-300">🥈 #2</td>
                                     <td class="p-3 font-bold text-white">Vortex_FF <span class="text-[10px] text-slate-400 block">ZRX-1042</span></td>
@@ -304,7 +357,7 @@
                     </div>
                 </div>
 
-                <!-- PROFILE VIEW (Shows personal data per user) -->
+                <!-- PROFILE VIEW -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
