@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYROX eSports - Player Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-indigo-400">ZYROX Player Portal</h1>
+                <p class="text-slate-400 text-sm">Discover Tournaments, Join Matches & Win Rewards</p>
+            </div>
+            <div id="userProfile" class="bg-slate-800 px-4 py-2 rounded-lg border border-slate-700 hidden">
+                <p class="text-xs text-slate-400">Player ID: <span id="dispZrx" class="text-emerald-400 font-bold"></span></p>
+                <p class="text-sm font-semibold">Wallet: ₹<span id="dispWallet" class="text-amber-400">0</span></p>
+            </div>
+        </header>
+
+        <!-- Registration / Get ZRX ID Card -->
+        <div id="authSection" class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700 mb-8">
+            <h2 class="text-xl font-bold mb-3 text-indigo-300">Player Registration / Get ZRX ID</h2>
+            <form id="registerForm" class="grid md:grid-cols-3 gap-4">
+                <input type="text" id="playerName" placeholder="Enter Your Name" required class="p-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-indigo-400">
+                <input type="email" id="playerEmail" placeholder="Enter Your Email" required class="p-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-indigo-400">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 font-bold p-2 rounded transition">Generate ZRX ID</button>
+            </form>
+            <p id="regMsg" class="mt-2 text-sm text-center"></p>
+        </div>
+
+        <!-- Active Tournaments -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-emerald-300">Active Tournaments & Rooms</h2>
+                <button onclick="loadTournaments()" class="bg-slate-700 hover:bg-slate-600 text-xs px-3 py-1.5 rounded">Refresh List</button>
+            </div>
+            <div id="tournamentList" class="space-y-4">
+                <p class="text-slate-400 text-sm">Loading tournaments...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+        let loggedInUser = JSON.parse(localStorage.getItem("zyrox_user")) || null;
+
+        window.onload = () => {
+            if (loggedInUser) {
+                showProfile(loggedInUser);
+            }
+            loadTournaments();
+        };
+
+        function showProfile(user) {
+            document.getElementById("authSection").style.display = "none";
+            document.getElementById("userProfile").style.display = "block";
+            document.getElementById("dispZrx").innerText = user.zrx_id;
+            document.getElementById("dispWallet").innerText = user.wallet;
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById("playerName").value,
+                email: document.getElementById("playerEmail").value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/users/`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if(response.ok) {
+                    loggedInUser = { id: result.user_id, zrx_id: result.zrx_id, wallet: result.wallet };
+                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+                    showProfile(loggedInUser);
+                } else {
+                    throw new Error(result.detail || "Registration failed");
+                }
+            } catch (err) {
+                document.getElementById("regMsg").innerText = `Error: ${err.message}`;
+                document.getElementById("regMsg").className = "mt-2 text-sm text-center text-red-400 font-semibold";
+            }
+        });
+
+        async function loadTournaments() {
+            try {
+                const response = await fetch(`${API_URL}/tournaments/`);
+                const tournaments = await response.json();
+                const container = document.getElementById("tournamentList");
+                
+                if (tournaments.length === 0) {
+                    container.innerHTML = `<p class="text-slate-400 text-sm">No tournaments available right now.</p>`;
+                    return;
+                }
+
+                container.innerHTML = "";
+                for (let t of tournaments) {
+                    // Fetch room details for each tournament
+                    const roomRes = await fetch(`${API_URL}/tournaments/${t.id}/room`);
+                    const roomData = await roomRes.json();
+
+                    container.innerHTML += `
+                        <div class="bg-slate-700/50 border border-slate-600 p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-300">${t.title} (ID: ${t.id})</h3>
+                                <p class="text-xs text-slate-300">Game: <span class="text-white font-medium">${t.game_name}</span> | Slots: ${t.slots}</p>
+                                <p class="text-xs text-slate-300 mt-1">Entry Fee: <span class="text-emerald-400 font-bold">₹${t.entry_fee}</span> | Prize Pool: <span class="text-amber-400 font-bold">₹${t.prize_pool}</span></p>
+                                <div class="mt-2 bg-slate-800 p-2 rounded border border-slate-600 text-xs">
+                                    <span class="text-yellow-400 font-semibold">Room ID:</span> ${roomData.room_id || 'Waiting...'} | 
+                                    <span class="text-yellow-400 font-semibold">Password:</span> ${roomData.room_password || '-'}
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 w-full md:w-auto">
+                                <button onclick="joinTournament(${t.id}, ${t.entry_fee})" class="bg-emerald-600 hover:bg-emerald-500 text-sm font-bold px-4 py-2 rounded transition">
+                                    Join Tournament
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                document.getElementById("tournamentList").innerHTML = `<p class="text-red-400 text-sm">Could not load tournaments.</p>`;
+            }
+        }
+
+        async function joinTournament(tournamentId, entryFee) {
+            if (!loggedInUser) {
+                alert("Please register first to get your ZRX ID!");
+                return;
+            }
+
+            if (loggedInUser.wallet < entryFee) {
+                alert("Insufficient wallet balance!");
+                return;
+            }
+
+            const data = { user_id: loggedInUser.id, tournament_id: tournamentId };
+
+            try {
+                const response = await fetch(`${API_URL}/tournaments/join`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if(response.ok) {
+                    loggedInUser.wallet = result.remaining_wallet;
+                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+                    document.getElementById("dispWallet").innerText = loggedInUser.wallet;
+                    alert("Successfully registered for the tournament!");
+                } else {
+                    throw new Error(result.detail || "Failed to join");
+                }
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

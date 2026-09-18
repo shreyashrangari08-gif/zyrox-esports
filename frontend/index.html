@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYROX eSports - Organizer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-indigo-400 tracking-wider">ZYROX eSports</h1>
+            <p class="text-slate-400 mt-2">Ministry of Skill Development & eSports Platform (Organizer Panel)</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Create Tournament Card -->
+            <div class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700">
+                <h2 class="text-2xl font-bold mb-4 text-emerald-400">Create Tournament</h2>
+                <form id="tournamentForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tournament Title</label>
+                        <input type="text" id="title" required class="w-full p-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-emerald-400" placeholder="e.g., Free Fire Daily clash">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Game Name</label>
+                        <input type="text" id="game_name" value="Free Fire MAX" class="w-full p-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-emerald-400">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Entry Fee (₹)</label>
+                            <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded bg-slate-700 border border-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Prize Pool (₹)</label>
+                            <input type="number" id="prize_pool" value="1000" class="w-full p-2 rounded bg-slate-700 border border-slate-600">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Slots</label>
+                        <input type="number" id="slots" value="48" class="w-full p-2 rounded bg-slate-700 border border-slate-600">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2 rounded transition">Create Tournament</button>
+                </form>
+                <p id="tourneyMsg" class="mt-3 text-sm text-center"></p>
+            </div>
+
+            <!-- Publish Room Card -->
+            <div class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700">
+                <h2 class="text-2xl font-bold mb-4 text-cyan-400">Publish Room Details</h2>
+                <form id="roomForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tournament ID</label>
+                        <input type="number" id="tourney_id" required class="w-full p-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-cyan-400" placeholder="e.g., 1">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Room ID</label>
+                        <input type="text" id="room_id" required class="w-full p-2 rounded bg-slate-700 border border-slate-600" placeholder="e.g., 7889">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Room Password</label>
+                        <input type="text" id="room_password" required class="w-full p-2 rounded bg-slate-700 border border-slate-600" placeholder="e.g., ZYROX123">
+                    </div>
+                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2 rounded transition mt-12">Publish Room</button>
+                </form>
+                <p id="roomMsg" class="mt-3 text-sm text-center"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+
+        // Create Tournament API call
+        document.getElementById("tournamentForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById("title").value,
+                game_name: document.getElementById("game_name").value,
+                entry_fee: parseFloat(document.getElementById("entry_fee").value),
+                prize_pool: parseFloat(document.getElementById("prize_pool").value),
+                slots: parseInt(document.getElementById("slots").value)
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/tournaments/`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if(response.ok) {
+                    document.getElementById("tourneyMsg").innerText = `Success! Tournament ID: ${result.tournament_id}`;
+                    document.getElementById("tourneyMsg").className = "mt-3 text-sm text-center text-emerald-400 font-semibold";
+                } else {
+                    throw new Error(result.detail || "Failed");
+                }
+            } catch (err) {
+                document.getElementById("tourneyMsg").innerText = `Error: ${err.message}`;
+                document.getElementById("tourneyMsg").className = "mt-3 text-sm text-center text-red-400 font-semibold";
+            }
+        });
+
+        // Publish Room API call
+        document.getElementById("roomForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const tourneyId = document.getElementById("tourney_id").value;
+            const data = {
+                room_id: document.getElementById("room_id").value,
+                room_password: document.getElementById("room_password").value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/tournaments/${tourneyId}/room`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if(response.ok) {
+                    document.getElementById("roomMsg").innerText = result.message;
+                    document.getElementById("roomMsg").className = "mt-3 text-sm text-center text-cyan-400 font-semibold";
+                } else {
+                    throw new Error(result.detail || "Failed");
+                }
+            } catch (err) {
+                document.getElementById("roomMsg").innerText = `Error: ${err.message}`;
+                document.getElementById("roomMsg").className = "mt-3 text-sm text-center text-red-400 font-semibold";
+            }
+        });
+    </script>
+</body>
+</html>
