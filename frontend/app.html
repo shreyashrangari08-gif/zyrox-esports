@@ -27,6 +27,7 @@
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
+                <!-- Admin Tab - Completely Hidden by default, shown ONLY for master admin -->
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
         </div>
@@ -106,18 +107,10 @@
                 <div id="tab-games" class="space-y-6 hidden">
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center">
-                                <img src="images/banner1.jpg" class="w-full h-full object-cover">
-                            </div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner2.jpg" class="w-full h-full object-cover">
-                            </div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner3.jpg" class="w-full h-full object-cover">
-                            </div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center">
-                                <img src="images/banner4.jpg" class="w-full h-full object-cover">
-                            </div>
+                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center"><img src="images/banner1.jpg" class="w-full h-full object-cover"></div>
+                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner2.jpg" class="w-full h-full object-cover"></div>
+                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner3.jpg" class="w-full h-full object-cover"></div>
+                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner4.jpg" class="w-full h-full object-cover"></div>
                         </div>
                     </div>
 
@@ -190,7 +183,7 @@
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW -->
+                <!-- ADMIN VIEW (Strictly Protected) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -386,6 +379,10 @@
         }
 
         function switchTab(tabName) {
+            if(tabName === 'admin' && (!loggedInUser || loggedInUser.email !== "shreyashrangari08@gmail.com")) {
+                alert("Access Denied! Master Admin only.");
+                return;
+            }
             ['auth', 'games', 'tournaments', 'profile', 'admin'].forEach(t => { 
                 const el = document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden'); 
