@@ -162,61 +162,61 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW -->
+                <!-- TOURNAMENTS VIEW (CHOOSE YOUR BATTLE & PRIZES) -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
-                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">All Tournaments Hub</h3>
-                            <p class="text-xs text-slate-400">Join custom room matches securely.</p>
+                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Free Fire Tournament</h3>
+                            <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
 
-                    <!-- CHOOSE YOUR BATTLE CARDS (FREE ENTRY) -->
+                    <!-- CHOOSE YOUR BATTLE CARDS -->
                     <div class="space-y-3">
                         <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- SOLO -->
+                            <!-- SOLO MATCH -->
                             <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
-                                        <span class="font-black text-white text-sm">🏆 SOLO</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="font-black text-white text-sm">🏆 SOLO MATCH</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹50</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Champion Reward</li>
-                                        <li>🥈 <span class="text-white font-semibold">2nd</span> — Runner-up Reward</li>
-                                        <li>🥉 <span class="text-white font-semibold">3rd</span> — Bronze Reward</li>
+                                        <li>🥇 <span class="text-white font-semibold">1st Prize:</span> ₹650</li>
+                                        <li>🥈 <span class="text-white font-semibold">2nd Prize:</span> ₹450</li>
+                                        <li>🥉 <span class="text-white font-semibold">3rd Prize:</span> ₹300</li>
                                     </ul>
                                 </div>
                                 <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
-                            <!-- DUO -->
+                            <!-- DUO MATCH -->
                             <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-purple-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
-                                        <span class="font-black text-white text-sm">👥 DUO</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="font-black text-white text-sm">👥 DUO MATCH</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹75</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Duo Champion Reward</li>
-                                        <li>🏅 <span class="text-white font-semibold">Runner-up</span> — Special Reward</li>
+                                        <li>🥇 <span class="text-white font-semibold">1st Prize:</span> ₹750</li>
+                                        <li>🏅 <span class="text-slate-400">Team Synergy Bonus</span></li>
                                     </ul>
                                 </div>
                                 <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
-                            <!-- SQUAD -->
+                            <!-- SQUAD MATCH -->
                             <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-amber-500 transition shadow-lg">
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
-                                        <span class="font-black text-white text-sm">👑 SQUAD</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="font-black text-white text-sm">👑 SQUAD MATCH</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹180</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-                                        <li>🥇 <span class="text-white font-semibold">1st</span> — Squad Champion Reward</li>
-                                        <li>🏆 <span class="text-amber-300 font-semibold">Team Champion</span> Badge + Trophy</li>
+                                        <li>🏆 <span class="text-amber-300 font-semibold">1st Prize:</span> ₹2,000 per winning team</li>
+                                        <li>🛡️ <span class="text-slate-400">Custom Room Slot Secured</span></li>
                                     </ul>
                                 </div>
                                 <button onclick="openRewardModal('SQUAD')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
@@ -421,8 +421,8 @@
                                     </select>
                                     <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Tournament Title">
                                     <div class="grid grid-cols-2 gap-2">
-                                        <input type="number" id="entry_fee" value="40" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Fee">
-                                        <input type="number" id="prize_pool" value="800" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Prize">
+                                        <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Fee">
+                                        <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Prize">
                                     </div>
                                     <div class="grid grid-cols-2 gap-2">
                                         <input type="number" id="slots" value="48" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Slots">
@@ -724,14 +724,14 @@
             const titleEl = document.getElementById("rewardModalTitle");
             const contentEl = document.getElementById("rewardModalContent");
             if(battleType === 'SOLO') {
-                titleEl.innerText = "🏆 SOLO Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Champion Reward</p><p>🥈 2nd — Runner-up Reward</p><p>🥉 3rd — Bronze Reward</p>`;
+                titleEl.innerText = "🏆 SOLO MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹50</p><p>🥇 1st Prize: ₹650</p><p>🥈 2nd Prize: ₹450</p><p>🥉 3rd Prize: ₹300</p>`;
             } else if(battleType === 'DUO') {
-                titleEl.innerText = "👥 DUO Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Duo Champion Reward</p><p>🏅 Runner-up — Special Reward</p>`;
+                titleEl.innerText = "👥 DUO MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹75</p><p>🥇 1st Prize: ₹750</p>`;
             } else if(battleType === 'SQUAD') {
-                titleEl.innerText = "👑 SQUAD Battle Rewards";
-                contentEl.innerHTML = `<p><b>Entry:</b> FREE</p><p>🥇 1st — Squad Champion Reward</p><p>🏆 Team Champion Badge + Trophy</p>`;
+                titleEl.innerText = "👑 SQUAD MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹180</p><p>🏆 1st Prize: ₹2,000 per winning team</p>`;
             }
             document.getElementById("rewardModal").classList.remove("hidden");
         }
@@ -741,7 +741,7 @@
 
         function selectGame(gameName) {
             activeGameCategory = gameName;
-            document.getElementById("selectedGameTitle").innerText = `${gameName} Tournaments Hub`;
+            document.getElementById("selectedGameTitle").innerText = `🎮 ZYROX eSports — ${gameName} Tournament`;
         }
 
         async function loadTournamentsForGame(gameName) {
