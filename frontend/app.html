@@ -27,7 +27,6 @@
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
-                <!-- Admin Tab - Completely Hidden by default, shown ONLY for master admin -->
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
         </div>
@@ -163,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW -->
+                <!-- TOURNAMENTS VIEW (Includes Free Fire Daily Slots Schedule) -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -172,7 +171,83 @@
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
-                    <div id="tournamentList" class="space-y-3"><p class="text-slate-400 text-sm">Loading tournaments...</p></div>
+                    
+                    <!-- Dynamic Tournaments List from DB -->
+                    <div id="tournamentList" class="space-y-3">
+                        <p class="text-slate-400 text-sm">Loading tournaments...</p>
+                    </div>
+
+                    <!-- Free Fire Daily Slots Schedule Section -->
+                    <div class="mt-8 pt-6 border-t border-slate-800 space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">🎮</span>
+                            <h3 class="text-base font-extrabold text-white">ZYROX eSports — Free Fire Daily Slots</h3>
+                        </div>
+                        
+                        <div class="overflow-x-auto rounded-xl border border-slate-800">
+                            <table class="w-full text-left text-xs text-slate-300">
+                                <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]">
+                                    <tr>
+                                        <th class="p-3">Slot</th>
+                                        <th class="p-3">Timing</th>
+                                        <th class="p-3">Activity</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 bg-[#111827]">
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-emerald-400">🟢 Slot 01</td>
+                                        <td class="p-3 text-slate-300">10:00 AM – 11:00 AM</td>
+                                        <td class="p-3 font-semibold text-white">Match 1</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-cyan-400">🔵 Slot 02</td>
+                                        <td class="p-3 text-slate-300">11:15 AM – 12:15 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 2</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-purple-400">🟣 Slot 03</td>
+                                        <td class="p-3 text-slate-300">12:30 PM – 1:30 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 3</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition bg-slate-900/50">
+                                        <td class="p-3 font-bold text-amber-400">☕ Break</td>
+                                        <td class="p-3 text-slate-300">1:30 PM – 2:00 PM</td>
+                                        <td class="p-3 font-semibold text-slate-400">Break</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-red-400">🔴 Slot 04</td>
+                                        <td class="p-3 text-slate-300">2:00 PM – 3:00 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 4</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-emerald-400">🟢 Slot 05</td>
+                                        <td class="p-3 text-slate-300">3:15 PM – 4:15 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 5</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition bg-slate-900/50">
+                                        <td class="p-3 font-bold text-amber-400">☕ Break</td>
+                                        <td class="p-3 text-slate-300">4:15 PM – 4:45 PM</td>
+                                        <td class="p-3 font-semibold text-slate-400">Break</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-cyan-400">🔵 Slot 06</td>
+                                        <td class="p-3 text-slate-300">4:45 PM – 5:45 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 6</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition">
+                                        <td class="p-3 font-bold text-purple-400">🟣 Slot 07</td>
+                                        <td class="p-3 text-slate-300">6:00 PM – 7:00 PM</td>
+                                        <td class="p-3 font-semibold text-white">Match 7</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition bg-indigo-950/30">
+                                        <td class="p-3 font-bold text-amber-300">🏆 Final Slot</td>
+                                        <td class="p-3 text-slate-300">7:15 PM – 8:00 PM</td>
+                                        <td class="p-3 font-bold text-amber-400">Final / Special Match</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- PROFILE VIEW -->
