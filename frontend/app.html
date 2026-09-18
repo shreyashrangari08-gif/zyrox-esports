@@ -378,7 +378,7 @@
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW -->
+                <!-- ADMIN VIEW (Enhanced & Fully Professional) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -391,57 +391,119 @@
 
                     <div id="adminDashboardContent" class="space-y-6 hidden">
                         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                            <h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2>
+                            <div>
+                                <h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2>
+                                <p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p>
+                            </div>
                             <div class="flex gap-2">
-                                <button onclick="fetchRegisteredUsers()" class="bg-indigo-600 hover:bg-indigo-500 text-xs px-3 py-1.5 rounded-xl font-bold">👥 Users Database</button>
-                                <button onclick="lockAdminPanel()" class="bg-red-700 hover:bg-red-600 text-xs px-3 py-1.5 rounded-xl font-bold">Logout</button>
+                                <button onclick="fetchRegisteredUsers()" class="bg-indigo-600 hover:bg-indigo-500 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-users mr-1"></i> Users Database</button>
+                                <button onclick="lockAdminPanel()" class="bg-red-700 hover:bg-red-600 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-right-from-bracket mr-1"></i> Logout</button>
                             </div>
                         </div>
 
+                        <!-- Users Database Box -->
                         <div id="adminUsersBox" class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 hidden">
-                            <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users</h3>
+                            <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users & Wallet Management</h3>
                             <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
                         </div>
 
+                        <!-- Platform Analytics Summary Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p>
+                                    <h4 class="text-base font-bold text-emerald-400 mt-0.5">Online & Active</h4>
+                                </div>
+                                <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-server"></i></div>
+                            </div>
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p>
+                                    <h4 class="text-base font-bold text-indigo-400 mt-0.5">Shreyash</h4>
+                                </div>
+                                <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
+                            </div>
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p>
+                                    <h4 class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4>
+                                </div>
+                                <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
+                            </div>
+                        </div>
+
                         <div class="grid md:grid-cols-2 gap-4">
+                            <!-- Create Tournament Box -->
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700">
-                                <h3 class="text-sm font-bold mb-3 text-emerald-400">Create Tournament</h3>
+                                <h3 class="text-sm font-bold mb-3 text-emerald-400"><i class="fa-solid fa-circle-plus mr-1"></i> Create Tournament</h3>
                                 <form id="tournamentForm" class="space-y-2.5 text-xs">
-                                    <select id="game_category" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700">
-                                        <option value="Free Fire MAX">Free Fire MAX</option>
-                                        <option value="BGMI">BGMI</option>
-                                        <option value="COD Mobile">COD Mobile</option>
-                                    </select>
-                                    <select id="match_format" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700">
-                                        <option value="Solo">Solo</option>
-                                        <option value="Duo">Duo</option>
-                                        <option value="Squad">Squad</option>
-                                    </select>
-                                    <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Tournament Title">
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Fee">
-                                        <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Prize">
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Game Category</label>
+                                        <select id="game_category" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                            <option value="Free Fire MAX">Free Fire MAX</option>
+                                            <option value="BGMI">BGMI</option>
+                                            <option value="COD Mobile">COD Mobile</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Match Format</label>
+                                        <select id="match_format" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                            <option value="Solo">Solo</option>
+                                            <option value="Duo">Duo</option>
+                                            <option value="Squad">Squad</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Tournament Title</label>
+                                        <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="e.g., Free Fire Daily Solo Cup">
                                     </div>
                                     <div class="grid grid-cols-2 gap-2">
-                                        <input type="number" id="slots" value="48" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Slots">
-                                        <input type="text" id="start_time" value="Today, 06:00 PM" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Time">
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Entry Fee (₹)</label>
+                                            <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Fee">
+                                        </div>
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Prize Pool (₹)</label>
+                                            <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Prize">
+                                        </div>
                                     </div>
-                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2 rounded-lg">Publish Match</button>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Total Slots</label>
+                                            <input type="number" id="slots" value="48" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Slots">
+                                        </div>
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Start Time</label>
+                                            <input type="text" id="start_time" value="Today, 06:00 PM" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Time">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2.5 rounded-lg text-white transition mt-2"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Publish Match</button>
                                 </form>
                             </div>
 
-                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-3">
-                                <h3 class="text-sm font-bold text-cyan-400">Match & Room Controls</h3>
+                            <!-- Match & Room Controls Box -->
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-4">
+                                <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-key mr-1"></i> Match & Room Controls</h3>
                                 <form id="roomForm" class="space-y-2.5 text-xs">
-                                    <input type="number" id="tourney_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Tournament ID">
-                                    <input type="text" id="room_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Room ID">
-                                    <input type="text" id="room_password" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700" placeholder="Password">
-                                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2 rounded-lg">Release Room Key</button>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Tournament ID</label>
+                                        <input type="number" id="tourney_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Tournament ID">
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Custom Room ID</label>
+                                        <input type="text" id="room_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Room ID">
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Custom Room Password</label>
+                                        <input type="text" id="room_password" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Password">
+                                    </div>
+                                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2.5 rounded-lg text-white transition"><i class="fa-solid fa-paper-plane mr-1"></i> Release Room Key</button>
                                 </form>
-                                <hr class="border-slate-700">
+                                <hr class="border-slate-700 my-2">
                                 <div>
-                                    <input type="number" id="cancelTourneyId" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-xs mb-2" placeholder="Tournament ID to Cancel">
-                                    <button onclick="cancelMatchAndRefund()" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2 rounded-lg text-xs">Cancel Match & Auto-Refund</button>
+                                    <label class="text-slate-400 text-[10px] block mb-1">Cancel Match & Refund Entry Fees</label>
+                                    <input type="number" id="cancelTourneyId" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-xs text-white mb-2" placeholder="Tournament ID to Cancel">
+                                    <button onclick="cancelMatchAndRefund()" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2 rounded-lg text-xs text-white transition"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Cancel Match & Auto-Refund</button>
                                 </div>
                             </div>
                         </div>
@@ -800,11 +862,12 @@
 
         async function fetchRegisteredUsers() {
             const res = await fetch(`${API_URL}/admin/users`);
-            const users = await res.json();
+            const data = await res.json();
             const box = document.getElementById("allUsersList");
             box.parentElement.classList.remove("hidden");
             box.innerHTML = "";
-            users.users.forEach(u => {
+            const usersList = Array.isArray(data) ? data : (data.users || []);
+            usersList.forEach(u => {
                 const statusBtn = u.is_blocked === 1 ? `<button onclick="toggleBlock(${u.id})" class="bg-emerald-600 px-2 py-1 rounded text-white">Unblock</button>` : `<button onclick="toggleBlock(${u.id})" class="bg-red-600 px-2 py-1 rounded text-white">Block</button>`;
                 box.innerHTML += `<div class="bg-[#111827] p-2 rounded-lg flex justify-between items-center text-xs"><span><b>${u.zrx_id}</b> - ${u.name} | ₹${u.wallet}</span> ${statusBtn}</div>`;
             });
