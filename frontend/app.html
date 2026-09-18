@@ -101,7 +101,10 @@
                             <form id="loginForm" class="space-y-3" autocomplete="off">
                                 <input type="email" id="loginEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
                                 <input type="password" id="loginPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
-                                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2.5 rounded-xl text-sm transition shadow-lg shadow-emerald-600/30">Login to Dashboard</button>
+                                <div class="flex items-center justify-between pt-1">
+                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-emerald-600/30">Login to Dashboard</button>
+                                    <button type="button" onclick="openForgotModal()" class="text-xs text-indigo-400 hover:underline font-semibold">Forgot Password?</button>
+                                </div>
                             </form>
                             <p id="loginMsg" class="mt-2 text-xs text-red-400 text-center"></p>
                         </div>
@@ -334,6 +337,20 @@
         </main>
     </div>
 
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
+            <h3 class="text-lg font-bold text-indigo-400 mb-2">Reset Password</h3>
+            <p class="text-xs text-slate-400 mb-4">Enter your registered email and new password.</p>
+            <input type="email" id="forgotEmail" placeholder="Registered Email" class="w-full p-2.5 mb-3 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
+            <input type="password" id="forgotNewPass" placeholder="New Password" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
+            <div class="flex gap-2">
+                <button onclick="submitForgotPassword()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition">Update Password</button>
+                <button onclick="closeForgotModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- WALLET MODAL -->
     <div id="walletModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
@@ -491,6 +508,40 @@
                 alert("Network error during login.");
             }
         });
+
+        // FORGOT PASSWORD FUNCTIONS
+        function openForgotModal() {
+            document.getElementById("forgotEmail").value = "";
+            document.getElementById("forgotNewPass").value = "";
+            document.getElementById("forgotModal").classList.remove("hidden");
+        }
+        function closeForgotModal() {
+            document.getElementById("forgotModal").classList.add("hidden");
+        }
+        async function submitForgotPassword() {
+            const email = document.getElementById("forgotEmail").value.trim();
+            const new_password = document.getElementById("forgotNewPass").value.trim();
+            if(!email || !new_password) {
+                alert("Please enter both email and new password.");
+                return;
+            }
+            try {
+                const res = await fetch(`${API_URL}/users/reset-password`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, new_password })
+                });
+                const result = await res.json();
+                if(res.ok) {
+                    alert("Password updated successfully! You can now login.");
+                    closeForgotModal();
+                } else {
+                    alert(result.detail || "Failed to reset password.");
+                }
+            } catch(e) {
+                alert("Network error while resetting password.");
+            }
+        }
 
         function openWalletModal() { updateWalletQr(); document.getElementById("walletModal").classList.remove("hidden"); }
         function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
