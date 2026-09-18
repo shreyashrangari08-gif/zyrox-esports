@@ -355,15 +355,17 @@
                     </div>
                 </div>
 
-                <!-- PROFILE VIEW -->
+                <!-- PROFILE VIEW (Enhanced with Social & Game Accounts Details) -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
-                            <h2 class="text-xl font-bold text-indigo-300">My Profile & History</h2>
-                            <p class="text-xs text-slate-400">Personal Data for <span id="profileNameDisplay" class="text-white font-bold">Player</span></p>
+                            <h2 class="text-xl font-bold text-indigo-300">My Profile & Gaming Accounts</h2>
+                            <p class="text-xs text-slate-400">Manage your player credentials and social links.</p>
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
+
+                    <!-- Profile Basic Card -->
                     <div class="grid grid-cols-2 gap-4 bg-[#1f2937] p-4 rounded-xl border border-slate-700 text-xs">
                         <div>
                             <p class="text-slate-400">ZRX ID</p>
@@ -374,11 +376,44 @@
                             <p id="profileWalletDisplay" class="text-emerald-400 font-bold text-sm mt-0.5">₹0</p>
                         </div>
                     </div>
+
+                    <!-- Gaming & Social Accounts Form -->
+                    <div class="bg-[#1f2937] p-5 rounded-xl border border-slate-700 space-y-4">
+                        <h3 class="text-sm font-bold text-indigo-300"><i class="fa-solid fa-gamepad mr-1"></i> In-Game & Social Accounts</h3>
+                        <form id="profileDetailsForm" onsubmit="saveProfileDetails(event)" class="space-y-3 text-xs">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1">Free Fire UID</label>
+                                    <input type="text" id="ffUidInput" placeholder="e.g., 482910293" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1">In-Game Name (IGN)</label>
+                                    <input type="text" id="ffIgnInput" placeholder="e.g., ZRX_Alpha" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-instagram text-pink-400 mr-1"></i> Instagram ID</label>
+                                    <input type="text" id="instaInput" placeholder="@username" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-youtube text-red-400 mr-1"></i> YouTube Channel</label>
+                                    <input type="text" id="ytInput" placeholder="Channel Link/Name" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-discord text-indigo-400 mr-1"></i> Discord Tag</label>
+                                    <input type="text" id="discordInput" placeholder="username#0000" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold p-2.5 rounded-xl text-white transition mt-2">Save Account Details</button>
+                        </form>
+                    </div>
+
                     <h3 class="text-md font-bold text-amber-400 mt-4">My Match History</h3>
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW (Enhanced & Fully Professional) -->
+                <!-- ADMIN VIEW (Professional Full Management) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -658,6 +693,7 @@
             const target = document.getElementById(`tab-${tabName}`);
             if(target) target.classList.remove('hidden');
             if(tabName === 'tournaments') loadTournamentsForGame(activeGameCategory);
+            if(tabName === 'profile') loadProfileDetails();
         }
 
         function showProfile(user) {
@@ -681,6 +717,31 @@
             loggedInUser = null;
             hideDashboardUI();
             switchTab('auth');
+        }
+
+        // Load & Save Profile Details (LocalStorage sync)
+        function loadProfileDetails() {
+            if(!loggedInUser) return;
+            const savedData = JSON.parse(localStorage.getItem(`profile_extras_${loggedInUser.id}`)) || {};
+            document.getElementById("ffUidInput").value = savedData.ffUid || "";
+            document.getElementById("ffIgnInput").value = savedData.ffIgn || "";
+            document.getElementById("instaInput").value = savedData.insta || "";
+            document.getElementById("ytInput").value = savedData.yt || "";
+            document.getElementById("discordInput").value = savedData.discord || "";
+        }
+
+        function saveProfileDetails(e) {
+            e.preventDefault();
+            if(!loggedInUser) return;
+            const extras = {
+                ffUid: document.getElementById("ffUidInput").value.trim(),
+                ffIgn: document.getElementById("ffIgnInput").value.trim(),
+                insta: document.getElementById("instaInput").value.trim(),
+                yt: document.getElementById("ytInput").value.trim(),
+                discord: document.getElementById("discordInput").value.trim()
+            };
+            localStorage.setItem(`profile_extras_${loggedInUser.id}`, JSON.stringify(extras));
+            alert("Gaming & Social account details saved successfully!");
         }
 
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
