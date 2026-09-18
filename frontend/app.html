@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW (Includes Choose Your Battle Cards & Free Fire Slots) -->
+                <!-- TOURNAMENTS VIEW (Choose Your Battle with Paid Entry Fees & Rewards Modal) -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
@@ -181,7 +181,7 @@
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">🏆 SOLO</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹40</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Champion Reward</li>
@@ -189,7 +189,7 @@
                                         <li>🥉 <span class="text-white font-semibold">3rd</span> — Bronze Reward</li>
                                     </ul>
                                 </div>
-                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                                <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
                             <!-- DUO CARD -->
@@ -197,14 +197,14 @@
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">👥 DUO</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹80</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Duo Champion Reward</li>
                                         <li>🏅 <span class="text-white font-semibold">Runner-up</span> — Special Reward</li>
                                     </ul>
                                 </div>
-                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                                <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
 
                             <!-- SQUAD CARD -->
@@ -212,14 +212,14 @@
                                 <div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="font-black text-white text-sm">👑 SQUAD</span>
-                                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: FREE</span>
+                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹160</span>
                                     </div>
                                     <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
                                         <li>🥇 <span class="text-white font-semibold">1st</span> — Squad Champion Reward</li>
                                         <li>🏆 <span class="text-amber-300 font-semibold">Team Champion</span> Badge + Trophy</li>
                                     </ul>
                                 </div>
-                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                                <button onclick="openRewardModal('SQUAD')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
                             </div>
                         </div>
                     </div>
@@ -488,6 +488,17 @@
         </main>
     </div>
 
+    <!-- REWARD MODAL FOR VIEW PRIZE & REWARDS -->
+    <div id="rewardModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
+            <h3 id="rewardModalTitle" class="text-lg font-bold text-amber-400">Battle Rewards</h3>
+            <div id="rewardModalContent" class="text-xs text-slate-300 space-y-2 text-left bg-[#1f2937] p-4 rounded-xl border border-slate-700">
+                <!-- Content injected dynamically -->
+            </div>
+            <button onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Close</button>
+        </div>
+    </div>
+
     <!-- FORGOT PASSWORD MODAL -->
     <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
@@ -706,6 +717,26 @@
             const res = await fetch(`${API_URL}/users/topup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id: loggedInUser.id, amount: parseFloat(document.getElementById("topupAmount").value) }) });
             const result = await res.json();
             if(res.ok) { loggedInUser.wallet = result.new_wallet; localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); showProfile(loggedInUser); closeWalletModal(); alert("Recharged successfully!"); }
+        }
+
+        // REWARD MODAL FUNCTIONS
+        function openRewardModal(battleType) {
+            const titleEl = document.getElementById("rewardModalTitle");
+            const contentEl = document.getElementById("rewardModalContent");
+            if(battleType === 'SOLO') {
+                titleEl.innerText = "🏆 SOLO Battle Rewards";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹40</p><p>🥇 1st — Champion Reward (₹500 + Trophy)</p><p>🥈 2nd — Runner-up Reward (₹300)</p><p>🥉 3rd — Bronze Reward (₹150)</p>`;
+            } else if(battleType === 'DUO') {
+                titleEl.innerText = "👥 DUO Battle Rewards";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹80</p><p>🥇 1st — Duo Champion Reward (₹1000)</p><p>🏅 Runner-up — Special Reward (₹500)</p>`;
+            } else if(battleType === 'SQUAD') {
+                titleEl.innerText = "👑 SQUAD Battle Rewards";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹160</p><p>🥇 1st — Squad Champion Reward (₹2000)</p><p>🏆 Team Champion Badge + Trophy</p>`;
+            }
+            document.getElementById("rewardModal").classList.remove("hidden");
+        }
+        function closeRewardModal() {
+            document.getElementById("rewardModal").classList.add("hidden");
         }
 
         function selectGame(gameName) {
