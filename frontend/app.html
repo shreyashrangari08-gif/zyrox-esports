@@ -377,6 +377,9 @@
                         </div>
                     </div>
 
+                    <!-- Hidden element to prevent null error -->
+                    <span id="profileNameDisplay" class="hidden"></span>
+
                     <!-- Gaming & Social Accounts Form -->
                     <div class="bg-[#1f2937] p-5 rounded-xl border border-slate-700 space-y-4">
                         <h3 class="text-sm font-bold text-indigo-300"><i class="fa-solid fa-gamepad mr-1"></i> In-Game & Social Accounts</h3>
@@ -699,7 +702,6 @@
         function showProfile(user) {
             document.getElementById("headerName").innerText = user.name || "Player";
             document.getElementById("rightProfileName").innerText = user.name || "Player";
-            document.getElementById("profileNameDisplay").innerText = user.name || "Player";
             document.getElementById("sidebarWallet").innerText = `₹${user.wallet}`;
             document.getElementById("headerWallet").innerText = user.wallet;
             document.getElementById("profileWalletDisplay").innerText = `₹${user.wallet}`;
@@ -719,7 +721,6 @@
             switchTab('auth');
         }
 
-        // Load & Save Profile Details (LocalStorage sync)
         function loadProfileDetails() {
             if(!loggedInUser) return;
             const savedData = JSON.parse(localStorage.getItem(`profile_extras_${loggedInUser.id}`)) || {};
@@ -840,7 +841,6 @@
             if(res.ok) { loggedInUser.wallet = result.new_wallet; localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); showProfile(loggedInUser); closeWalletModal(); alert("Recharged successfully!"); }
         }
 
-        // REWARD MODAL FUNCTIONS
         function openRewardModal(battleType) {
             const titleEl = document.getElementById("rewardModalTitle");
             const contentEl = document.getElementById("rewardModalContent");
