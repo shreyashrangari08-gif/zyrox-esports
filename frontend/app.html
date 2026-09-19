@@ -79,9 +79,9 @@
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
                             <h3 class="text-sm font-bold mb-3 text-indigo-300"><i class="fa-solid fa-user-plus mr-1.5"></i> 1. Player Register (New User)</h3>
                             <form id="registerForm" class="space-y-3" autocomplete="off">
-                                <input type="text" id="regName" placeholder="Name / IGN" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
-                                <input type="email" id="regEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
-                                <input type="password" id="regPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
+                                <input type="text" id="regName" placeholder="Name / IGN" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
+                                <input type="email" id="regEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
+                                <input type="password" id="regPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
                                 <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold p-2.5 rounded-xl text-sm transition shadow-lg shadow-indigo-600/30">Register Account</button>
                             </form>
                             <p id="regMsg" class="mt-2 text-xs text-indigo-400 text-center font-medium"></p>
@@ -90,8 +90,8 @@
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
                             <h3 class="text-sm font-bold mb-3 text-emerald-300"><i class="fa-solid fa-right-to-bracket mr-1.5"></i> 2. Player Login (Existing User)</h3>
                             <form id="loginForm" class="space-y-3" autocomplete="off">
-                                <input type="email" id="loginEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
-                                <input type="password" id="loginPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm">
+                                <input type="email" id="loginEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
+                                <input type="password" id="loginPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
                                 <div class="flex items-center justify-between pt-1">
                                     <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-emerald-600/30">Login to Dashboard</button>
                                     <button type="button" onclick="openForgotModal()" class="text-xs text-indigo-400 hover:underline font-semibold">Forgot Password?</button>
@@ -416,7 +416,7 @@
                     <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
                 </div>
 
-                <!-- ADMIN VIEW (Professional Full Management) -->
+                <!-- ADMIN VIEW (Professional Full Management & Interactive Cards) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -445,15 +445,17 @@
                             <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
                         </div>
 
-                        <!-- Platform Analytics Summary Cards -->
+                        <!-- INTERACTIVE PLATFORM STATUS CARDS -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                            <!-- Clickable Platform Status -->
+                            <div onclick="checkServerHealth()" class="bg-[#1f2937] hover:border-emerald-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
                                 <div>
                                     <p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p>
-                                    <h4 class="text-base font-bold text-emerald-400 mt-0.5">Online & Active</h4>
+                                    <h4 id="serverStatusTxt" class="text-base font-bold text-emerald-400 mt-0.5">Online & Active (Click to Ping)</h4>
                                 </div>
                                 <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-server"></i></div>
                             </div>
+                            <!-- Master Admin Card -->
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
                                 <div>
                                     <p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p>
@@ -461,12 +463,21 @@
                                 </div>
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
                             </div>
-                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                            <!-- Clickable Active Mode Toggle -->
+                            <div onclick="toggleActiveMode()" class="bg-[#1f2937] hover:border-amber-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
                                 <div>
                                     <p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p>
-                                    <h4 class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4>
+                                    <h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4>
                                 </div>
                                 <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
+                            </div>
+                        </div>
+
+                        <!-- LIVE TOURNAMENTS & ROOM CONTROL DISPLAY -->
+                        <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-3">
+                            <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-satellite-dish mr-1"></i> Live Active Tournaments & Room Controls Display</h3>
+                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs">
+                                <p class="text-slate-400">Loading active tournament controls...</p>
                             </div>
                         </div>
 
@@ -586,13 +597,11 @@
         </main>
     </div>
 
-    <!-- REWARD MODAL FOR VIEW PRIZE & REWARDS -->
+    <!-- REWARD MODAL -->
     <div id="rewardModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
             <h3 id="rewardModalTitle" class="text-lg font-bold text-amber-400">Battle Rewards</h3>
-            <div id="rewardModalContent" class="text-xs text-slate-300 space-y-2 text-left bg-[#1f2937] p-4 rounded-xl border border-slate-700">
-                <!-- Content injected dynamically -->
-            </div>
+            <div id="rewardModalContent" class="text-xs text-slate-300 space-y-2 text-left bg-[#1f2937] p-4 rounded-xl border border-slate-700"></div>
             <button onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Close</button>
         </div>
     </div>
@@ -656,8 +665,6 @@
         }, 3500);
 
         window.onload = () => {
-            document.getElementById("registerForm").reset();
-            document.getElementById("loginForm").reset();
             if (loggedInUser) { 
                 showProfile(loggedInUser); 
                 showDashboardUI();
@@ -697,6 +704,7 @@
             if(target) target.classList.remove('hidden');
             if(tabName === 'tournaments') loadTournamentsForGame(activeGameCategory);
             if(tabName === 'profile') loadProfileDetails();
+            if(tabName === 'admin') loadAdminActiveTournaments();
         }
 
         function showProfile(user) {
@@ -743,6 +751,55 @@
             };
             localStorage.setItem(`profile_extras_${loggedInUser.id}`, JSON.stringify(extras));
             alert("Gaming & Social account details saved successfully!");
+        }
+
+        // INTERACTIVE ADMIN FUNCTIONS
+        async function checkServerHealth() {
+            try {
+                const res = await fetch(`${API_URL}/tournaments/`);
+                if(res.ok) {
+                    document.getElementById("serverStatusTxt").innerText = "Online & Responsive (Ping OK)";
+                    alert("Server Health Check Passed! Backend is fully active.");
+                } else {
+                    alert("Server responded with an issue.");
+                }
+            } catch(e) {
+                alert("Server is currently sleeping or offline.");
+            }
+        }
+
+        let modeToggle = true;
+        function toggleActiveMode() {
+            modeToggle = !modeToggle;
+            const modeTxt = modeToggle ? "Free Fire Tournaments" : "BGMI & COD Tournaments";
+            document.getElementById("activeModeTxt").innerText = modeTxt;
+            alert(`Active tournament mode switched to: ${modeTxt}`);
+        }
+
+        async function loadAdminActiveTournaments() {
+            try {
+                const res = await fetch(`${API_URL}/tournaments/`);
+                const tournaments = await res.json();
+                const container = document.getElementById("adminActiveTournamentsList");
+                container.innerHTML = "";
+                if(tournaments.length === 0) {
+                    container.innerHTML = `<p class="text-slate-400">No tournaments created yet.</p>`;
+                    return;
+                }
+                tournaments.forEach(t => {
+                    container.innerHTML += `
+                        <div class="bg-[#111827] p-2.5 rounded-lg flex justify-between items-center border border-slate-800">
+                            <div>
+                                <span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title} (${t.match_format})
+                                <p class="text-[10px] text-slate-400">Status: <span class="text-emerald-400">${t.status || 'Active'}</span> | Prize: ₹${t.prize_pool}</p>
+                            </div>
+                            <button onclick="document.getElementById('tourney_id').value = ${t.id}; alert('Selected Tournament ID ${t.id} for Room Control!')" class="bg-indigo-600 hover:bg-indigo-500 px-2.5 py-1 rounded text-white font-bold">Select for Room</button>
+                        </div>
+                    `;
+                });
+            } catch(e) {
+                document.getElementById("adminActiveTournamentsList").innerHTML = `<p class="text-red-400">Failed to load active tournaments.</p>`;
+            }
         }
 
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
@@ -795,37 +852,21 @@
             }
         });
 
-        function openForgotModal() {
-            document.getElementById("forgotEmail").value = "";
-            document.getElementById("forgotNewPass").value = "";
-            document.getElementById("forgotModal").classList.remove("hidden");
-        }
-        function closeForgotModal() {
-            document.getElementById("forgotModal").classList.add("hidden");
-        }
+        function openForgotModal() { document.getElementById("forgotModal").classList.remove("hidden"); }
+        function closeForgotModal() { document.getElementById("forgotModal").classList.add("hidden"); }
         async function submitForgotPassword() {
             const email = document.getElementById("forgotEmail").value.trim();
             const new_password = document.getElementById("forgotNewPass").value.trim();
-            if(!email || !new_password) {
-                alert("Please enter both email and new password.");
-                return;
-            }
+            if(!email || !new_password) { alert("Please enter both email and new password."); return; }
             try {
                 const res = await fetch(`${API_URL}/users/reset-password`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    method: "POST", headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, new_password })
                 });
                 const result = await res.json();
-                if(res.ok) {
-                    alert("Password updated successfully! You can now login.");
-                    closeForgotModal();
-                } else {
-                    alert(result.detail || "Failed to reset password.");
-                }
-            } catch(e) {
-                alert("Network error while resetting password.");
-            }
+                if(res.ok) { alert("Password updated successfully!"); closeForgotModal(); }
+                else { alert(result.detail || "Failed to reset password."); }
+            } catch(e) { alert("Network error while resetting password."); }
         }
 
         function openWalletModal() { updateWalletQr(); document.getElementById("walletModal").classList.remove("hidden"); }
@@ -856,9 +897,7 @@
             }
             document.getElementById("rewardModal").classList.remove("hidden");
         }
-        function closeRewardModal() {
-            document.getElementById("rewardModal").classList.add("hidden");
-        }
+        function closeRewardModal() { document.getElementById("rewardModal").classList.add("hidden"); }
 
         function selectGame(gameName) {
             activeGameCategory = gameName;
@@ -871,13 +910,11 @@
                 const tournaments = await res.json();
                 const container = document.getElementById("tournamentList");
                 container.innerHTML = "";
-                
                 const filtered = tournaments.filter(t => t.game_category === gameName);
                 if(filtered.length === 0) {
                     container.innerHTML = `<p class="text-slate-400 text-xs">No active tournaments available for ${gameName} right now.</p>`;
                     return;
                 }
-
                 for (let t of filtered) {
                     if(t.status === "Cancelled") {
                         container.innerHTML += `<div class="bg-red-950/40 border border-red-600/50 p-4 rounded-xl opacity-75 text-xs"><h4 class="font-bold text-red-400">[${t.match_format}] ${t.title} - CANCELLED & REFUNDED</h4></div>`;
@@ -917,6 +954,7 @@
             if(document.getElementById("adminEmailInput").value.trim() === "shreyashrangari08@gmail.com" && document.getElementById("adminPassInput").value.trim() === "Shreyash@0222") {
                 document.getElementById("adminLockScreen").classList.add("hidden");
                 document.getElementById("adminDashboardContent").classList.remove("hidden");
+                loadAdminActiveTournaments();
             } else { alert("Wrong Admin Credentials"); }
         });
         function lockAdminPanel() { document.getElementById("adminLockScreen").classList.remove("hidden"); document.getElementById("adminDashboardContent").classList.add("hidden"); }
@@ -958,7 +996,7 @@
                 start_time: document.getElementById("start_time").value
             };
             const res = await fetch(`${API_URL}/tournaments/`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-            if(res.ok) alert("Tournament Published Successfully!");
+            if(res.ok) { alert("Tournament Published Successfully!"); loadAdminActiveTournaments(); }
         });
 
         document.getElementById("roomForm").addEventListener("submit", async (e) => {
