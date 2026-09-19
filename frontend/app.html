@@ -1,2021 +1,728 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ZYROX eSports Platform - Pro Dashboard</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 </head>
-
 <body class="bg-[#0b0f19] text-white min-h-screen flex font-sans">
 
-
-
     <!-- LEFT SIDEBAR -->
-
     <aside id="appSidebar" class="w-64 bg-[#111827] border-r border-slate-800 flex flex-col justify-between p-5 select-none hidden">
-
         <div class="space-y-8">
-
             <div class="flex items-center gap-3">
-
                 <div class="bg-indigo-600 text-white font-black px-2.5 py-1.5 rounded-lg text-lg shadow-lg shadow-indigo-600/50">Z</div>
-
                 <div>
-
                     <h1 class="text-lg font-extrabold tracking-wide text-white">ZYROX</h1>
-
                     <p class="text-[10px] text-indigo-400 font-semibold tracking-widest uppercase">eSports</p>
-
                 </div>
-
             </div>
 
-
-
             <nav class="space-y-1 text-sm font-medium">
-
                 <a href="#" onclick="switchTab('games')" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition"><i class="fa-solid fa-house w-5"></i> Dashboard</a>
-
                 <a href="#" onclick="switchTab('tournaments')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-trophy w-5"></i> Tournaments</a>
-
                 <a href="#" onclick="switchTab('games')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-gamepad w-5"></i> Games</a>
-
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
-
                 <a href="#" onclick="switchTab('leaderboard')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
-
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
-
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
-
             </nav>
-
         </div>
-
-
 
         <div class="space-y-4 pt-4 border-t border-slate-800">
-
             <nav class="space-y-1 text-sm font-medium">
-
                 <a href="#" onclick="switchTab('profile')" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-user w-5"></i> Profile</a>
-
                 <a href="#" onclick="logoutUser()" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-400 hover:text-white hover:bg-red-600/80 transition"><i class="fa-solid fa-right-from-bracket w-5"></i> Logout</a>
-
             </nav>
-
             <div class="bg-gradient-to-r from-indigo-900/40 to-purple-900/40 p-3 rounded-xl border border-indigo-500/20 text-center">
-
                 <p class="text-xs font-bold text-indigo-300">Play • Compete • Win</p>
-
             </div>
-
         </div>
-
     </aside>
 
-
-
     <!-- MAIN CONTENT AREA -->
-
     <div class="flex-1 flex flex-col min-w-0">
-
         <header id="appHeader" class="bg-[#111827] border-b border-slate-800 px-6 py-3.5 flex justify-between items-center gap-4 hidden">
-
             <div class="relative w-full max-w-md">
-
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
-
                 <input type="text" placeholder="Search games, tournaments, players..." class="w-full bg-[#1f2937] border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
-
             </div>
-
-
 
             <div class="flex items-center gap-4">
-
                 <button class="bg-[#1f2937] hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl relative transition"><i class="fa-regular fa-bell"></i></button>
-
                 <div class="flex items-center gap-3 pl-2 border-l border-slate-700">
-
                     <div class="relative">
-
                         <div id="userInitials" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-md">SR</div>
-
                         <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[#111827] rounded-full"></span>
-
                     </div>
-
                     <div class="hidden sm:block text-left">
-
                         <h4 id="headerName" class="text-sm font-bold text-white leading-tight">Shreyash</h4>
-
                         <p class="text-[11px] text-emerald-400 font-medium">Online</p>
-
                     </div>
-
                 </div>
-
             </div>
-
         </header>
 
-
-
         <main class="flex-1 p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-
             <div id="mainDashboardCols" class="col-span-1 lg:col-span-3 space-y-6 w-full">
 
-
-
                 <!-- AUTH SECTION -->
-
                 <section id="tab-auth" class="space-y-6 bg-[#111827] p-8 rounded-2xl border border-slate-800 max-w-xl mx-auto mt-6 shadow-2xl">
-
                     <div class="text-center space-y-2 mb-6">
-
                         <div class="inline-block bg-indigo-600 text-white font-black px-3 py-2 rounded-xl text-xl shadow-lg shadow-indigo-600/50 mb-2">Z</div>
-
                         <h2 class="text-2xl font-black text-white">Welcome to ZYROX eSports</h2>
-
                         <p class="text-xs text-slate-400">Register your account first, then login to access tournaments</p>
-
                     </div>
-
                     <div class="space-y-6">
-
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
-
                             <h3 class="text-sm font-bold mb-3 text-indigo-300"><i class="fa-solid fa-user-plus mr-1.5"></i> 1. Player Register (New User)</h3>
-
                             <form id="registerForm" class="space-y-3" autocomplete="off">
-
                                 <input type="text" id="regName" placeholder="Name / IGN" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                                 <input type="email" id="regEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                                 <input type="password" id="regPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                                 <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold p-2.5 rounded-xl text-sm transition shadow-lg shadow-indigo-600/30">Register Account</button>
-
                             </form>
-
                             <p id="regMsg" class="mt-2 text-xs text-indigo-400 text-center font-medium"></p>
-
                         </div>
-
                         
-
                         <div class="bg-[#1f2937]/50 p-5 rounded-xl border border-slate-700/50">
-
                             <h3 class="text-sm font-bold mb-3 text-emerald-300"><i class="fa-solid fa-right-to-bracket mr-1.5"></i> 2. Player Login (Existing User)</h3>
-
                             <form id="loginForm" class="space-y-3" autocomplete="off">
-
                                 <input type="email" id="loginEmail" placeholder="Email Address" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                                 <input type="password" id="loginPass" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                                 <div class="flex items-center justify-between pt-1">
-
                                     <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 font-bold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-emerald-600/30">Login to Dashboard</button>
-
                                     <button type="button" onclick="openForgotModal()" class="text-xs text-indigo-400 hover:underline font-semibold">Forgot Password?</button>
-
                                 </div>
-
                             </form>
-
                             <p id="loginMsg" class="mt-2 text-xs text-red-400 text-center"></p>
-
                         </div>
-
                     </div>
-
                 </section>
 
-
-
                 <!-- GAMES HUB & DASHBOARD -->
-
                 <div id="tab-games" class="space-y-6 hidden">
-
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
-
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
-
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center"><img src="images/banner1.jpg" class="w-full h-full object-cover"></div>
-
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner2.jpg" class="w-full h-full object-cover"></div>
-
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner3.jpg" class="w-full h-full object-cover"></div>
-
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner4.jpg" class="w-full h-full object-cover"></div>
-
                         </div>
-
                     </div>
-
-
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
                         <div onclick="switchTab('tournaments')" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
-
                             <div class="flex items-center gap-3">
-
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-trophy text-lg"></i></div>
-
                                 <div><h4 class="text-xs font-bold text-white">Join Tournament</h4><p class="text-[10px] text-slate-400">Compete & Win Prizes</p></div>
-
                             </div>
-
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
-
                         </div>
-
                         <div onclick="openWalletModal()" class="bg-[#111827] hover:bg-slate-800/80 p-4 rounded-2xl border border-slate-800 cursor-pointer transition flex items-center justify-between group">
-
                             <div class="flex items-center gap-3">
-
                                 <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl group-hover:bg-amber-600 group-hover:text-white transition"><i class="fa-solid fa-wallet text-lg"></i></div>
-
                                 <div><h4 class="text-xs font-bold text-white">Wallet Top-up</h4><p class="text-[10px] text-slate-400">Balance: ₹<span id="headerWallet">0</span></p></div>
-
                             </div>
-
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
-
                         </div>
-
                     </div>
-
-
 
                     <div class="space-y-4">
-
                         <div class="flex justify-between items-center">
-
                             <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Trending Tournaments</h3>
-
                             <button onclick="switchTab('tournaments')" class="text-xs text-indigo-400 hover:underline">View All</button>
-
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-4">
-
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
-
                                 <div>
-
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
-
                                         <img src="images/freefire.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-
                                         <span class="absolute top-2 left-2 bg-indigo-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Squad | 4v4</span>
-
                                     </div>
-
                                     <h4 class="font-bold text-sm text-white">Free Fire Max Cup</h4>
-
                                     <p class="text-[11px] text-slate-400 mt-0.5">🕒 Daily Battle • ₹30,000 Prize Pool</p>
-
                                 </div>
-
                                 <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
-
                             </div>
-
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
-
                                 <div>
-
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
-
                                         <span class="text-2xl font-extrabold text-amber-400">🎯 BGMI</span>
-
                                         <span class="absolute top-2 left-2 bg-amber-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Classic | Erangel</span>
-
                                     </div>
-
                                     <h4 class="font-bold text-sm text-white">BGMI Classic Battle</h4>
-
                                     <p class="text-[11px] text-slate-400 mt-0.5">🕒 Evening Clash • ₹50,000 Prize Pool</p>
-
                                 </div>
-
                                 <button onclick="selectGame('BGMI'); switchTab('tournaments')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
+                <!-- MATCH DASHBOARD (SUCCESSFUL REGISTRATION VIEW - MATCHING YOUR IMAGE) -->
+                <div id="tab-registered-match" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
+                    <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">✓</div>
+                            <div>
+                                <h3 class="text-sm font-bold text-emerald-400">REGISTRATION SUCCESSFUL!</h3>
+                                <p class="text-xs text-slate-300">You are officially registered for the tournament! Check your match details and don't forget to check-in.</p>
+                            </div>
+                        </div>
+                        <button onclick="switchTab('tournaments')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back to Tournaments</button>
+                    </div>
 
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- Match Header Card -->
+                            <div class="bg-[#1f2937] p-5 rounded-2xl border border-slate-700 flex justify-between items-center">
+                                <div>
+                                    <span class="bg-indigo-600 text-[10px] font-bold px-2.5 py-1 rounded-md">Solo</span>
+                                    <h3 id="regMatchTitle" class="text-lg font-bold text-amber-400 mt-1">Free Fire MAX Cup</h3>
+                                    <p class="text-xs text-slate-300 mt-1">Entry Fee: <span class="text-emerald-400 font-bold">₹50</span> | Prize Pool: <span class="text-amber-400 font-bold">₹1,400</span> | Start Date: <span class="text-indigo-300">18 Sep 2025, 10:00 AM</span></p>
+                                </div>
+                                <span class="bg-emerald-600/20 text-emerald-400 font-bold text-xs px-3 py-1.5 rounded-xl border border-emerald-500/30">CONFIRMED</span>
+                            </div>
+
+                            <!-- Match Timer & Info -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 text-center space-y-2">
+                                    <p class="text-xs text-slate-400 uppercase font-bold">Match Starts In</p>
+                                    <h3 class="text-2xl font-black text-amber-400 tracking-wider">00 : 42 : 18</h3>
+                                    <p class="text-[10px] text-slate-400">Please join the lobby before the check-in deadline.</p>
+                                </div>
+                                <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-1.5 text-xs">
+                                    <p class="font-bold text-indigo-300 mb-2">Match Information</p>
+                                    <div class="flex justify-between text-slate-300"><span>Tournament:</span> <span class="text-white font-semibold">Free Fire MAX Cup</span></div>
+                                    <div class="flex justify-between text-slate-300"><span>Mode:</span> <span class="text-white font-semibold">Solo</span></div>
+                                    <div class="flex justify-between text-slate-300"><span>Slot:</span> <span class="text-white font-semibold">Slot 04</span></div>
+                                    <div class="flex justify-between text-slate-300"><span>Check-in Time:</span> <span class="text-amber-400 font-semibold">09:45 AM</span></div>
+                                    <div class="flex justify-between text-slate-300"><span>Match Time:</span> <span class="text-emerald-400 font-semibold">10:00 AM</span></div>
+                                    <div class="flex justify-between text-slate-300"><span>Status:</span> <span class="text-emerald-400 font-semibold">● Confirmed</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Room Details & Check-In -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-3">
+                                    <p class="text-xs font-bold text-cyan-400"><i class="fa-solid fa-key mr-1"></i> Room Details</p>
+                                    <div class="bg-[#111827] p-3 rounded-xl border border-slate-800 text-xs">
+                                        <p class="text-slate-400 text-[10px]">ROOM ID</p>
+                                        <p id="dashRoomId" class="text-amber-300 font-bold mt-0.5">Will be revealed 10 mins before match</p>
+                                    </div>
+                                    <div class="bg-[#111827] p-3 rounded-xl border border-slate-800 text-xs">
+                                        <p class="text-slate-400 text-[10px]">PASSWORD</p>
+                                        <p id="dashRoomPass" class="text-amber-300 font-bold mt-0.5">Will be revealed 10 mins before match</p>
+                                    </div>
+                                </div>
+                                <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between">
+                                    <div>
+                                        <p class="text-xs font-bold text-emerald-400 mb-2"><i class="fa-solid fa-circle-check mr-1"></i> Check-In</p>
+                                        <button onclick="alert('Checked in successfully for the match!')" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-600/30">✓ CHECK-IN NOW</button>
+                                        <p class="text-[10px] text-slate-400 mt-2 text-center">You're all set! Check-in to confirm your participation.</p>
+                                    </div>
+                                    <div class="bg-[#111827] p-2 rounded-lg text-center text-[11px] text-slate-300 border border-slate-800">
+                                        Checked-in players: <span class="text-emerald-400 font-bold">47/50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tournament Timeline Sidebar -->
+                        <div class="space-y-4">
+                            <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-3">
+                                <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Tournament Timeline</h4>
+                                <div class="space-y-3 text-xs text-slate-300">
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-emerald-400 mt-0.5 font-bold">✔</span>
+                                        <div><p class="font-bold text-white">Registration Completed</p><p class="text-[10px] text-slate-400">18 Sep, 09:12 AM</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-emerald-400 mt-0.5 font-bold">✔</span>
+                                        <div><p class="font-bold text-white">Payment Verified</p><p class="text-[10px] text-slate-400">18 Sep, 09:14 AM</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-indigo-400 mt-0.5 font-bold">●</span>
+                                        <div><p class="font-bold text-indigo-300">Check-in Opens</p><p class="text-[10px] text-slate-400">18 Sep, 09:45 AM</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-slate-500 mt-0.5">○</span>
+                                        <div><p class="font-bold text-slate-400">Room Details Released</p><p class="text-[10px] text-slate-500">18 Sep, 09:50 AM</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-slate-500 mt-0.5">○</span>
+                                        <div><p class="font-bold text-slate-400">Match Starts</p><p class="text-[10px] text-slate-500">18 Sep, 10:00 AM</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-slate-500 mt-0.5">○</span>
+                                        <div><p class="font-bold text-slate-400">Results Published</p><p class="text-[10px] text-slate-500">18 Sep, 12:00 PM</p></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-2">
+                                <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Quick Actions</h4>
+                                <button onclick="alert('Entering lobby...')" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition shadow-md">ENTER MATCH</button>
+                                <button onclick="alert('Tournament Rules: Fair play mandatory, use anti-cheat.')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-xl text-xs transition">TOURNAMENT RULES</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- TOURNAMENTS VIEW -->
-
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
-
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-
                         <div>
-
                             <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Free Fire Tournament</h3>
-
                             <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
-
                         </div>
-
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
-
                     </div>
-
-
 
                     <!-- CHOOSE YOUR BATTLE CARDS -->
-
                     <div class="space-y-3">
-
                         <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
-
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                            <!-- SOLO MATCH -->
-
                             <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
-
                                 <div>
-
-                                    <div class="flex justify-between items-center mb-2">
-
-                                        <span class="font-black text-white text-sm">🏆 SOLO MATCH</span>
-
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹50</span>
-
-                                    </div>
-
-                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-
-                                        <li>🥇 <span class="text-white font-semibold">1st Prize:</span> ₹650</li>
-
-                                        <li>🥈 <span class="text-white font-semibold">2nd Prize:</span> ₹450</li>
-
-                                        <li>🥉 <span class="text-white font-semibold">3rd Prize:</span> ₹300</li>
-
-                                    </ul>
-
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">🏆 SOLO MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹50</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🥇 1st Prize: ₹650</li><li>🥈 2nd Prize: ₹450</li><li>🥉 3rd Prize: ₹300</li></ul>
                                 </div>
-
                                 <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
-
                             </div>
-
-
-
-                            <!-- DUO MATCH -->
-
                             <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-purple-500 transition shadow-lg">
-
                                 <div>
-
-                                    <div class="flex justify-between items-center mb-2">
-
-                                        <span class="font-black text-white text-sm">👥 DUO MATCH</span>
-
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹75</span>
-
-                                    </div>
-
-                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-
-                                        <li>🥇 <span class="text-white font-semibold">1st Prize:</span> ₹750</li>
-
-                                    </ul>
-
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">👥 DUO MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹75</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🥇 1st Prize: ₹750</li></ul>
                                 </div>
-
                                 <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
-
                             </div>
-
-
-
-                            <!-- SQUAD MATCH -->
-
                             <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-amber-500 transition shadow-lg">
-
                                 <div>
-
-                                    <div class="flex justify-between items-center mb-2">
-
-                                        <span class="font-black text-white text-sm">👑 SQUAD MATCH</span>
-
-                                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹180</span>
-
-                                    </div>
-
-                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3">
-
-                                        <li>🏆 <span class="text-amber-300 font-semibold">1st Prize:</span> ₹2,000 per winning team</li>
-
-                                    </ul>
-
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">👑 SQUAD MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹180</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🏆 1st Prize: ₹2,000 per team</li></ul>
                                 </div>
-
                                 <button onclick="openRewardModal('SQUAD')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     
-
-                    <!-- Dynamic Tournaments List from DB -->
-
                     <div id="tournamentList" class="space-y-3 pt-4">
-
                         <p class="text-slate-400 text-sm">Loading tournaments...</p>
-
                     </div>
-
-
-
-                    <!-- Free Fire Daily Slots Schedule Section -->
-
-                    <div class="mt-8 pt-6 border-t border-slate-800 space-y-4">
-
-                        <div class="flex items-center gap-2">
-
-                            <span class="text-xl">🎮</span>
-
-                            <h3 class="text-base font-extrabold text-white">ZYROX eSports — Free Fire Daily Slots</h3>
-
-                        </div>
-
-                        
-
-                        <div class="overflow-x-auto rounded-xl border border-slate-800">
-
-                            <table class="w-full text-left text-xs text-slate-300">
-
-                                <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]">
-
-                                    <tr>
-
-                                        <th class="p-3">Slot</th>
-
-                                        <th class="p-3">Timing</th>
-
-                                        <th class="p-3">Activity</th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody class="divide-y divide-slate-800 bg-[#111827]">
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-emerald-400">🟢 Slot 01</td>
-
-                                        <td class="p-3 text-slate-300">10:00 AM – 11:00 AM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 1</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-cyan-400">🔵 Slot 02</td>
-
-                                        <td class="p-3 text-slate-300">11:15 AM – 12:15 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 2</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-purple-400">🟣 Slot 03</td>
-
-                                        <td class="p-3 text-slate-300">12:30 PM – 1:30 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 3</td>
-
-                                    </tr>
-
-                                    <tr class="bg-slate-900/50">
-
-                                        <td class="p-3 font-bold text-amber-400">☕ Break</td>
-
-                                        <td class="p-3 text-slate-300">1:30 PM – 2:00 PM</td>
-
-                                        <td class="p-3 font-semibold text-slate-400">Break</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-red-400">🔴 Slot 04</td>
-
-                                        <td class="p-3 text-slate-300">2:00 PM – 3:00 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 4</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-emerald-400">🟢 Slot 05</td>
-
-                                        <td class="p-3 text-slate-300">3:15 PM – 4:15 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 5</td>
-
-                                    </tr>
-
-                                    <tr class="bg-slate-900/50">
-
-                                        <td class="p-3 font-bold text-amber-400">☕ Break</td>
-
-                                        <td class="p-3 text-slate-300">4:15 PM – 4:45 PM</td>
-
-                                        <td class="p-3 font-semibold text-slate-400">Break</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-cyan-400">🔵 Slot 06</td>
-
-                                        <td class="p-3 text-slate-300">4:45 PM – 5:45 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 6</td>
-
-                                    </tr>
-
-                                    <tr>
-
-                                        <td class="p-3 font-bold text-purple-400">🟣 Slot 07</td>
-
-                                        <td class="p-3 text-slate-300">6:00 PM – 7:00 PM</td>
-
-                                        <td class="p-3 font-semibold text-white">Match 7</td>
-
-                                    </tr>
-
-                                    <tr class="bg-indigo-950/30">
-
-                                        <td class="p-3 font-bold text-amber-300">🏆 Final Slot</td>
-
-                                        <td class="p-3 text-slate-300">7:15 PM – 8:00 PM</td>
-
-                                        <td class="p-3 font-bold text-amber-400">Final / Special Match</td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                    </div>
-
                 </div>
-
-
 
                 <!-- LEADERBOARD VIEW -->
-
                 <div id="tab-leaderboard" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-3xl">
-
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-
                         <div>
-
                             <h2 class="text-xl font-bold text-amber-400"><i class="fa-solid fa-medal mr-2"></i> ZYROX Global Leaderboard</h2>
-
                             <p class="text-xs text-slate-400">Top eSports players ranked by performance & wins.</p>
-
                         </div>
-
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
-
                     </div>
-
-                    
-
                     <div class="overflow-x-auto rounded-xl border border-slate-800">
-
                         <table class="w-full text-left text-xs text-slate-300">
-
-                            <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]">
-
-                                <tr>
-
-                                    <th class="p-3">Rank</th>
-
-                                    <th class="p-3">Player / ZRX ID</th>
-
-                                    <th class="p-3">Wins</th>
-
-                                    <th class="p-3">Win Rate</th>
-
-                                    <th class="p-3">Badge</th>
-
-                                </tr>
-
-                            </thead>
-
+                            <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]"><tr><th class="p-3">Rank</th><th class="p-3">Player / ZRX ID</th><th class="p-3">Wins</th><th class="p-3">Win Rate</th><th class="p-3">Badge</th></tr></thead>
                             <tbody class="divide-y divide-slate-800 bg-[#111827]">
-
-                                <tr class="hover:bg-slate-800/40 transition">
-
-                                    <td class="p-3 font-extrabold text-amber-400">🥇 #1</td>
-
-                                    <td class="p-3 font-bold text-white">AlphaWolf <span class="text-[10px] text-slate-400 block">ZRX-1001</span></td>
-
-                                    <td class="p-3 text-emerald-400 font-bold">28</td>
-
-                                    <td class="p-3 text-indigo-300 font-bold">84%</td>
-
-                                    <td class="p-3"><span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-bold">Legendary</span></td>
-
-                                </tr>
-
-                                <tr class="hover:bg-slate-800/40 transition">
-
-                                    <td class="p-3 font-extrabold text-slate-300">🥈 #2</td>
-
-                                    <td class="p-3 font-bold text-white">Vortex_FF <span class="text-[10px] text-slate-400 block">ZRX-1042</span></td>
-
-                                    <td class="p-3 text-emerald-400 font-bold">21</td>
-
-                                    <td class="p-3 text-indigo-300 font-bold">76%</td>
-
-                                    <td class="p-3"><span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded font-bold">Master</span></td>
-
-                                </tr>
-
-                                <tr class="hover:bg-slate-800/40 transition">
-
-                                    <td class="p-3 font-extrabold text-amber-600">🥉 #3</td>
-
-                                    <td class="p-3 font-bold text-white">SniperKing <span class="text-[10px] text-slate-400 block">ZRX-1105</span></td>
-
-                                    <td class="p-3 text-emerald-400 font-bold">17</td>
-
-                                    <td class="p-3 text-indigo-300 font-bold">68%</td>
-
-                                    <td class="p-3"><span class="bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded font-bold">Diamond</span></td>
-
-                                </tr>
-
-                                <tr class="hover:bg-slate-800/40 transition">
-
-                                    <td class="p-3 font-bold text-slate-400">#4</td>
-
-                                    <td class="p-3 font-bold text-white">Shadow_OP <span class="text-[10px] text-slate-400 block">ZRX-1188</span></td>
-
-                                    <td class="p-3 text-emerald-400 font-bold">12</td>
-
-                                    <td class="p-3 text-indigo-300 font-bold">59%</td>
-
-                                    <td class="p-3"><span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-bold">Elite</span></td>
-
-                                </tr>
-
+                                <tr class="hover:bg-slate-800/40 transition"><td class="p-3 font-extrabold text-amber-400">🥇 #1</td><td class="p-3 font-bold text-white">AlphaWolf <span class="text-[10px] text-slate-400 block">ZRX-1001</span></td><td class="p-3 text-emerald-400 font-bold">28</td><td class="p-3 text-indigo-300 font-bold">84%</td><td class="p-3"><span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-bold">Legendary</span></td></tr>
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
 
-
-
-                <!-- PROFILE VIEW (Enhanced with Social & Game Accounts Details) -->
-
+                <!-- PROFILE VIEW -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
-
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-
                         <div>
-
                             <h2 class="text-xl font-bold text-indigo-300">My Profile & Gaming Accounts</h2>
-
                             <p class="text-xs text-slate-400">Manage your player credentials and social links.</p>
-
                         </div>
-
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
-
                     </div>
-
-
-
-                    <!-- Profile Basic Card -->
-
                     <div class="grid grid-cols-2 gap-4 bg-[#1f2937] p-4 rounded-xl border border-slate-700 text-xs">
-
-                        <div>
-
-                            <p class="text-slate-400">ZRX ID</p>
-
-                            <p id="profileZrx" class="text-amber-400 font-bold text-sm mt-0.5">-</p>
-
-                        </div>
-
-                        <div>
-
-                            <p class="text-slate-400">Wallet Balance</p>
-
-                            <p id="profileWalletDisplay" class="text-emerald-400 font-bold text-sm mt-0.5">₹0</p>
-
-                        </div>
-
+                        <div><p class="text-slate-400">ZRX ID</p><p id="profileZrx" class="text-amber-400 font-bold text-sm mt-0.5">-</p></div>
+                        <div><p class="text-slate-400">Wallet Balance</p><p id="profileWalletDisplay" class="text-emerald-400 font-bold text-sm mt-0.5">₹0</p></div>
                     </div>
-
-
-
-                    <!-- Hidden element to prevent null error -->
-
                     <span id="profileNameDisplay" class="hidden"></span>
-
-
-
-                    <!-- Gaming & Social Accounts Form -->
-
                     <div class="bg-[#1f2937] p-5 rounded-xl border border-slate-700 space-y-4">
-
                         <h3 class="text-sm font-bold text-indigo-300"><i class="fa-solid fa-gamepad mr-1"></i> In-Game & Social Accounts</h3>
-
                         <form id="profileDetailsForm" onsubmit="saveProfileDetails(event)" class="space-y-3 text-xs">
-
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1">Free Fire UID</label>
-
-                                    <input type="text" id="ffUidInput" placeholder="e.g., 482910293" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
-
-                                </div>
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1">In-Game Name (IGN)</label>
-
-                                    <input type="text" id="ffIgnInput" placeholder="e.g., ZRX_Alpha" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
-
-                                </div>
-
+                                <div><label class="text-slate-400 text-[10px] block mb-1">Free Fire UID</label><input type="text" id="ffUidInput" placeholder="e.g., 482910293" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
+                                <div><label class="text-slate-400 text-[10px] block mb-1">In-Game Name (IGN)</label><input type="text" id="ffIgnInput" placeholder="e.g., ZRX_Alpha" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
                             </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-instagram text-pink-400 mr-1"></i> Instagram ID</label>
-
-                                    <input type="text" id="instaInput" placeholder="@username" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
-
-                                </div>
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-youtube text-red-400 mr-1"></i> YouTube Channel</label>
-
-                                    <input type="text" id="ytInput" placeholder="Channel Link/Name" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
-
-                                </div>
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1"><i class="fab fa-discord text-indigo-400 mr-1"></i> Discord Tag</label>
-
-                                    <input type="text" id="discordInput" placeholder="username#0000" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
-
-                                </div>
-
-                            </div>
-
                             <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold p-2.5 rounded-xl text-white transition mt-2">Save Account Details</button>
-
                         </form>
-
                     </div>
-
-
-
-                    <h3 class="text-md font-bold text-amber-400 mt-4">My Match History</h3>
-
-                    <div id="matchHistoryList" class="space-y-2"><p class="text-slate-400 text-xs">No matches joined yet.</p></div>
-
                 </div>
 
-
-
-                <!-- ADMIN VIEW (Professional Full Management & Interactive Cards) -->
-
+                <!-- ADMIN VIEW -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
-
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
-
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
-
                         <form id="adminLoginForm" class="space-y-3">
-
                             <input type="email" id="adminEmailInput" placeholder="shreyashrangari08@gmail.com" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                             <input type="password" id="adminPassInput" placeholder="Password" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-sm text-white">
-
                             <button type="submit" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2.5 rounded-xl text-sm">Login Admin</button>
-
                         </form>
-
                     </div>
-
-
 
                     <div id="adminDashboardContent" class="space-y-6 hidden">
-
                         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-
-                            <div>
-
-                                <h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2>
-
-                                <p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p>
-
-                            </div>
-
+                            <div><h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2><p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p></div>
                             <div class="flex gap-2">
-
                                 <button onclick="fetchRegisteredUsers()" class="bg-indigo-600 hover:bg-indigo-500 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-users mr-1"></i> Users Database</button>
-
                                 <button onclick="lockAdminPanel()" class="bg-red-700 hover:bg-red-600 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-right-from-bracket mr-1"></i> Logout</button>
-
                             </div>
-
                         </div>
-
-
-
-                        <!-- Users Database Box -->
-
                         <div id="adminUsersBox" class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 hidden">
-
                             <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users & Wallet Management</h3>
-
                             <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
-
                         </div>
-
-
-
-                        <!-- INTERACTIVE PLATFORM STATUS CARDS -->
-
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                            <!-- Clickable Platform Status -->
-
                             <div onclick="checkServerHealth()" class="bg-[#1f2937] hover:border-emerald-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
-
-                                <div>
-
-                                    <p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p>
-
-                                    <h4 id="serverStatusTxt" class="text-base font-bold text-emerald-400 mt-0.5">Online & Active (Click to Ping)</h4>
-
-                                </div>
-
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p><h4 id="serverStatusTxt" class="text-base font-bold text-emerald-400 mt-0.5">Online & Active</h4></div>
                                 <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-server"></i></div>
-
                             </div>
-
-                            <!-- Master Admin Card -->
-
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-
-                                <div>
-
-                                    <p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p>
-
-                                    <h4 class="text-base font-bold text-indigo-400 mt-0.5">Shreyash</h4>
-
-                                </div>
-
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p><h4 class="text-base font-bold text-indigo-400 mt-0.5">Shreyash</h4></div>
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
-
                             </div>
-
-                            <!-- Clickable Active Mode Toggle -->
-
                             <div onclick="toggleActiveMode()" class="bg-[#1f2937] hover:border-amber-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
-
-                                <div>
-
-                                    <p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p>
-
-                                    <h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4>
-
-                                </div>
-
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p><h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4></div>
                                 <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
-
                             </div>
-
                         </div>
-
-
-
-                        <!-- LIVE TOURNAMENTS & ROOM CONTROL DISPLAY -->
-
                         <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-3">
-
-                            <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-satellite-dish mr-1"></i> Live Active Tournaments & Room Controls Display</h3>
-
-                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs">
-
-                                <p class="text-slate-400">Loading active tournament controls...</p>
-
-                            </div>
-
+                            <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-satellite-dish mr-1"></i> Live Active Tournaments & Room Controls</h3>
+                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs"><p class="text-slate-400">Loading active tournament controls...</p></div>
                         </div>
-
-
-
                         <div class="grid md:grid-cols-2 gap-4">
-
-                            <!-- Create Tournament Box -->
-
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700">
-
-                                <h3 class="text-sm font-bold mb-3 text-emerald-400"><i class="fa-solid fa-circle-plus mr-1"></i> Create Tournament</h3>
-
+                                <h3 class="text-sm font-bold mb-3 text-emerald-400">Create Tournament</h3>
                                 <form id="tournamentForm" class="space-y-2.5 text-xs">
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Game Category</label>
-
-                                        <select id="game_category" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
-
-                                            <option value="Free Fire MAX">Free Fire MAX</option>
-
-                                            <option value="BGMI">BGMI</option>
-
-                                            <option value="COD Mobile">COD Mobile</option>
-
-                                        </select>
-
-                                    </div>
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Match Format</label>
-
-                                        <select id="match_format" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
-
-                                            <option value="Solo">Solo</option>
-
-                                            <option value="Duo">Duo</option>
-
-                                            <option value="Squad">Squad</option>
-
-                                        </select>
-
-                                    </div>
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Tournament Title</label>
-
-                                        <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="e.g., Free Fire Daily Solo Cup">
-
-                                    </div>
-
+                                    <select id="game_category" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white"><option value="Free Fire MAX">Free Fire MAX</option><option value="BGMI">BGMI</option></select>
+                                    <select id="match_format" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white"><option value="Solo">Solo</option><option value="Duo">Duo</option><option value="Squad">Squad</option></select>
+                                    <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Tournament Title">
                                     <div class="grid grid-cols-2 gap-2">
-
-                                        <div>
-
-                                            <label class="text-slate-400 text-[10px] block mb-1">Entry Fee (₹)</label>
-
-                                            <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Fee">
-
-                                        </div>
-
-                                        <div>
-
-                                            <label class="text-slate-400 text-[10px] block mb-1">Prize Pool (₹)</label>
-
-                                            <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Prize">
-
-                                        </div>
-
+                                        <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                        <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
                                     </div>
-
-                                    <div class="grid grid-cols-2 gap-2">
-
-                                        <div>
-
-                                            <label class="text-slate-400 text-[10px] block mb-1">Total Slots</label>
-
-                                            <input type="number" id="slots" value="48" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Slots">
-
-                                        </div>
-
-                                        <div>
-
-                                            <label class="text-slate-400 text-[10px] block mb-1">Start Time</label>
-
-                                            <input type="text" id="start_time" value="Today, 06:00 PM" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Time">
-
-                                        </div>
-
-                                    </div>
-
-                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2.5 rounded-lg text-white transition mt-2"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Publish Match</button>
-
+                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2.5 rounded-lg text-white">Publish Match</button>
                                 </form>
-
                             </div>
-
-
-
-                            <!-- Match & Room Controls Box -->
-
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-4">
-
-                                <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-key mr-1"></i> Match & Room Controls</h3>
-
+                                <h3 class="text-sm font-bold text-cyan-400">Match & Room Controls</h3>
                                 <form id="roomForm" class="space-y-2.5 text-xs">
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Tournament ID</label>
-
-                                        <input type="number" id="tourney_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Tournament ID">
-
-                                    </div>
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Custom Room ID</label>
-
-                                        <input type="text" id="room_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Room ID">
-
-                                    </div>
-
-                                    <div>
-
-                                        <label class="text-slate-400 text-[10px] block mb-1">Custom Room Password</label>
-
-                                        <input type="text" id="room_password" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Enter Password">
-
-                                    </div>
-
-                                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2.5 rounded-lg text-white transition"><i class="fa-solid fa-paper-plane mr-1"></i> Release Room Key</button>
-
+                                    <input type="number" id="tourney_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Tournament ID">
+                                    <input type="text" id="room_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Room ID">
+                                    <input type="text" id="room_password" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Password">
+                                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2.5 rounded-lg text-white">Release Room Key</button>
                                 </form>
-
-                                <hr class="border-slate-700 my-2">
-
-                                <div>
-
-                                    <label class="text-slate-400 text-[10px] block mb-1">Cancel Match & Refund Entry Fees</label>
-
-                                    <input type="number" id="cancelTourneyId" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-xs text-white mb-2" placeholder="Tournament ID to Cancel">
-
-                                    <button onclick="cancelMatchAndRefund()" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2 rounded-lg text-xs text-white transition"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Cancel Match & Auto-Refund</button>
-
-                                </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
-
 
             <!-- RIGHT SIDEBAR -->
-
             <div id="rightSidebar" class="space-y-6 hidden">
-
                 <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
-
                     <div class="flex items-center gap-3">
-
                         <div id="rightAvatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-lg text-white shadow-lg">SR</div>
-
                         <div>
-
                             <h4 id="rightProfileName" class="font-bold text-white text-sm">Player</h4>
-
                             <p class="text-xs text-indigo-400 font-semibold" id="userLevelTxt">Level 1</p>
-
                         </div>
-
                     </div>
-
-                    <div class="space-y-1.5">
-
-                        <div class="flex justify-between text-[11px] text-slate-400">
-
-                            <span>XP Progress</span>
-
-                            <span class="text-indigo-400 font-bold" id="xpTxt">0 / 500 XP</span>
-
-                        </div>
-
-                        <div class="w-full bg-[#1f2937] h-2 rounded-full overflow-hidden">
-
-                            <div id="xpBarFill" class="bg-indigo-600 h-full w-[0%] rounded-full transition-all duration-500"></div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Matches</p><p id="statMatches" class="text-base font-extrabold text-white">0</p></div>
-
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Wins</p><p id="statWins" class="text-base font-extrabold text-emerald-400">0</p></div>
-
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Win Rate</p><p id="statWinRate" class="text-base font-extrabold text-indigo-400">0%</p></div>
-
-                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-800 text-center"><p class="text-[10px] text-slate-400 uppercase font-semibold">Rank</p><p id="statRank" class="text-base font-extrabold text-amber-400">Rookie</p></div>
-
-                    </div>
-
                 </div>
-
-
-
-                <div class="relative rounded-2xl overflow-hidden p-5 border border-indigo-500/30 bg-gradient-to-br from-indigo-950 via-[#111827] to-purple-950 shadow-xl space-y-3">
-
-                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-600/20 rounded-full blur-2xl"></div>
-
-                    <h4 class="font-black text-lg text-white">BECOME A CHAMPION</h4>
-
-                    <p class="text-xs text-slate-300">Join Tournaments, Win Prizes, Be a Part of the ZYROX Community!</p>
-
-                    <button onclick="switchTab('tournaments')" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-indigo-600/40">Get Started →</button>
-
-                </div>
-
             </div>
-
         </main>
-
     </div>
-
-
-
-    <!-- REWARD MODAL -->
-
-    <div id="rewardModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
-
-        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
-
-            <h3 id="rewardModalTitle" class="text-lg font-bold text-amber-400">Battle Rewards</h3>
-
-            <div id="rewardModalContent" class="text-xs text-slate-300 space-y-2 text-left bg-[#1f2937] p-4 rounded-xl border border-slate-700"></div>
-
-            <button onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Close</button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- FORGOT PASSWORD MODAL -->
-
-    <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
-
-        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
-
-            <h3 class="text-lg font-bold text-indigo-400 mb-2">Reset Password</h3>
-
-            <p class="text-xs text-slate-400 mb-4">Enter your registered email and new password.</p>
-
-            <input type="email" id="forgotEmail" placeholder="Registered Email" class="w-full p-2.5 mb-3 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
-
-            <input type="password" id="forgotNewPass" placeholder="New Password" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
-
-            <div class="flex gap-2">
-
-                <button onclick="submitForgotPassword()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition">Update Password</button>
-
-                <button onclick="closeForgotModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
 
     <!-- WALLET MODAL -->
-
     <div id="walletModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
-
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
-
             <h3 class="text-lg font-bold text-amber-400 mb-1">Recharge Wallet</h3>
-
             <p class="text-xs text-slate-400 mb-4">Pay to UPI: <span class="text-cyan-300 font-bold">9699343711@ptaxis</span></p>
-
             <div class="bg-white p-3 rounded-xl inline-block mb-3 shadow"><img id="walletQrImg" src="" class="w-32 h-32 mx-auto"></div>
-
             <input type="number" id="topupAmount" oninput="updateWalletQr()" value="100" class="w-full p-2.5 mb-2 rounded-xl bg-[#1f2937] border border-slate-700 text-sm font-bold text-amber-300 text-center">
-
-            <input type="text" id="topupUtr" placeholder="12-Digit UTR Number" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-center">
-
             <div class="flex gap-2">
-
                 <button onclick="submitWalletTopup()" class="flex-1 bg-amber-600 hover:bg-amber-500 font-bold py-2.5 rounded-xl text-xs transition">Verify & Add</button>
-
                 <button onclick="closeWalletModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
-
             </div>
-
         </div>
-
     </div>
 
-
-
-    <!-- PAYMENT MODAL -->
-
-    <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
-
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
-
-            <h3 class="text-lg font-bold text-emerald-400 mb-2">Join Match</h3>
-
-            <input type="text" id="modalFee" disabled class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-amber-300 font-bold text-center">
-
+            <h3 class="text-lg font-bold text-indigo-400 mb-2">Reset Password</h3>
+            <input type="email" id="forgotEmail" placeholder="Registered Email" class="w-full p-2.5 mb-3 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
+            <input type="password" id="forgotNewPass" placeholder="New Password" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
             <div class="flex gap-2">
-
-                <button onclick="confirmWalletJoin()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 font-bold py-2.5 rounded-xl text-xs transition">Confirm Join</button>
-
-                <button onclick="closePaymentModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
-
+                <button onclick="submitForgotPassword()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition">Update</button>
+                <button onclick="closeForgotModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
             </div>
-
         </div>
-
     </div>
-
-
 
     <script>
-
         const API_URL = "https://zyrox-esports.onrender.com";
-
         let loggedInUser = JSON.parse(localStorage.getItem("zyrox_user")) || null;
-
         let selectedTourneyId = null;
-
         let activeGameCategory = "Free Fire MAX";
 
-
-
-        let currentSlideIdx = 0;
-
-        setInterval(() => {
-
-            const slides = document.querySelectorAll('.slide-item');
-
-            if(slides.length === 0) return;
-
-            slides[currentSlideIdx].classList.remove('opacity-100');
-
-            slides[currentSlideIdx].classList.add('opacity-0');
-
-            currentSlideIdx = (currentSlideIdx + 1) % slides.length;
-
-            slides[currentSlideIdx].classList.remove('opacity-0');
-
-            slides[currentSlideIdx].classList.add('opacity-100');
-
-        }, 3500);
-
-
-
         window.onload = () => {
-
             if (loggedInUser) { 
-
                 showProfile(loggedInUser); 
-
                 showDashboardUI();
-
                 switchTab('games'); 
-
             } else { 
-
                 hideDashboardUI();
-
                 switchTab('auth'); 
-
             }
-
         };
 
-
-
         function showDashboardUI() {
-
             document.getElementById("appSidebar").classList.remove("hidden");
-
             document.getElementById("appHeader").classList.remove("hidden");
-
             document.getElementById("rightSidebar").classList.remove("hidden");
-
             document.getElementById("mainDashboardCols").classList.remove("col-span-1", "lg:col-span-3");
-
             document.getElementById("mainDashboardCols").classList.add("lg:col-span-2");
-
         }
-
-
 
         function hideDashboardUI() {
-
             document.getElementById("appSidebar").classList.add("hidden");
-
             document.getElementById("appHeader").classList.add("hidden");
-
             document.getElementById("rightSidebar").classList.add("hidden");
-
             document.getElementById("mainDashboardCols").classList.remove("lg:col-span-2");
-
             document.getElementById("mainDashboardCols").classList.add("col-span-1", "lg:col-span-3");
-
         }
-
-
 
         function switchTab(tabName) {
-
             if(tabName === 'admin' && (!loggedInUser || loggedInUser.email !== "shreyashrangari08@gmail.com")) {
-
                 alert("Access Denied! Master Admin only.");
-
                 return;
-
             }
-
-            ['auth', 'games', 'tournaments', 'profile', 'leaderboard', 'admin'].forEach(t => { 
-
-                const el = document.getElementById(`tab-${t}`);
-
+            ['auth', 'games', 'tournaments', 'tab-registered-match', 'profile', 'leaderboard', 'admin'].forEach(t => { 
+                const el = document.getElementById(t) || document.getElementById(`tab-${t}`);
                 if(el) el.classList.add('hidden'); 
-
             });
-
-            const target = document.getElementById(`tab-${tabName}`);
-
+            const target = document.getElementById(`tab-${tabName}`) || document.getElementById(tabName);
             if(target) target.classList.remove('hidden');
-
             if(tabName === 'tournaments') loadTournamentsForGame(activeGameCategory);
-
-            if(tabName === 'profile') loadProfileDetails();
-
             if(tabName === 'admin') loadAdminActiveTournaments();
-
+            if(tabName === 'profile') loadProfileDetails();
         }
-
-
 
         function showProfile(user) {
-
             document.getElementById("headerName").innerText = user.name || "Player";
-
             document.getElementById("rightProfileName").innerText = user.name || "Player";
-
             document.getElementById("sidebarWallet").innerText = `₹${user.wallet}`;
-
             document.getElementById("headerWallet").innerText = user.wallet;
-
             document.getElementById("profileWalletDisplay").innerText = `₹${user.wallet}`;
-
             document.getElementById("profileZrx").innerText = user.zrx_id;
 
-
-
             if(user.email === "shreyashrangari08@gmail.com") {
-
                 document.getElementById("navAdminTab").classList.remove("hidden");
-
             } else {
-
                 document.getElementById("navAdminTab").classList.add("hidden");
-
             }
-
         }
-
-
 
         function logoutUser() {
-
             localStorage.removeItem("zyrox_user");
-
             loggedInUser = null;
-
             hideDashboardUI();
-
             switchTab('auth');
-
         }
-
-
 
         function loadProfileDetails() {
-
             if(!loggedInUser) return;
-
             const savedData = JSON.parse(localStorage.getItem(`profile_extras_${loggedInUser.id}`)) || {};
-
             document.getElementById("ffUidInput").value = savedData.ffUid || "";
-
             document.getElementById("ffIgnInput").value = savedData.ffIgn || "";
-
-            document.getElementById("instaInput").value = savedData.insta || "";
-
-            document.getElementById("ytInput").value = savedData.yt || "";
-
-            document.getElementById("discordInput").value = savedData.discord || "";
-
         }
-
-
 
         function saveProfileDetails(e) {
-
             e.preventDefault();
-
             if(!loggedInUser) return;
-
             const extras = {
-
                 ffUid: document.getElementById("ffUidInput").value.trim(),
-
-                ffIgn: document.getElementById("ffIgnInput").value.trim(),
-
-                insta: document.getElementById("instaInput").value.trim(),
-
-                yt: document.getElementById("ytInput").value.trim(),
-
-                discord: document.getElementById("discordInput").value.trim()
-
+                ffIgn: document.getElementById("ffIgnInput").value.trim()
             };
-
             localStorage.setItem(`profile_extras_${loggedInUser.id}`, JSON.stringify(extras));
-
-            alert("Gaming & Social account details saved successfully!");
-
+            alert("Gaming account details saved successfully!");
         }
-
-
-
-        // INTERACTIVE ADMIN FUNCTIONS
 
         async function checkServerHealth() {
-
             try {
-
                 const res = await fetch(`${API_URL}/tournaments/`);
-
                 if(res.ok) {
-
                     document.getElementById("serverStatusTxt").innerText = "Online & Responsive (Ping OK)";
-
                     alert("Server Health Check Passed! Backend is fully active.");
-
-                } else {
-
-                    alert("Server responded with an issue.");
-
                 }
-
-            } catch(e) {
-
-                alert("Server is currently sleeping or offline.");
-
-            }
-
+            } catch(e) { alert("Server offline."); }
         }
-
-
 
         let modeToggle = true;
-
         function toggleActiveMode() {
-
             modeToggle = !modeToggle;
-
-            const modeTxt = modeToggle ? "Free Fire Tournaments" : "BGMI & COD Tournaments";
-
+            const modeTxt = modeToggle ? "Free Fire Tournaments" : "BGMI Tournaments";
             document.getElementById("activeModeTxt").innerText = modeTxt;
-
-            alert(`Active tournament mode switched to: ${modeTxt}`);
-
         }
-
-
 
         async function loadAdminActiveTournaments() {
-
             try {
-
                 const res = await fetch(`${API_URL}/tournaments/`);
-
                 const tournaments = await res.json();
-
                 const container = document.getElementById("adminActiveTournamentsList");
-
                 container.innerHTML = "";
-
-                if(tournaments.length === 0) {
-
-                    container.innerHTML = `<p class="text-slate-400">No tournaments created yet.</p>`;
-
-                    return;
-
-                }
-
                 tournaments.forEach(t => {
-
                     container.innerHTML += `
-
                         <div class="bg-[#111827] p-2.5 rounded-lg flex justify-between items-center border border-slate-800">
-
-                            <div>
-
-                                <span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title} (${t.match_format})
-
-                                <p class="text-[10px] text-slate-400">Status: <span class="text-emerald-400">${t.status || 'Active'}</span> | Prize: ₹${t.prize_pool}</p>
-
-                            </div>
-
-                            <button onclick="document.getElementById('tourney_id').value = ${t.id}; alert('Selected Tournament ID ${t.id} for Room Control!')" class="bg-indigo-600 hover:bg-indigo-500 px-2.5 py-1 rounded text-white font-bold">Select for Room</button>
-
+                            <div><span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title}</div>
+                            <button onclick="document.getElementById('tourney_id').value = ${t.id}; alert('Selected ID ${t.id}')" class="bg-indigo-600 px-2.5 py-1 rounded text-white font-bold">Select</button>
                         </div>
-
                     `;
-
                 });
-
-            } catch(e) {
-
-                document.getElementById("adminActiveTournamentsList").innerHTML = `<p class="text-red-400">Failed to load active tournaments.</p>`;
-
-            }
-
+            } catch(e) {}
         }
-
-
 
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
-
             e.preventDefault();
-
-            const data = { 
-
-                name: document.getElementById("regName").value, 
-
-                email: document.getElementById("regEmail").value, 
-
-                password: document.getElementById("regPass").value 
-
-            };
-
+            const data = { name: document.getElementById("regName").value, email: document.getElementById("regEmail").value, password: document.getElementById("regPass").value };
             try {
-
-                const res = await fetch(`${API_URL}/users/`, { 
-
-                    method: "POST", 
-
-                    headers: { "Content-Type": "application/json" }, 
-
-                    body: JSON.stringify(data) 
-
-                });
-
+                const res = await fetch(`${API_URL}/users/`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
                 const result = await res.json();
-
-                if(res.ok) { 
-
-                    document.getElementById("regMsg").innerText = "Registered successfully! Now login below."; 
-
-                    document.getElementById("registerForm").reset(); 
-
-                } else { 
-
-                    alert(result.detail || "Registration failed"); 
-
-                }
-
-            } catch(err) {
-
-                alert("Network error during registration.");
-
-            }
-
+                if(res.ok) { document.getElementById("regMsg").innerText = "Registered successfully! Now login below."; document.getElementById("registerForm").reset(); }
+                else { alert(result.detail || "Registration failed"); }
+            } catch(err) { alert("Network error."); }
         });
-
-
 
         document.getElementById("loginForm").addEventListener("submit", async (e) => {
-
             e.preventDefault();
-
             const emailVal = document.getElementById("loginEmail").value.trim();
-
             const passVal = document.getElementById("loginPass").value.trim();
-
             try {
-
                 const res = await fetch(`${API_URL}/users/login`, {
-
-                    method: "POST", 
-
-                    headers: { "Content-Type": "application/json" },
-
-                    body: JSON.stringify({ email: emailVal, password: passVal })
-
-                });
-
-                const result = await res.json();
-
-                if(res.ok) {
-
-                    loggedInUser = { id: result.user_id, zrx_id: result.zrx_id, wallet: result.wallet, name: result.name, email: emailVal };
-
-                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
-
-                    showProfile(loggedInUser);
-
-                    showDashboardUI();
-
-                    switchTab('games');
-
-                } else { 
-
-                    document.getElementById("loginMsg").innerText = result.detail || "Invalid credentials"; 
-
-                }
-
-            } catch(err) {
-
-                alert("Network error during login.");
-
-            }
-
-        });
-
-
-
-        function openForgotModal() { document.getElementById("forgotModal").classList.remove("hidden"); }
-
-        function closeForgotModal() { document.getElementById("forgotModal").classList.add("hidden"); }
-
-        async function submitForgotPassword() {
-
-            const email = document.getElementById("forgotEmail").value.trim();
-
-            const new_password = document.getElementById("forgotNewPass").value.trim();
-
-            if(!email || !new_password) { alert("Please enter both email and new password."); return; }
-
-            try {
-
-                const res = await fetch(`${API_URL}/users/reset-password`, {
-
                     method: "POST", headers: { "Content-Type": "application/json" },
-
-                    body: JSON.stringify({ email, new_password })
-
+                    body: JSON.stringify({ email: emailVal, password: passVal })
                 });
-
                 const result = await res.json();
-
-                if(res.ok) { alert("Password updated successfully!"); closeForgotModal(); }
-
-                else { alert(result.detail || "Failed to reset password."); }
-
-            } catch(e) { alert("Network error while resetting password."); }
-
-        }
-
-
-
-        function openWalletModal() { updateWalletQr(); document.getElementById("walletModal").classList.remove("hidden"); }
-
-        function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
-
-        function updateWalletQr() {
-
-            const amt = document.getElementById("topupAmount").value || 100;
-
-            const upi = `upi://pay?pa=9699343711@ptaxis&pn=ZYROX&am=${amt}&cu=INR`;
-
-            document.getElementById("walletQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upi)}`;
-
-        }
-
-        async function submitWalletTopup() {
-
-            const res = await fetch(`${API_URL}/users/topup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id: loggedInUser.id, amount: parseFloat(document.getElementById("topupAmount").value) }) });
-
-            const result = await res.json();
-
-            if(res.ok) { loggedInUser.wallet = result.new_wallet; localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); showProfile(loggedInUser); closeWalletModal(); alert("Recharged successfully!"); }
-
-        }
-
-
-
-        function openRewardModal(battleType) {
-
-            const titleEl = document.getElementById("rewardModalTitle");
-
-            const contentEl = document.getElementById("rewardModalContent");
-
-            if(battleType === 'SOLO') {
-
-                titleEl.innerText = "🏆 SOLO MATCH REWARDS";
-
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹50</p><p>🥇 1st Prize: ₹650</p><p>🥈 2nd Prize: ₹450</p><p>🥉 3rd Prize: ₹300</p>`;
-
-            } else if(battleType === 'DUO') {
-
-                titleEl.innerText = "👥 DUO MATCH REWARDS";
-
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹75</p><p>🥇 1st Prize: ₹750</p>`;
-
-            } else if(battleType === 'SQUAD') {
-
-                titleEl.innerText = "👑 SQUAD MATCH REWARDS";
-
-                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹180</p><p>🏆 1st Prize: ₹2,000 per winning team</p>`;
-
-            }
-
-            document.getElementById("rewardModal").classList.remove("hidden");
-
-        }
-
-        function closeRewardModal() { document.getElementById("rewardModal").classList.add("hidden"); }
-
-
-
-        function selectGame(gameName) {
-
-            activeGameCategory = gameName;
-
-            document.getElementById("selectedGameTitle").innerText = `🎮 ZYROX eSports — ${gameName} Tournament`;
-
-        }
-
-
+                if(res.ok) {
+                    loggedInUser = { id: result.user_id, zrx_id: result.zrx_id, wallet: result.wallet, name: result.name, email: emailVal };
+                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+                    showProfile(loggedInUser);
+                    showDashboardUI();
+                    switchTab('games');
+                } else { document.getElementById("loginMsg").innerText = result.detail || "Invalid credentials"; }
+            } catch(err) { alert("Network error during login."); }
+        });
 
         async function loadTournamentsForGame(gameName) {
-
             try {
-
                 const res = await fetch(`${API_URL}/tournaments/`);
-
                 const tournaments = await res.json();
-
                 const container = document.getElementById("tournamentList");
-
                 container.innerHTML = "";
-
                 const filtered = tournaments.filter(t => t.game_category === gameName);
-
                 if(filtered.length === 0) {
-
                     container.innerHTML = `<p class="text-slate-400 text-xs">No active tournaments available for ${gameName} right now.</p>`;
-
                     return;
-
                 }
-
                 for (let t of filtered) {
-
                     if(t.status === "Cancelled") {
-
                         container.innerHTML += `<div class="bg-red-950/40 border border-red-600/50 p-4 rounded-xl opacity-75 text-xs"><h4 class="font-bold text-red-400">[${t.match_format}] ${t.title} - CANCELLED & REFUNDED</h4></div>`;
-
                         continue;
-
                     }
-
                     let room = "🔒 Room credentials will open 10 mins before match";
-
                     try {
-
                         const r = await fetch(`${API_URL}/tournaments/${t.id}/room/${loggedInUser.id}`);
-
                         if(r.ok) { const rd = await r.json(); if(rd.status === "Published") room = `Room ID: ${rd.room_id} | Pass: ${rd.room_password}`; }
-
                     } catch(e){}
 
-
-
                     container.innerHTML += `
-
                         <div class="bg-[#1f2937] p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border border-slate-700">
-
                             <div>
-
                                 <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">${t.match_format}</span>
-
                                 <h4 class="font-bold text-cyan-300 text-sm mt-1">${t.title} (ID: ${t.id})</h4>
-
                                 <p class="text-xs text-slate-300 mt-1">🕒 Starts: <span class="text-amber-300 font-semibold">${t.start_time}</span> | Fee: <span class="text-emerald-400 font-bold">₹${t.entry_fee}</span> | Prize: <span class="text-amber-400 font-bold">₹${t.prize_pool}</span></p>
-
                                 <p class="text-xs text-yellow-400 mt-2 bg-[#111827] p-2 rounded-lg border border-slate-800">🔑 ${room}</p>
-
                             </div>
-
-                            <button onclick="openPaymentModal(${t.id}, ${t.entry_fee})" class="bg-emerald-600 hover:bg-emerald-500 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition">Join Match</button>
-
+                            <button onclick="registerAndOpenDashboard(${t.id}, '${t.title}')" class="bg-emerald-600 hover:bg-emerald-500 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition">Register Now</button>
                         </div>
-
                     `;
-
                 }
-
             } catch(e) { document.getElementById("tournamentList").innerHTML = `<p class="text-red-400 text-xs">Failed to load tournaments.</p>`; }
-
         }
 
+        async function registerAndOpenDashboard(tourneyId, title) {
+            try {
+                const res = await fetch(`${API_URL}/tournaments/join`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user_id: loggedInUser.id, tournament_id: tourneyId })
+                });
+                const result = await res.json();
+                if(res.ok) {
+                    loggedInUser.wallet = result.remaining_wallet;
+                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+                    showProfile(loggedInUser);
+                    document.getElementById("regMatchTitle").innerText = title;
+                    
+                    try {
+                        const r = await fetch(`${API_URL}/tournaments/${tourneyId}/room/${loggedInUser.id}`);
+                        if(r.ok) {
+                            const rd = await r.json();
+                            if(rd.status === "Published") {
+                                document.getElementById("dashRoomId").innerText = rd.room_id;
+                                document.getElementById("dashRoomPass").innerText = rd.room_password;
+                            }
+                        }
+                    } catch(err) {}
 
-
-        function openPaymentModal(tid, fee) { selectedTourneyId = tid; document.getElementById("modalFee").value = `₹${fee} Entry Fee`; document.getElementById("paymentModal").classList.remove("hidden"); }
-
-        function closePaymentModal() { document.getElementById("paymentModal").classList.add("hidden"); }
-
-        async function confirmWalletJoin() {
-
-            const res = await fetch(`${API_URL}/tournaments/join`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id: loggedInUser.id, tournament_id: selectedTourneyId }) });
-
-            const result = await res.json();
-
-            if(res.ok) { loggedInUser.wallet = result.remaining_wallet; localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); showProfile(loggedInUser); closePaymentModal(); loadTournamentsForGame(activeGameCategory); alert("Joined match successfully!"); } else { alert(result.detail); }
-
+                    switchTab('registered-match');
+                } else { alert(result.detail || "Failed to register."); }
+            } catch(err) { alert("Network error during registration."); }
         }
-
-
 
         document.getElementById("adminLoginForm").addEventListener("submit", (e) => {
-
             e.preventDefault();
-
             if(document.getElementById("adminEmailInput").value.trim() === "shreyashrangari08@gmail.com" && document.getElementById("adminPassInput").value.trim() === "Shreyash@0222") {
-
                 document.getElementById("adminLockScreen").classList.add("hidden");
-
                 document.getElementById("adminDashboardContent").classList.remove("hidden");
-
                 loadAdminActiveTournaments();
-
             } else { alert("Wrong Admin Credentials"); }
-
         });
-
         function lockAdminPanel() { document.getElementById("adminLockScreen").classList.remove("hidden"); document.getElementById("adminDashboardContent").classList.add("hidden"); }
 
-
-
-        async function fetchRegisteredUsers() {
-
-            const res = await fetch(`${API_URL}/admin/users`);
-
-            const data = await res.json();
-
-            const box = document.getElementById("allUsersList");
-
-            box.parentElement.classList.remove("hidden");
-
-            box.innerHTML = "";
-
-            const usersList = Array.isArray(data) ? data : (data.users || []);
-
-            usersList.forEach(u => {
-
-                const statusBtn = u.is_blocked === 1 ? `<button onclick="toggleBlock(${u.id})" class="bg-emerald-600 px-2 py-1 rounded text-white">Unblock</button>` : `<button onclick="toggleBlock(${u.id})" class="bg-red-600 px-2 py-1 rounded text-white">Block</button>`;
-
-                box.innerHTML += `<div class="bg-[#111827] p-2 rounded-lg flex justify-between items-center text-xs"><span><b>${u.zrx_id}</b> - ${u.name} | ₹${u.wallet}</span> ${statusBtn}</div>`;
-
-            });
-
-        }
-
-
-
-        async function toggleBlock(uid) {
-
-            await fetch(`${API_URL}/admin/users/${uid}/block`, { method: "POST" });
-
-            fetchRegisteredUsers();
-
-        }
-
-
-
-        async function cancelMatchAndRefund() {
-
-            const tid = document.getElementById("cancelTourneyId").value;
-
-            if(!tid) { alert("Enter Tournament ID!"); return; }
-
-            const res = await fetch(`${API_URL}/tournaments/${tid}/cancel`, { method: "POST" });
-
-            if(res.ok) { alert("Tournament Cancelled & Entry Fees Auto-Refunded!"); }
-
-        }
-
-
-
         document.getElementById("tournamentForm").addEventListener("submit", async (e) => {
-
             e.preventDefault();
-
             const payload = {
-
                 game_category: document.getElementById("game_category").value,
-
                 match_format: document.getElementById("match_format").value,
-
                 title: document.getElementById("title").value,
-
                 entry_fee: parseFloat(document.getElementById("entry_fee").value),
-
                 prize_pool: parseFloat(document.getElementById("prize_pool").value),
-
                 slots: parseInt(document.getElementById("slots").value),
-
                 start_time: document.getElementById("start_time").value
-
             };
-
             const res = await fetch(`${API_URL}/tournaments/`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-
             if(res.ok) { alert("Tournament Published Successfully!"); loadAdminActiveTournaments(); }
-
         });
-
-
 
         document.getElementById("roomForm").addEventListener("submit", async (e) => {
-
             e.preventDefault();
-
             const tid = document.getElementById("tourney_id").value;
-
             const data = { room_id: document.getElementById("room_id").value, room_password: document.getElementById("room_password").value };
-
             const res = await fetch(`${API_URL}/tournaments/${tid}/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-
             if(res.ok) alert("Room Credentials Released!");
-
         });
-
     </script>
-
 </body>
-
 </html>
