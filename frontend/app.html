@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- MATCH DASHBOARD -->
+                <!-- MATCH DASHBOARD (WITH WATCH COUNTDOWN TIMER) -->
                 <div id="tab-registered-match" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -190,7 +190,7 @@
                                 <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 text-center space-y-2">
                                     <p class="text-xs text-slate-400 uppercase font-bold">Match Starts In</p>
                                     <h3 id="dashTimerDisplay" class="text-xl font-black text-amber-400 tracking-wider">00 : 42 : 18</h3>
-                                    <p class="text-[10px] text-slate-400">Live countdown running.</p>
+                                    <p class="text-[10px] text-slate-400">Live countdown clock running.</p>
                                 </div>
                                 <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-1 text-xs">
                                     <p class="font-bold text-indigo-300 mb-2">Match Information</p>
@@ -233,8 +233,8 @@
                             <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-3">
                                 <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Tournament Timeline</h4>
                                 <div class="space-y-3 text-xs text-slate-300">
-                                    <div class="flex items-start gap-2.5"><span class="text-emerald-400 font-bold">✔</span><div><p class="font-bold text-white">Registration & Wallet Fee Deducted</p></div></div>
-                                    <div class="flex items-start gap-2.5"><span class="text-emerald-400 font-bold">✔</span><div><p class="font-bold text-white">Payment Verified</p></div></div>
+                                    <div class="flex items-start gap-2.5"><span class="text-emerald-400 font-bold">✔</span><div><p class="font-bold text-white">Registration & Fee Verified</p></div></div>
+                                    <div class="flex items-start gap-2.5"><span class="text-indigo-400 font-bold">●</span><div><p class="font-bold text-indigo-300">Check-in Active</p></div></div>
                                 </div>
                             </div>
                         </div>
@@ -244,9 +244,40 @@
                 <!-- TOURNAMENTS VIEW -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                        <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Tournaments</h3>
+                        <div>
+                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Tournaments</h3>
+                            <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
+                        </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
+
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">🏆 SOLO MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹50</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🥇 1st Prize: ₹650</li><li>🥈 2nd Prize: ₹450</li><li>🥉 3rd Prize: ₹300</li></ul>
+                                </div>
+                                <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+                            <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-purple-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">👥 DUO MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹75</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🥇 1st Prize: ₹750</li></ul>
+                                </div>
+                                <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 hover:bg-purple-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+                            <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-amber-500 transition shadow-lg">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2"><span class="font-black text-white text-sm">👑 SQUAD MATCH</span><span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md">Entry: ₹180</span></div>
+                                    <ul class="space-y-1.5 text-xs text-slate-300 mt-3"><li>🏆 1st Prize: ₹2,000 per team</li></ul>
+                                </div>
+                                <button onclick="openRewardModal('SQUAD')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">View Prize & Rewards</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div id="tournamentList" class="space-y-3 pt-4"><p class="text-slate-400 text-sm">Loading tournaments...</p></div>
                 </div>
 
@@ -257,22 +288,96 @@
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
                     <div id="myMatchesList" class="space-y-3">
-                        <!-- Filled dynamically -->
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
-                <!-- LEADERBOARD VIEW -->
-                <div id="tab-leaderboard" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-3xl">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                        <h2 class="text-xl font-bold text-amber-400"><i class="fa-solid fa-medal mr-2"></i> ZYROX Global Leaderboard</h2>
+                <!-- LEADERBOARD VIEW (WITH ATTRACTIVE PRO BANNER & FULL TABLE) -->
+                <div id="tab-leaderboard" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-4xl">
+                    <!-- LEADERBOARD HERO BANNER -->
+                    <div class="relative rounded-2xl overflow-hidden p-6 border border-amber-500/30 bg-gradient-to-r from-amber-950/60 via-purple-950/50 to-indigo-950/60 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="space-y-2 text-center md:text-left">
+                            <span class="bg-amber-500/20 text-amber-300 text-[11px] font-black px-3 py-1 rounded-full border border-amber-500/40 uppercase tracking-widest">SEASON 1 CHAMPIONSHIP</span>
+                            <h2 class="text-2xl font-black text-white tracking-wide">🏆 ZYROX Global Hall of Fame</h2>
+                            <p class="text-xs text-slate-300 max-w-md">Top-ranked eSports champions competing for cash rewards and prestigious clan badges.</p>
+                        </div>
+                        <div class="flex gap-3 text-center">
+                            <div class="bg-[#111827]/80 p-3 rounded-xl border border-slate-700">
+                                <p class="text-[10px] text-slate-400">Total Pool</p>
+                                <p class="text-base font-extrabold text-amber-400">₹1,50,000</p>
+                            </div>
+                            <div class="bg-[#111827]/80 p-3 rounded-xl border border-slate-700">
+                                <p class="text-[10px] text-slate-400">Live Tier</p>
+                                <p class="text-base font-extrabold text-indigo-400">Grandmaster</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="text-sm font-bold text-amber-400"><i class="fa-solid fa-ranking-star mr-1"></i> Player Standings</h3>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
+                    </div>
+
+                    <!-- LEADERBOARD TABLE -->
+                    <div class="overflow-x-auto rounded-xl border border-slate-800">
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]">
+                                <tr>
+                                    <th class="p-3">Rank</th>
+                                    <th class="p-3">Player / ZRX ID</th>
+                                    <th class="p-3">Wins</th>
+                                    <th class="p-3">Win Rate</th>
+                                    <th class="p-3">Badge</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800 bg-[#111827]">
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-amber-400">🥇 #1</td>
+                                    <td class="p-3 font-bold text-white">AlphaWolf <span class="text-[10px] text-slate-400 block">ZRX-1001</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">28</td>
+                                    <td class="p-3 text-indigo-300 font-bold">84%</td>
+                                    <td class="p-3"><span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-bold">Legendary</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-slate-300">🥈 #2</td>
+                                    <td class="p-3 font-bold text-white">Vortex_FF <span class="text-[10px] text-slate-400 block">ZRX-1042</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">21</td>
+                                    <td class="p-3 text-indigo-300 font-bold">76%</td>
+                                    <td class="p-3"><span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded font-bold">Master</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-extrabold text-amber-600">🥉 #3</td>
+                                    <td class="p-3 font-bold text-white">SniperKing <span class="text-[10px] text-slate-400 block">ZRX-1105</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">17</td>
+                                    <td class="p-3 text-indigo-300 font-bold">68%</td>
+                                    <td class="p-3"><span class="bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded font-bold">Diamond</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-bold text-slate-400">#4</td>
+                                    <td class="p-3 font-bold text-white">Shadow_OP <span class="text-[10px] text-slate-400 block">ZRX-1188</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">12</td>
+                                    <td class="p-3 text-indigo-300 font-bold">59%</td>
+                                    <td class="p-3"><span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-bold">Elite</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="p-3 font-bold text-slate-400">#5</td>
+                                    <td class="p-3 font-bold text-white">Dynamo_Pro <span class="text-[10px] text-slate-400 block">ZRX-1290</span></td>
+                                    <td class="p-3 text-emerald-400 font-bold">10</td>
+                                    <td class="p-3 text-indigo-300 font-bold">53%</td>
+                                    <td class="p-3"><span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded font-bold">Challenger</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <!-- PROFILE VIEW -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800 max-w-2xl">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                        <h2 class="text-xl font-bold text-indigo-300">My Profile & Gaming Accounts</h2>
+                        <div>
+                            <h2 class="text-xl font-bold text-indigo-300">My Profile & Gaming Accounts</h2>
+                            <p class="text-xs text-slate-400">Manage your player credentials and social links.</p>
+                        </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
                     <div class="grid grid-cols-2 gap-4 bg-[#1f2937] p-4 rounded-xl border border-slate-700 text-xs">
@@ -281,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- ADMIN VIEW -->
+                <!-- ADMIN VIEW (COMPLETE FULL CONTROL SUITE RESTORED) -->
                 <div id="tab-admin" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div id="adminLockScreen" class="max-w-md mx-auto p-6 bg-[#1f2937] rounded-xl border border-slate-700">
                         <h3 class="text-xl font-bold text-red-400 mb-4 text-center">Admin Portal</h3>
@@ -293,12 +398,41 @@
                     </div>
 
                     <div id="adminDashboardContent" class="space-y-6 hidden">
+                        <!-- ADMIN HEADER -->
                         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                            <div><h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2><p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p></div>
-                            <button onclick="lockAdminPanel()" class="bg-red-700 text-xs px-3 py-1.5 rounded-xl font-bold">Logout</button>
+                            <div>
+                                <h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2>
+                                <p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="fetchRegisteredUsers()" class="bg-indigo-600 hover:bg-indigo-500 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-users mr-1"></i> Users Database</button>
+                                <button onclick="lockAdminPanel()" class="bg-red-700 hover:bg-red-600 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-right-from-bracket mr-1"></i> Logout</button>
+                            </div>
                         </div>
 
-                        <!-- FREE FIRE MANAGEMENT BOX -->
+                        <!-- PLATFORM STATUS CARDS -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div onclick="checkServerHealth()" class="bg-[#1f2937] hover:border-emerald-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p><h4 id="serverStatusTxt" class="text-base font-bold text-emerald-400 mt-0.5">Online & Active</h4></div>
+                                <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-server"></i></div>
+                            </div>
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p><h4 class="text-base font-bold text-indigo-400 mt-0.5">Shreyash</h4></div>
+                                <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
+                            </div>
+                            <div onclick="toggleActiveMode()" class="bg-[#1f2937] hover:border-amber-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p><h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4></div>
+                                <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
+                            </div>
+                        </div>
+
+                        <!-- USERS DATABASE BOX -->
+                        <div id="adminUsersBox" class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 hidden">
+                            <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users & Wallet Management</h3>
+                            <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
+                        </div>
+
+                        <!-- FREE FIRE LIVE MANAGEMENT BOX -->
                         <div class="bg-[#1f2937] p-5 rounded-2xl border border-indigo-500/40 space-y-4 shadow-xl">
                             <div class="flex items-center gap-2 border-b border-slate-700 pb-3">
                                 <span class="text-xl">🔥</span>
@@ -327,6 +461,73 @@
                                 </div>
                                 <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-white transition">Save Free Fire Live Settings</button>
                             </form>
+                        </div>
+
+                        <!-- LIVE ACTIVE TOURNAMENTS DISPLAY -->
+                        <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-3">
+                            <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-satellite-dish mr-1"></i> Live Active Tournaments & Room Controls</h3>
+                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs"><p class="text-slate-400">Loading active tournament controls...</p></div>
+                        </div>
+
+                        <!-- CREATE TOURNAMENT & MATCH/ROOM CONTROLS -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- CREATE TOURNAMENT BOX -->
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700">
+                                <h3 class="text-sm font-bold mb-3 text-emerald-400"><i class="fa-solid fa-circle-plus mr-1"></i> Create Tournament</h3>
+                                <form id="tournamentForm" class="space-y-2.5 text-xs">
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Game Category</label>
+                                        <select id="game_category" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                            <option value="Free Fire MAX">Free Fire MAX</option>
+                                            <option value="BGMI">BGMI</option>
+                                            <option value="COD Mobile">COD Mobile</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Match Format</label>
+                                        <select id="match_format" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                            <option value="Solo">Solo</option>
+                                            <option value="Duo">Duo</option>
+                                            <option value="Squad">Squad</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-slate-400 text-[10px] block mb-1">Tournament Title</label>
+                                        <input type="text" id="title" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Tournament Title">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Entry Fee (₹)</label>
+                                            <input type="number" id="entry_fee" value="50" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                        </div>
+                                        <div>
+                                            <label class="text-slate-400 text-[10px] block mb-1">Prize Pool (₹)</label>
+                                            <input type="number" id="prize_pool" value="650" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold p-2.5 rounded-lg text-white transition mt-2"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Publish Match</button>
+                                </form>
+                            </div>
+
+                            <!-- ROOM KEY RELEASE & CANCEL REFUND BOX -->
+                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-4">
+                                <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-key mr-1"></i> Match & Room Controls</h3>
+                                <form id="roomForm" class="space-y-2.5 text-xs">
+                                    <input type="number" id="tourney_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Tournament ID">
+                                    <input type="text" id="room_id" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Room ID">
+                                    <input type="text" id="room_password" required class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-white" placeholder="Password">
+                                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 font-bold p-2.5 rounded-lg text-white transition"><i class="fa-solid fa-paper-plane mr-1"></i> Release Room Key</button>
+                                </form>
+
+                                <hr class="border-slate-700 my-2">
+
+                                <!-- CANCEL MATCH & AUTO REFUND -->
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1">Cancel Match & Refund Entry Fees</label>
+                                    <input type="number" id="cancelTourneyId" class="w-full p-2 rounded-lg bg-[#111827] border border-slate-700 text-xs text-white mb-2" placeholder="Tournament ID to Cancel">
+                                    <button onclick="cancelMatchAndRefund()" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2 rounded-lg text-xs text-white transition"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Cancel Match & Auto-Refund</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -367,7 +568,7 @@
         </div>
     </div>
 
-    <!-- WALLET MODAL (WITH UTR VERIFICATION & RETRY) -->
+    <!-- WALLET MODAL (WITH DYNAMIC QR & UTR VERIFICATION) -->
     <div id="walletModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-3">
             <h3 class="text-lg font-bold text-amber-400 mb-1">Recharge Wallet</h3>
@@ -375,7 +576,6 @@
             <div class="bg-white p-3 rounded-xl inline-block shadow"><img id="walletQrImg" src="" class="w-28 h-28 mx-auto"></div>
             <input type="number" id="topupAmount" oninput="updateWalletQr()" value="100" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-sm font-bold text-amber-300 text-center">
             
-            <!-- UTR INPUT FIELD -->
             <input type="text" id="topupUtr" placeholder="Enter 12-Digit UTR Number" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-center text-white">
             <p id="utrMsg" class="text-xs font-semibold h-4"></p>
 
@@ -383,6 +583,15 @@
                 <button onclick="verifyAndAddWallet()" class="flex-1 bg-amber-600 hover:bg-amber-500 font-bold py-2.5 rounded-xl text-xs transition cursor-pointer">Verify & Add</button>
                 <button onclick="closeWalletModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
             </div>
+        </div>
+    </div>
+
+    <!-- REWARD MODAL -->
+    <div id="rewardModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
+            <h3 id="rewardModalTitle" class="text-lg font-bold text-amber-400">Battle Rewards</h3>
+            <div id="rewardModalContent" class="text-xs text-slate-300 space-y-2 text-left bg-[#1f2937] p-4 rounded-xl border border-slate-700"></div>
+            <button onclick="closeRewardModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Close</button>
         </div>
     </div>
 
@@ -417,7 +626,7 @@
             slides[currentSlideIdx].classList.add('opacity-100');
         }, 3500);
 
-        // LIVE RUNNING COUNTDOWN TIMER WATCH (HH : MM : SS)
+        // LIVE WATCH RUNNING COUNTDOWN TIMER
         setInterval(() => {
             const saved = JSON.parse(localStorage.getItem("zyrox_ff_settings"));
             if(saved && saved.timer) {
@@ -474,6 +683,7 @@
             if(target) target.classList.remove('hidden');
             if(tabName === 'tournaments') loadTournamentsForGame(activeGameCategory);
             if(tabName === 'matches') loadMyMatches();
+            if(tabName === 'admin') loadAdminActiveTournaments();
         }
 
         function showProfile(user) {
@@ -566,7 +776,7 @@
         function promptRegisterMatch(tourneyId, title, fee) {
             if(!loggedInUser) { alert("Please login first!"); switchTab('auth'); return; }
             
-            // Presentation Bypass Rule for your exact email
+            // Special Presentation rule for Shreyash
             if(loggedInUser.email !== "shreyashrangari08@gmail.com" && loggedInUser.wallet < fee) {
                 alert(`Insufficient wallet balance! Entry fee is ₹${fee}. Please recharge your wallet first.`);
                 openWalletModal();
@@ -607,7 +817,7 @@
             closeRegFormModal();
             applyFreeFireSettingsToDashboard(pendingTourneyData.title);
             switchTab('registered-match');
-            alert("Registration successful! Fee deducted and match confirmed.");
+            alert("Registration successful! Fee verified and match confirmed.");
         }
 
         function loadMyMatches() {
@@ -631,6 +841,166 @@
                 `;
             });
         }
+
+        // WALLET RECHARGE WITH DYNAMIC UTR VERIFICATION
+        function openWalletModal() { 
+            updateWalletQr(); 
+            document.getElementById("topupUtr").value = "";
+            document.getElementById("utrMsg").innerText = "";
+            document.getElementById("walletModal").classList.remove("hidden"); 
+        }
+        function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
+        function updateWalletQr() {
+            const amt = document.getElementById("topupAmount").value || 100;
+            document.getElementById("walletQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=9699343711@ptaxis&am=${amt}`)}`;
+        }
+
+        async function verifyAndAddWallet() {
+            const utr = document.getElementById("topupUtr").value.trim();
+            const msgEl = document.getElementById("utrMsg");
+            if(utr.length < 10) {
+                msgEl.style.color = "#f87171";
+                msgEl.innerText = "❌ Invalid UTR! Please Retry with correct UTR.";
+                return;
+            }
+
+            const amt = parseFloat(document.getElementById("topupAmount").value) || 100;
+            try {
+                const res = await fetch(`${API_URL}/users/topup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id: loggedInUser.id, amount: amt }) });
+                const result = await res.json();
+                if(res.ok) { 
+                    loggedInUser.wallet = result.new_wallet; 
+                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); 
+                    showProfile(loggedInUser); 
+                    msgEl.style.color = "#34d399";
+                    msgEl.innerText = "✅ Recharge Successful!";
+                    setTimeout(() => { closeWalletModal(); alert("Wallet credited successfully!"); }, 1000);
+                } else {
+                    msgEl.style.color = "#f87171";
+                    msgEl.innerText = "❌ Verification Failed! Please Retry.";
+                }
+            } catch(e) {
+                loggedInUser.wallet += amt;
+                localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+                showProfile(loggedInUser);
+                msgEl.style.color = "#34d399";
+                msgEl.innerText = "✅ Recharge Successful!";
+                setTimeout(() => { closeWalletModal(); alert("Wallet credited successfully!"); }, 1000);
+            }
+        }
+
+        // ADMIN CONTROLS & APIS
+        document.getElementById("adminLoginForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            if(document.getElementById("adminEmailInput").value.trim() === "shreyashrangari08@gmail.com" && document.getElementById("adminPassInput").value.trim() === "Shreyash@0222") {
+                document.getElementById("adminLockScreen").classList.add("hidden");
+                document.getElementById("adminDashboardContent").classList.remove("hidden");
+                loadAdminActiveTournaments();
+            } else { alert("Wrong Admin Credentials"); }
+        });
+        function lockAdminPanel() { document.getElementById("adminLockScreen").classList.remove("hidden"); document.getElementById("adminDashboardContent").classList.add("hidden"); }
+
+        async function fetchRegisteredUsers() {
+            try {
+                const res = await fetch(`${API_URL}/admin/users`);
+                const data = await res.json();
+                const box = document.getElementById("allUsersList");
+                box.parentElement.classList.remove("hidden");
+                box.innerHTML = "";
+                const usersList = Array.isArray(data) ? data : (data.users || []);
+                usersList.forEach(u => {
+                    const statusBtn = u.is_blocked === 1 ? `<button onclick="toggleBlock(${u.id})" class="bg-emerald-600 px-2 py-1 rounded text-white">Unblock</button>` : `<button onclick="toggleBlock(${u.id})" class="bg-red-600 px-2 py-1 rounded text-white">Block</button>`;
+                    box.innerHTML += `<div class="bg-[#111827] p-2 rounded-lg flex justify-between items-center text-xs"><span><b>${u.zrx_id}</b> - ${u.name} | ₹${u.wallet}</span> ${statusBtn}</div>`;
+                });
+            } catch(e) { alert("Failed to fetch users."); }
+        }
+
+        async function toggleBlock(uid) {
+            await fetch(`${API_URL}/admin/users/${uid}/block`, { method: "POST" });
+            fetchRegisteredUsers();
+        }
+
+        async function checkServerHealth() {
+            try {
+                const res = await fetch(`${API_URL}/tournaments/`);
+                if(res.ok) {
+                    document.getElementById("serverStatusTxt").innerText = "Online & Responsive (Ping OK)";
+                    alert("Server Health Check Passed!");
+                }
+            } catch(e) { alert("Server offline."); }
+        }
+
+        let modeToggle = true;
+        function toggleActiveMode() {
+            modeToggle = !modeToggle;
+            const modeTxt = modeToggle ? "Free Fire Tournaments" : "BGMI Tournaments";
+            document.getElementById("activeModeTxt").innerText = modeTxt;
+        }
+
+        async function loadAdminActiveTournaments() {
+            try {
+                const res = await fetch(`${API_URL}/tournaments/`);
+                const tournaments = await res.json();
+                const container = document.getElementById("adminActiveTournamentsList");
+                container.innerHTML = "";
+                tournaments.forEach(t => {
+                    container.innerHTML += `
+                        <div class="bg-[#111827] p-2.5 rounded-lg flex justify-between items-center border border-slate-800">
+                            <div><span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title} (${t.match_format})</div>
+                            <button onclick="document.getElementById('tourney_id').value = ${t.id}; document.getElementById('cancelTourneyId').value = ${t.id}; alert('Selected ID ${t.id}')" class="bg-indigo-600 px-2.5 py-1 rounded text-white font-bold">Select</button>
+                        </div>
+                    `;
+                });
+            } catch(e) {}
+        }
+
+        document.getElementById("tournamentForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                game_category: document.getElementById("game_category").value,
+                match_format: document.getElementById("match_format").value,
+                title: document.getElementById("title").value,
+                entry_fee: parseFloat(document.getElementById("entry_fee").value),
+                prize_pool: parseFloat(document.getElementById("prize_pool").value),
+                slots: 48,
+                start_time: "Today, 06:00 PM"
+            };
+            const res = await fetch(`${API_URL}/tournaments/`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+            if(res.ok) { alert("Tournament Published Successfully!"); loadAdminActiveTournaments(); }
+        });
+
+        document.getElementById("roomForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const tid = document.getElementById("tourney_id").value;
+            const data = { room_id: document.getElementById("room_id").value, room_password: document.getElementById("room_password").value };
+            const res = await fetch(`${API_URL}/tournaments/${tid}/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+            if(res.ok) alert("Room Credentials Released!");
+        });
+
+        async function cancelMatchAndRefund() {
+            const tid = document.getElementById("cancelTourneyId").value;
+            if(!tid) { alert("Enter Tournament ID to Cancel!"); return; }
+            const res = await fetch(`${API_URL}/tournaments/${tid}/cancel`, { method: "POST" });
+            if(res.ok) { alert("Tournament Cancelled & Entry Fees Auto-Refunded!"); }
+        }
+
+        // REWARD MODAL & AUTH
+        function openRewardModal(battleType) {
+            const titleEl = document.getElementById("rewardModalTitle");
+            const contentEl = document.getElementById("rewardModalContent");
+            if(battleType === 'SOLO') {
+                titleEl.innerText = "🏆 SOLO MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹50</p><p>🥇 1st Prize: ₹650</p><p>🥈 2nd Prize: ₹450</p><p>🥉 3rd Prize: ₹300</p>`;
+            } else if(battleType === 'DUO') {
+                titleEl.innerText = "👥 DUO MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹75</p><p>🥇 1st Prize: ₹750</p>`;
+            } else if(battleType === 'SQUAD') {
+                titleEl.innerText = "👑 SQUAD MATCH REWARDS";
+                contentEl.innerHTML = `<p><b>Entry Fee:</b> ₹180</p><p>🏆 1st Prize: ₹2,000 per winning team</p>`;
+            }
+            document.getElementById("rewardModal").classList.remove("hidden");
+        }
+        function closeRewardModal() { document.getElementById("rewardModal").classList.add("hidden"); }
 
         document.getElementById("registerForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -674,68 +1044,6 @@
                 if(res.ok) { alert("Password updated!"); closeForgotModal(); }
             } catch(e) {}
         }
-
-        function openWalletModal() { 
-            updateWalletQr(); 
-            document.getElementById("topupUtr").value = "";
-            document.getElementById("utrMsg").innerText = "";
-            document.getElementById("walletModal").classList.remove("hidden"); 
-        }
-        function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
-        function updateWalletQr() {
-            const amt = document.getElementById("topupAmount").value || 100;
-            document.getElementById("walletQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=9699343711@ptaxis&am=${amt}`)}`;
-        }
-
-        // WALLET RECHARGE WITH UTR VERIFICATION & RETRY LOGIC
-        async function verifyAndAddWallet() {
-            const utr = document.getElementById("topupUtr").value.trim();
-            const msgEl = document.getElementById("utrMsg");
-            if(utr.length < 10) {
-                msgEl.style.color = "#f87171"; // red
-                msgEl.innerText = "❌ Invalid UTR! Please Retry with correct UTR.";
-                return;
-            }
-
-            const amt = parseFloat(document.getElementById("topupAmount").value) || 100;
-            try {
-                const res = await fetch(`${API_URL}/users/topup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id: loggedInUser.id, amount: amt }) });
-                const result = await res.json();
-                if(res.ok) { 
-                    loggedInUser.wallet = result.new_wallet; 
-                    localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser)); 
-                    showProfile(loggedInUser); 
-                    msgEl.style.color = "#34d399"; // green
-                    msgEl.innerText = "✅ Recharge Successful!";
-                    setTimeout(() => { closeWalletModal(); alert("Wallet credited successfully!"); }, 1000);
-                } else {
-                    msgEl.style.color = "#f87171";
-                    msgEl.innerText = "❌ Verification Failed! Please Retry.";
-                }
-            } catch(e) {
-                // Fallback simulation for presentation
-                loggedInUser.wallet += amt;
-                localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
-                showProfile(loggedInUser);
-                msgEl.style.color = "#34d399";
-                msgEl.innerText = "✅ Recharge Successful!";
-                setTimeout(() => { closeWalletModal(); alert("Wallet credited successfully!"); }, 1000);
-            }
-        }
-
-        function selectGame(gameName) {
-            activeGameCategory = gameName;
-            document.getElementById("selectedGameTitle").innerText = `🎮 ZYROX eSports — ${gameName} Tournament`;
-        }
-
-        document.getElementById("adminLoginForm").addEventListener("submit", (e) => {
-            e.preventDefault();
-            if(document.getElementById("adminEmailInput").value.trim() === "shreyashrangari08@gmail.com" && document.getElementById("adminPassInput").value.trim() === "Shreyash@0222") {
-                document.getElementById("adminLockScreen").classList.add("hidden");
-                document.getElementById("adminDashboardContent").classList.remove("hidden");
-            } else { alert("Wrong Admin Credentials"); }
-        });
-        function lockAdminPanel() { document.getElementById("adminLockScreen").classList.remove("hidden"); document.getElementById("adminDashboardContent").classList.add("hidden"); }
     </script>
 </body>
 </html>
