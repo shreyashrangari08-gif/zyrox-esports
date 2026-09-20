@@ -62,7 +62,8 @@
                     </div>
                     <div class="hidden sm:block text-left">
                         <h4 id="headerName" class="text-sm font-bold text-white leading-tight">Shreyash</h4>
-                        <p id="headerSubtitle" class="text-[11px] text-indigo-400 font-medium">Level 1</p>
+                        <!-- DETAILS ADDED UNDER NAME -->
+                        <p class="text-[10px] text-amber-400 font-bold tracking-wide">Elite Member • Pro Tier</p>
                     </div>
                 </div>
             </div>
@@ -344,7 +345,7 @@
                     </div>
                 </div>
 
-                <!-- PROFILE VIEW (EXACTLY MATCHING USER SCREENSHOT) -->
+                <!-- PROFILE VIEW (EXACTLY MATCHING USER SCREENSHOT WITH INTERACTIVE EDIT MODAL) -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#0b0f19] p-2 max-w-6xl mx-auto">
                     <!-- PROFILE HEADER BANNER -->
                     <div class="bg-[#111827] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl relative">
@@ -357,13 +358,13 @@
                                 <div>
                                     <div class="flex items-center gap-2">
                                         <h2 id="profileNameBig" class="text-xl font-black text-white">Shreyash Rangari</h2>
-                                        <i class="fa-solid fa-pen text-xs text-indigo-400 cursor-pointer"></i>
+                                        <i class="fa-solid fa-pen text-xs text-indigo-400 cursor-pointer" onclick="openProfileEditModal()"></i>
                                     </div>
                                     <p id="profileLevelBig" class="text-xs text-slate-300 font-medium mt-0.5">Level 1 (0 / 500 XP)</p>
                                     <p class="text-[11px] text-amber-400 font-bold mt-1">Play • Compete • Win 👑</p>
                                 </div>
                             </div>
-                            <button onclick="alert('Profile edit mode active')" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold px-4 py-2 rounded-xl shadow-lg transition cursor-pointer"><i class="fa-solid fa-pen-to-square mr-1.5"></i> Edit Profile</button>
+                            <button onclick="openProfileEditModal()" class="bg-indigo-600 hover:bg-indigo-500 text-xs font-bold px-4 py-2 rounded-xl shadow-lg transition cursor-pointer"><i class="fa-solid fa-pen-to-square mr-1.5"></i> Edit Profile</button>
                         </div>
                         <div class="px-6 pb-4">
                             <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
@@ -379,15 +380,15 @@
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
                                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                                     <h3 class="text-xs font-extrabold text-indigo-300 uppercase tracking-wider"><i class="fa-solid fa-user mr-1.5"></i> Personal Information</h3>
-                                    <button class="text-xs text-indigo-400 hover:underline font-bold cursor-pointer">Edit</button>
+                                    <button onclick="openProfileEditModal()" class="text-xs text-indigo-400 hover:underline font-bold cursor-pointer">Edit</button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                     <div><p class="text-slate-400 text-[10px]">Full Name</p><p id="pFullName" class="font-bold text-white mt-0.5">Shreyash Rangari</p></div>
                                     <div><p class="text-slate-400 text-[10px]">Username</p><p id="pUsername" class="font-bold text-white mt-0.5">Shreyash</p></div>
                                     <div><p class="text-slate-400 text-[10px]">Email Address</p><p id="pEmail" class="font-bold text-white mt-0.5">shreyashrangari08@gmail.com</p></div>
-                                    <div><p class="text-slate-400 text-[10px]">Phone Number</p><p class="font-bold text-white mt-0.5">+91 9699343711</p></div>
-                                    <div><p class="text-slate-400 text-[10px]">Date of Birth</p><p class="text-slate-500 italic mt-0.5">Not Added</p></div>
-                                    <div><p class="text-slate-400 text-[10px]">Location</p><p class="font-bold text-white mt-0.5">Nagpur, Maharashtra</p></div>
+                                    <div><p class="text-slate-400 text-[10px]">Phone Number</p><p id="pPhone" class="font-bold text-white mt-0.5">+91 9699343711</p></div>
+                                    <div><p class="text-slate-400 text-[10px]">Date of Birth</p><p id="pDob" class="text-slate-300 font-bold mt-0.5">15 Aug 2004</p></div>
+                                    <div><p class="text-slate-400 text-[10px]">Location</p><p id="pLocation" class="font-bold text-white mt-0.5">Nagpur, Maharashtra</p></div>
                                 </div>
                             </div>
 
@@ -395,9 +396,9 @@
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-3">
                                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                                     <h3 class="text-xs font-extrabold text-indigo-300 uppercase tracking-wider"><i class="fa-solid fa-address-card mr-1.5"></i> About Me</h3>
-                                    <button class="text-xs text-indigo-400 hover:underline font-bold cursor-pointer">Edit</button>
+                                    <button onclick="openProfileEditModal()" class="text-xs text-indigo-400 hover:underline font-bold cursor-pointer">Edit</button>
                                 </div>
-                                <p class="text-xs text-slate-300 leading-relaxed">Free Fire Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏</p>
+                                <p id="pAboutMe" class="text-xs text-slate-300 leading-relaxed">Free Fire Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏</p>
                             </div>
                         </div>
 
@@ -546,6 +547,26 @@
         </main>
     </div>
 
+    <!-- PROFILE EDIT MODAL -->
+    <div id="profileEditModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-md w-full relative shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-indigo-400"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit Profile & Personal Info</h3>
+            <form id="profileEditForm" onsubmit="saveProfileChanges(event)" class="space-y-3 text-xs text-left">
+                <div><label class="text-slate-400 text-[10px] block mb-1">Full Name</label><input type="text" id="editFullName" required class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
+                <div><label class="text-slate-400 text-[10px] block mb-1">Username</label><input type="text" id="editUsername" required class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div><label class="text-slate-400 text-[10px] block mb-1">Phone Number</label><input type="text" id="editPhone" required class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
+                    <div><label class="text-slate-400 text-[10px] block mb-1">Location</label><input type="text" id="editLocation" required class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
+                </div>
+                <div><label class="text-slate-400 text-[10px] block mb-1">About Me / Bio</label><textarea id="editAbout" rows="3" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></textarea></div>
+                <div class="flex gap-2 pt-2">
+                    <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-white transition cursor-pointer">Save Changes</button>
+                    <button type="button" onclick="closeProfileEditModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-white transition cursor-pointer">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- REGISTRATION FORM MODAL -->
     <div id="regFormModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
@@ -616,7 +637,7 @@
             slides[currentSlideIdx].classList.add('opacity-100');
         }, 3500);
 
-        // LIVE WATCH COUNTDOWN
+        // LIVE COUNTDOWN
         setInterval(() => {
             const saved = JSON.parse(localStorage.getItem("zyrox_ff_settings"));
             if(saved && saved.timer) {
@@ -693,10 +714,63 @@
 
         function loadFullProfile() {
             if(!loggedInUser) return;
-            document.getElementById("profileNameBig").innerText = loggedInUser.name || "Player";
-            document.getElementById("pFullName").innerText = loggedInUser.name || "Player";
-            document.getElementById("pUsername").innerText = (loggedInUser.name || "Player").split(" ")[0];
-            document.getElementById("pEmail").innerText = loggedInUser.email || "user@gmail.com";
+            const profileData = JSON.parse(localStorage.getItem(`profile_details_${loggedInUser.id}`)) || {
+                fullName: loggedInUser.name || "Shreyash Rangari",
+                username: (loggedInUser.name || "Shreyash").split(" ")[0],
+                email: loggedInUser.email || "shreyashrangari08@gmail.com",
+                phone: "+91 9699343711",
+                location: "Nagpur, Maharashtra",
+                about: "Free Fire Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏"
+            };
+
+            document.getElementById("profileNameBig").innerText = profileData.fullName;
+            document.getElementById("pFullName").innerText = profileData.fullName;
+            document.getElementById("pUsername").innerText = profileData.username;
+            document.getElementById("pEmail").innerText = profileData.email;
+            document.getElementById("pPhone").innerText = profileData.phone;
+            document.getElementById("pLocation").innerText = profileData.location;
+            document.getElementById("pAboutMe").innerHTML = profileData.about;
+        }
+
+        function openProfileEditModal() {
+            if(!loggedInUser) return;
+            const profileData = JSON.parse(localStorage.getItem(`profile_details_${loggedInUser.id}`)) || {
+                fullName: loggedInUser.name || "Shreyash Rangari",
+                username: (loggedInUser.name || "Shreyash").split(" ")[0],
+                phone: "+91 9699343711",
+                location: "Nagpur, Maharashtra",
+                about: "Free Fire Player | Dream Big 💙\nGaming is not just a game, it's my passion.\nJai Bhim 🙏"
+            };
+            document.getElementById("editFullName").value = profileData.fullName;
+            document.getElementById("editUsername").value = profileData.username;
+            document.getElementById("editPhone").value = profileData.phone;
+            document.getElementById("editLocation").value = profileData.location;
+            document.getElementById("editAbout").value = profileData.about.replace(/<br>/g, '\n');
+            document.getElementById("profileEditModal").classList.remove("hidden");
+        }
+
+        function closeProfileEditModal() {
+            document.getElementById("profileEditModal").classList.add("hidden");
+        }
+
+        function saveProfileChanges(e) {
+            e.preventDefault();
+            if(!loggedInUser) return;
+            const updated = {
+                fullName: document.getElementById("editFullName").value.trim(),
+                username: document.getElementById("editUsername").value.trim(),
+                email: loggedInUser.email,
+                phone: document.getElementById("editPhone").value.trim(),
+                location: document.getElementById("editLocation").value.trim(),
+                about: document.getElementById("editAbout").value.trim().replace(/\n/g, '<br>')
+            };
+            localStorage.setItem(`profile_details_${loggedInUser.id}`, JSON.stringify(updated));
+            loggedInUser.name = updated.fullName;
+            localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
+            showProfile(loggedInUser);
+            closeProfileEditModal();
+            loadFullProfile();
+            alert("Profile updated successfully!");
         }
 
         function logoutUser() {
