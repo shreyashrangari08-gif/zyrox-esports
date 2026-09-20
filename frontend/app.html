@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- MATCH DASHBOARD (EXACTLY MATCHING YOUR IMAGE 3) -->
+                <!-- MATCH DASHBOARD (SUCCESSFUL REGISTRATION VIEW - IMAGE 3) -->
                 <div id="tab-registered-match" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -264,28 +264,10 @@
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
-                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Tournaments</h3>
+                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Free Fire Tournament</h3>
                             <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between">
-                                <div><span class="font-black text-white text-sm">🏆 SOLO MATCH</span><p class="text-xs text-slate-300 mt-2">1st Prize: ₹650</p></div>
-                                <button onclick="openRewardModal('SOLO')" class="mt-4 w-full bg-indigo-600 font-bold py-2 rounded-xl text-xs">View Rewards</button>
-                            </div>
-                            <div class="bg-[#1f2937] border border-purple-500/30 p-4 rounded-xl flex flex-col justify-between">
-                                <div><span class="font-black text-white text-sm">👥 DUO MATCH</span><p class="text-xs text-slate-300 mt-2">1st Prize: ₹750</p></div>
-                                <button onclick="openRewardModal('DUO')" class="mt-4 w-full bg-purple-600 font-bold py-2 rounded-xl text-xs">View Rewards</button>
-                            </div>
-                            <div class="bg-[#1f2937] border border-amber-500/30 p-4 rounded-xl flex flex-col justify-between">
-                                <div><span class="font-black text-white text-sm">👑 SQUAD MATCH</span><p class="text-xs text-slate-300 mt-2">1st Prize: ₹2,000</p></div>
-                                <button onclick="openRewardModal('SQUAD')" class="mt-4 w-full bg-amber-600 font-bold py-2 rounded-xl text-xs">View Rewards</button>
-                            </div>
-                        </div>
                     </div>
 
                     <div id="tournamentList" class="space-y-3 pt-4"><p class="text-slate-400 text-sm">Loading tournaments...</p></div>
@@ -383,6 +365,19 @@
             <div class="flex gap-2">
                 <button onclick="submitWalletTopup()" class="flex-1 bg-amber-600 hover:bg-amber-500 font-bold py-2.5 rounded-xl text-xs transition">Verify & Add</button>
                 <button onclick="closeWalletModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
+            <h3 class="text-lg font-bold text-indigo-400 mb-2">Reset Password</h3>
+            <input type="email" id="forgotEmail" placeholder="Registered Email" class="w-full p-2.5 mb-3 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
+            <input type="password" id="forgotNewPass" placeholder="New Password" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
+            <div class="flex gap-2">
+                <button onclick="submitForgotPassword()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition">Update</button>
+                <button onclick="closeForgotModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
             </div>
         </div>
     </div>
@@ -536,23 +531,6 @@
             } else { alert("Wrong Admin Credentials"); }
         });
         function lockAdminPanel() { document.getElementById("adminLockScreen").classList.remove("hidden"); document.getElementById("adminDashboardContent").classList.add("hidden"); }
-
-        async function loadAdminActiveTournaments() {
-            try {
-                const res = await fetch(`${API_URL}/tournaments/`);
-                const tournaments = await res.json();
-                const container = document.getElementById("adminActiveTournamentsList");
-                container.innerHTML = "";
-                tournaments.forEach(t => {
-                    container.innerHTML += `
-                        <div class="bg-[#111827] p-2.5 rounded-lg flex justify-between items-center border border-slate-800">
-                            <div><span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title}</div>
-                            <button onclick="document.getElementById('tourney_id').value = ${t.id}; alert('Selected ID ${t.id}')" class="bg-indigo-600 px-2.5 py-1 rounded text-white font-bold">Select</button>
-                        </div>
-                    `;
-                });
-            } catch(e) {}
-        }
 
         function openWalletModal() { updateWalletQr(); document.getElementById("walletModal").classList.remove("hidden"); }
         function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
