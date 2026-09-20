@@ -139,6 +139,7 @@
                             <button onclick="switchTab('tournaments')" class="text-xs text-indigo-400 hover:underline">View All</button>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
+                            <!-- Free Fire Card -->
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
@@ -150,6 +151,7 @@
                                 </div>
                                 <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition cursor-pointer">Register Now</button>
                             </div>
+                            <!-- BGMI Card -->
                             <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
                                 <div>
                                     <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
@@ -183,7 +185,7 @@
                             <div class="bg-[#1f2937] p-5 rounded-2xl border border-slate-700 flex justify-between items-center">
                                 <div>
                                     <span class="bg-indigo-600 text-[10px] font-bold px-2.5 py-1 rounded-md">Solo</span>
-                                    <h3 id="regMatchTitle" class="text-lg font-bold text-amber-400 mt-1">Free Fire MAX Daily Cup</h3>
+                                    <h3 id="regMatchTitle" class="text-lg font-bold text-amber-400 mt-1">Tournament Cup</h3>
                                     <p class="text-xs text-slate-300 mt-1">Entry Fee: <span class="text-emerald-400 font-bold">₹50</span> | Prize Pool: <span class="text-amber-400 font-bold">₹1,400</span> | Start Date: <span id="dashStartDate" class="text-indigo-300">18 Sep 2025, 10:00 AM</span></p>
                                 </div>
                                 <span class="bg-emerald-600/20 text-emerald-400 font-bold text-xs px-3 py-1.5 rounded-xl border border-emerald-500/30">CONFIRMED</span>
@@ -204,7 +206,7 @@
                                 <div class="bg-[#1f2937] p-4 rounded-2xl border border-slate-700 space-y-2 text-xs">
                                     <p class="font-bold text-indigo-300 mb-2">Your Team</p>
                                     <div class="flex justify-between items-center bg-[#111827] p-2 rounded-lg"><span id="dashPlayerName" class="text-white font-semibold">1. Player</span> <span class="bg-indigo-600 text-[9px] px-1.5 py-0.5 rounded font-bold">Leader</span></div>
-                                    <div class="text-[10px] text-slate-400 mt-1" id="dashPlayerUid">UID: -</div>
+                                    <div class="text-[10px] text-slate-400 mt-1" id="dashPlayerUid">UID/IGN: -</div>
                                 </div>
                             </div>
 
@@ -244,18 +246,24 @@
                     </div>
                 </div>
 
-                <!-- TOURNAMENTS VIEW -->
+                <!-- TOURNAMENTS VIEW (SUPPORTS BOTH FREE FIRE & BGMI) -->
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
                             <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Tournaments</h3>
-                            <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
+                            <p class="text-xs text-slate-400">Select Game & Mode: Solo • Duo • Squad</p>
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl cursor-pointer">← Back</button>
                     </div>
 
+                    <!-- GAME SWITCHER TABS -->
+                    <div class="flex gap-3">
+                        <button onclick="selectGame('Free Fire MAX')" class="px-4 py-2 rounded-xl bg-indigo-600 text-xs font-bold text-white transition cursor-pointer">🔥 Free Fire MAX</button>
+                        <button onclick="selectGame('BGMI')" class="px-4 py-2 rounded-xl bg-amber-600 text-xs font-bold text-white transition cursor-pointer">🎯 BGMI</button>
+                    </div>
+
                     <div class="space-y-3">
-                        <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
+                        <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle Format</h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="bg-[#1f2937] border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-between hover:border-indigo-500 transition shadow-lg">
                                 <div>
@@ -344,12 +352,12 @@
                     </div>
                 </div>
 
-                <!-- PROFILE VIEW WITH TERMS & CONDITIONS INTEGRATED -->
+                <!-- PROFILE VIEW WITH TERMS & CONDITIONS -->
                 <div id="tab-profile" class="space-y-6 hidden bg-[#0b0f19] p-2 max-w-6xl mx-auto">
                     <!-- PROFILE HEADER BANNER -->
                     <div class="bg-[#111827] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl relative">
                         <div class="h-36 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 relative">
-                            <span class="absolute top-3 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-amber-400 border border-slate-700">FREE FIRE</span>
+                            <span class="absolute top-3 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-amber-400 border border-slate-700">ESPORTS PRO</span>
                         </div>
                         <div class="px-6 pb-6 pt-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 relative -mt-12">
                             <div class="flex items-end gap-4">
@@ -397,7 +405,7 @@
                                     <h3 class="text-xs font-extrabold text-indigo-300 uppercase tracking-wider"><i class="fa-solid fa-address-card mr-1.5"></i> About Me</h3>
                                     <button onclick="openProfileEditModal()" class="text-xs text-indigo-400 hover:underline font-bold cursor-pointer">Edit</button>
                                 </div>
-                                <p id="pAboutMe" class="text-xs text-slate-300 leading-relaxed">Free Fire Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏</p>
+                                <p id="pAboutMe" class="text-xs text-slate-300 leading-relaxed">Competitive eSports Gamer | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏</p>
                             </div>
                         </div>
 
@@ -420,8 +428,8 @@
                                     <span class="text-[10px] text-slate-400">View All</span>
                                 </div>
                                 <div class="space-y-2.5 text-slate-300">
-                                    <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">🏆</span><div><p class="font-semibold text-white">Registered for Free Fire Max Cup</p><p class="text-[10px] text-slate-400">18 Sep 2025 • 10:24 AM</p></div></div>
-                                    <div class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">👥</span><div><p class="font-semibold text-white">Joined Squad Match</p><p class="text-[10px] text-slate-400">17 Sep 2025 • 08:12 PM</p></div></div>
+                                    <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">🏆</span><div><p class="font-semibold text-white">Registered for Tournament</p><p class="text-[10px] text-slate-400">Recent Battle</p></div></div>
+                                    <div class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">👥</span><div><p class="font-semibold text-white">Joined Squad Lobby</p><p class="text-[10px] text-slate-400">Active Status</p></div></div>
                                 </div>
                             </div>
                         </div>
@@ -433,7 +441,7 @@
                             <h3 class="text-sm font-black text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-file-contract mr-2"></i> ZYROX eSPORTS — TERMS & CONDITIONS</h3>
                             <span class="text-[10px] text-slate-400 bg-slate-800 px-2.5 py-1 rounded-md">Official Guidelines</span>
                         </div>
-                        <div class="text-xs text-slate-300 space-y-3 max-h-72 overflow-y-auto pr-2 custom-scroll leading-relaxed">
+                        <div class="text-xs text-slate-300 space-y-3 max-h-72 overflow-y-auto pr-2 leading-relaxed">
                             <p><b>1. Acceptance of Terms:</b> ZYROX eSports platform ko access, register ya use karte hi user confirm karta hai ki usne platform ke Terms & Conditions, Privacy Policy, Tournament Rules aur applicable guidelines ko padha aur accept kiya hai.</p>
                             <p><b>2. User Eligibility:</b> Platform par participate karne ke liye user ko applicable age, location aur legal eligibility requirements ko satisfy karna hoga, aur jahan required ho wahan age ya identity verification complete karni hogi.</p>
                             <p><b>3. Account Registration:</b> User ko registration ke waqt apna correct naam, username, email, mobile number, game ID aur other required information provide karni hogi; false information dene par account suspend ya terminate kiya ja sakta hai.</p>
@@ -493,7 +501,7 @@
                                 <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
                             </div>
                             <div onclick="toggleActiveMode()" class="bg-[#1f2937] hover:border-amber-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
-                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p><h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4></div>
+                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p><h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Multi-Game Tournaments</h4></div>
                                 <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
                             </div>
                         </div>
@@ -504,11 +512,11 @@
                             <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
                         </div>
 
-                        <!-- FREE FIRE MANAGEMENT BOX -->
+                        <!-- FREE FIRE / MULTI-GAME MANAGEMENT BOX -->
                         <div class="bg-[#1f2937] p-5 rounded-2xl border border-indigo-500/40 space-y-4 shadow-xl">
                             <div class="flex items-center gap-2 border-b border-slate-700 pb-3">
                                 <span class="text-xl">🔥</span>
-                                <h3 class="text-sm font-extrabold text-indigo-300">Free Fire Management & Match Control Center</h3>
+                                <h3 class="text-sm font-extrabold text-indigo-300">Game Management & Match Control Center</h3>
                             </div>
                             <form id="ffManagementForm" onsubmit="saveFreeFireSettings(event)" class="space-y-3 text-xs">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -519,7 +527,7 @@
                                     <div><label class="text-slate-400 text-[10px] block mb-1">Active Room ID</label><input type="text" id="adminRoomIdInput" placeholder="Enter Room ID" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
                                     <div><label class="text-slate-400 text-[10px] block mb-1">Active Room Password</label><input type="text" id="adminRoomPassInput" placeholder="Enter Password" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
                                 </div>
-                                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-white transition cursor-pointer">Save Free Fire Live Settings</button>
+                                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-white transition cursor-pointer">Save Live Game Settings</button>
                             </form>
                         </div>
 
@@ -607,7 +615,7 @@
             <p class="text-xs text-slate-300">Entry Fee: <span id="modalFeeTxt" class="text-amber-400 font-bold">₹50</span> (Deducted from wallet)</p>
             <form id="matchRegForm" onsubmit="confirmMatchRegistration(event)" class="space-y-3 text-xs text-left">
                 <div><label class="text-slate-400 text-[10px] block mb-1">Your In-Game Name (IGN)</label><input type="text" id="formPlayerName" required placeholder="Enter IGN" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
-                <div><label class="text-slate-400 text-[10px] block mb-1">Free Fire UID</label><input type="text" id="formPlayerUid" required placeholder="Enter UID" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
+                <div><label class="text-slate-400 text-[10px] block mb-1">Game UID / Character ID</label><input type="text" id="formPlayerUid" required placeholder="Enter Game UID" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-white"></div>
                 <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-2.5 rounded-xl text-white transition mt-2 cursor-pointer">Confirm & Pay Fee</button>
             </form>
             <button onclick="closeRegFormModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2 rounded-xl text-xs transition cursor-pointer">Cancel</button>
@@ -753,7 +761,7 @@
                 email: loggedInUser.email || "shreyashrangari08@gmail.com",
                 phone: "+91 9699343711",
                 location: "Nagpur, Maharashtra",
-                about: "Free Fire Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏"
+                about: "Free Fire & BGMI Pro Player | Dream Big 💙<br>Gaming is not just a game, it's my passion.<br>Jai Bhim 🙏"
             };
 
             document.getElementById("profileNameBig").innerText = profileData.fullName;
@@ -772,7 +780,7 @@
                 username: (loggedInUser.name || "Shreyash").split(" ")[0],
                 phone: "+91 9699343711",
                 location: "Nagpur, Maharashtra",
-                about: "Free Fire Player | Dream Big 💙\nGaming is not just a game, it's my passion.\nJai Bhim 🙏"
+                about: "Free Fire & BGMI Pro Player | Dream Big 💙\nGaming is not just a game, it's my passion.\nJai Bhim 🙏"
             };
             document.getElementById("editFullName").value = profileData.fullName;
             document.getElementById("editUsername").value = profileData.username;
@@ -813,7 +821,7 @@
             switchTab('auth');
         }
 
-        // SAVE FREE FIRE ADMIN SETTINGS
+        // SAVE GAME SETTINGS
         function saveFreeFireSettings(e) {
             e.preventDefault();
             const ffSettings = {
@@ -823,14 +831,14 @@
                 roomPass: document.getElementById("adminRoomPassInput").value.trim()
             };
             localStorage.setItem("zyrox_ff_settings", JSON.stringify(ffSettings));
-            alert("Free Fire Match Settings Saved Successfully by Admin!");
+            alert("Live Match Settings Saved Successfully by Admin!");
         }
 
         function applyFreeFireSettingsToDashboard(title) {
-            document.getElementById("regMatchTitle").innerText = title || "Free Fire MAX Daily Cup";
+            document.getElementById("regMatchTitle").innerText = title || "Tournament Cup";
             document.getElementById("dashPlayerName").innerText = `1. ${loggedInUser.name}`;
             const savedData = JSON.parse(localStorage.getItem(`profile_extras_${loggedInUser.id}`)) || {};
-            document.getElementById("dashPlayerUid").innerText = `UID: ${savedData.ffUid || "Not Provided"}`;
+            document.getElementById("dashPlayerUid").innerText = `UID/IGN: ${savedData.ffUid || "Not Provided"}`;
 
             const saved = JSON.parse(localStorage.getItem("zyrox_ff_settings"));
             if(saved) {
@@ -1030,7 +1038,7 @@
         let modeToggle = true;
         function toggleActiveMode() {
             modeToggle = !modeToggle;
-            const modeTxt = modeToggle ? "Free Fire Tournaments" : "BGMI Tournaments";
+            const modeTxt = modeToggle ? "Multi-Game Tournaments" : "Solo/Squad Clashes";
             document.getElementById("activeModeTxt").innerText = modeTxt;
         }
 
@@ -1043,7 +1051,7 @@
                 tournaments.forEach(t => {
                     container.innerHTML += `
                         <div class="bg-[#111827] p-2.5 rounded-lg flex justify-between items-center border border-slate-800">
-                            <div><span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title} (${t.match_format})</div>
+                            <div><span class="font-bold text-cyan-300">ID: ${t.id}</span> - ${t.title} (${t.game_category})</div>
                             <button onclick="document.getElementById('tourney_id').value = ${t.id}; document.getElementById('cancelTourneyId').value = ${t.id}; alert('Selected ID ${t.id}')" class="bg-indigo-600 px-2.5 py-1 rounded text-white font-bold cursor-pointer">Select</button>
                         </div>
                     `;
@@ -1126,7 +1134,7 @@
                     showProfile(loggedInUser);
                     showDashboardUI();
                     switchTab('games');
-                } else { document.getElementById("loginMsg").innerText = result.detail || "Invalid credentials"; }
+                } else { document.getElementById("loginMsg").innerText = result.detail || "Level invalid credentials"; }
             } catch(err) { alert("Network error during login."); }
         });
 
