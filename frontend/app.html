@@ -107,9 +107,6 @@
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center"><img src="images/banner1.jpg" class="w-full h-full object-cover"></div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner2.jpg" class="w-full h-full object-cover"></div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner3.jpg" class="w-full h-full object-cover"></div>
-                            <div class="absolute inset-0 transition-opacity duration-1000 opacity-0 slide-item flex items-center justify-center"><img src="images/banner4.jpg" class="w-full h-full object-cover"></div>
                         </div>
                     </div>
 
@@ -129,40 +126,9 @@
                             <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
                         </div>
                     </div>
-
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Trending Tournaments</h3>
-                            <button onclick="switchTab('tournaments')" class="text-xs text-indigo-400 hover:underline">View All</button>
-                        </div>
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
-                                <div>
-                                    <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
-                                        <img src="images/freefire.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                        <span class="absolute top-2 left-2 bg-indigo-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Squad | 4v4</span>
-                                    </div>
-                                    <h4 class="font-bold text-sm text-white">Free Fire Max Cup</h4>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">🕒 Daily Battle • ₹30,000 Prize Pool</p>
-                                </div>
-                                <button onclick="selectGame('Free Fire MAX'); switchTab('tournaments')" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
-                            </div>
-                            <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 flex flex-col justify-between group">
-                                <div>
-                                    <div class="h-36 bg-[#1f2937] rounded-xl mb-3 relative overflow-hidden flex items-center justify-center p-1">
-                                        <span class="text-2xl font-extrabold text-amber-400">🎯 BGMI</span>
-                                        <span class="absolute top-2 left-2 bg-amber-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Classic | Erangel</span>
-                                    </div>
-                                    <h4 class="font-bold text-sm text-white">BGMI Classic Battle</h4>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">🕒 Evening Clash • ₹50,000 Prize Pool</p>
-                                </div>
-                                <button onclick="selectGame('BGMI'); switchTab('tournaments')" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 font-bold py-2 rounded-xl text-xs transition">Register Now</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- MATCH DASHBOARD (SUCCESSFUL REGISTRATION VIEW - IMAGE 3) -->
+                <!-- MATCH DASHBOARD (REGISTRATION SUCCESSFUL SCREEN) -->
                 <div id="tab-registered-match" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -369,23 +335,9 @@
         </div>
     </div>
 
-    <!-- FORGOT PASSWORD MODAL -->
-    <div id="forgotModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
-        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl">
-            <h3 class="text-lg font-bold text-indigo-400 mb-2">Reset Password</h3>
-            <input type="email" id="forgotEmail" placeholder="Registered Email" class="w-full p-2.5 mb-3 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
-            <input type="password" id="forgotNewPass" placeholder="New Password" class="w-full p-2.5 mb-4 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-white">
-            <div class="flex gap-2">
-                <button onclick="submitForgotPassword()" class="flex-1 bg-indigo-600 hover:bg-indigo-500 font-bold py-2.5 rounded-xl text-xs transition">Update</button>
-                <button onclick="closeForgotModal()" class="px-4 bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition">Cancel</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         const API_URL = "https://zyrox-esports.onrender.com";
         let loggedInUser = JSON.parse(localStorage.getItem("zyrox_user")) || null;
-        let selectedTourneyId = null;
         let activeGameCategory = "Free Fire MAX";
 
         window.onload = () => {
@@ -466,7 +418,7 @@
                                 <h4 class="font-bold text-cyan-300 text-sm mt-1">${t.title} (ID: ${t.id})</h4>
                                 <p class="text-xs text-slate-300 mt-1">🕒 Starts: <span class="text-amber-300 font-semibold">${t.start_time}</span> | Fee: <span class="text-emerald-400 font-bold">₹${t.entry_fee}</span> | Prize: <span class="text-amber-400 font-bold">₹${t.prize_pool}</span></p>
                             </div>
-                            <button onclick="registerAndOpenDashboard(${t.id}, '${t.title}')" class="bg-emerald-600 hover:bg-emerald-500 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition">Register Now</button>
+                            <button type="button" onclick="registerAndOpenDashboard(${t.id}, '${t.title}')" class="bg-emerald-600 hover:bg-emerald-500 text-xs font-bold px-4 py-2.5 rounded-xl whitespace-nowrap transition cursor-pointer z-10">Register Now</button>
                         </div>
                     `;
                 }
@@ -474,6 +426,11 @@
         }
 
         async function registerAndOpenDashboard(tourneyId, title) {
+            if(!loggedInUser) {
+                alert("Please login first!");
+                switchTab('auth');
+                return;
+            }
             try {
                 const res = await fetch(`${API_URL}/tournaments/join`, {
                     method: "POST", headers: { "Content-Type": "application/json" },
