@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- MATCH DASHBOARD (SUCCESSFUL REGISTRATION VIEW) -->
+                <!-- MATCH DASHBOARD (SUCCESSFUL REGISTRATION VIEW - EXACTLY AS REQUESTED) -->
                 <div id="tab-registered-match" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -264,13 +264,12 @@
                 <div id="tab-tournaments" class="space-y-6 hidden bg-[#111827] p-6 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                         <div>
-                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Free Fire Tournament</h3>
+                            <h3 id="selectedGameTitle" class="text-lg font-bold text-amber-400">🎮 ZYROX eSports – Tournaments</h3>
                             <p class="text-xs text-slate-400">Choose your mode: Solo • Duo • Squad</p>
                         </div>
                         <button onclick="switchTab('games')" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded-xl">← Back</button>
                     </div>
 
-                    <!-- CHOOSE YOUR BATTLE CARDS -->
                     <div class="space-y-3">
                         <h4 class="text-sm font-extrabold text-indigo-300 tracking-wide">⚔️ Choose Your Battle</h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -298,24 +297,7 @@
                         </div>
                     </div>
                     
-                    <div id="tournamentList" class="space-y-3 pt-4">
-                        <p class="text-slate-400 text-sm">Loading tournaments...</p>
-                    </div>
-
-                    <!-- Free Fire Daily Slots Schedule Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-800 space-y-4">
-                        <div class="flex items-center gap-2"><span class="text-xl">🎮</span><h3 class="text-base font-extrabold text-white">ZYROX eSports — Free Fire Daily Slots</h3></div>
-                        <div class="overflow-x-auto rounded-xl border border-slate-800">
-                            <table class="w-full text-left text-xs text-slate-300">
-                                <thead class="bg-[#1f2937] text-indigo-300 uppercase text-[10px]"><tr><th class="p-3">Slot</th><th class="p-3">Timing</th><th class="p-3">Activity</th></tr></thead>
-                                <tbody class="divide-y divide-slate-800 bg-[#111827]">
-                                    <tr><td class="p-3 font-bold text-emerald-400">🟢 Slot 01</td><td class="p-3 text-slate-300">10:00 AM – 11:00 AM</td><td class="p-3 font-semibold text-white">Match 1</td></tr>
-                                    <tr><td class="p-3 font-bold text-cyan-400">🔵 Slot 02</td><td class="p-3 text-slate-300">11:15 AM – 12:15 PM</td><td class="p-3 font-semibold text-white">Match 2</td></tr>
-                                    <tr><td class="p-3 font-bold text-purple-400">🟣 Slot 03</td><td class="p-3 text-slate-300">12:30 PM – 1:30 PM</td><td class="p-3 font-semibold text-white">Match 3</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <div id="tournamentList" class="space-y-3 pt-4"><p class="text-slate-400 text-sm">Loading tournaments...</p></div>
                 </div>
 
                 <!-- LEADERBOARD VIEW -->
@@ -350,17 +332,6 @@
                         <div><p class="text-slate-400">ZRX ID</p><p id="profileZrx" class="text-amber-400 font-bold text-sm mt-0.5">-</p></div>
                         <div><p class="text-slate-400">Wallet Balance</p><p id="profileWalletDisplay" class="text-emerald-400 font-bold text-sm mt-0.5">₹0</p></div>
                     </div>
-                    <span id="profileNameDisplay" class="hidden"></span>
-                    <div class="bg-[#1f2937] p-5 rounded-xl border border-slate-700 space-y-4">
-                        <h3 class="text-sm font-bold text-indigo-300"><i class="fa-solid fa-gamepad mr-1"></i> In-Game & Social Accounts</h3>
-                        <form id="profileDetailsForm" onsubmit="saveProfileDetails(event)" class="space-y-3 text-xs">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div><label class="text-slate-400 text-[10px] block mb-1">Free Fire UID</label><input type="text" id="ffUidInput" placeholder="e.g., 482910293" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
-                                <div><label class="text-slate-400 text-[10px] block mb-1">In-Game Name (IGN)</label><input type="text" id="ffIgnInput" placeholder="e.g., ZRX_Alpha" class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></div>
-                            </div>
-                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold p-2.5 rounded-xl text-white transition mt-2">Save Account Details</button>
-                        </form>
-                    </div>
                 </div>
 
                 <!-- ADMIN VIEW -->
@@ -373,36 +344,14 @@
                             <button type="submit" class="w-full bg-red-600 hover:bg-red-500 font-bold p-2.5 rounded-xl text-sm">Login Admin</button>
                         </form>
                     </div>
-
                     <div id="adminDashboardContent" class="space-y-6 hidden">
                         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                            <div><h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2><p class="text-xs text-slate-400">Full management suite for ZYROX eSports</p></div>
-                            <div class="flex gap-2">
-                                <button onclick="fetchRegisteredUsers()" class="bg-indigo-600 hover:bg-indigo-500 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-users mr-1"></i> Users Database</button>
-                                <button onclick="lockAdminPanel()" class="bg-red-700 hover:bg-red-600 text-xs px-3 py-1.5 rounded-xl font-bold"><i class="fa-solid fa-right-from-bracket mr-1"></i> Logout</button>
-                            </div>
-                        </div>
-                        <div id="adminUsersBox" class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 hidden">
-                            <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users & Wallet Management</h3>
-                            <div id="allUsersList" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div onclick="checkServerHealth()" class="bg-[#1f2937] hover:border-emerald-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
-                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Platform Status</p><h4 id="serverStatusTxt" class="text-base font-bold text-emerald-400 mt-0.5">Online & Active</h4></div>
-                                <div class="bg-emerald-600/20 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-server"></i></div>
-                            </div>
-                            <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Master Admin</p><h4 class="text-base font-bold text-indigo-400 mt-0.5">Shreyash</h4></div>
-                                <div class="bg-indigo-600/20 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-shield-halved"></i></div>
-                            </div>
-                            <div onclick="toggleActiveMode()" class="bg-[#1f2937] hover:border-amber-500 cursor-pointer p-4 rounded-xl border border-slate-700 flex items-center justify-between transition">
-                                <div><p class="text-xs text-slate-400 uppercase font-semibold">Active Mode</p><h4 id="activeModeTxt" class="text-base font-bold text-amber-400 mt-0.5">Free Fire Tournaments</h4></div>
-                                <div class="bg-amber-600/20 text-amber-400 p-3 rounded-xl"><i class="fa-solid fa-gamepad"></i></div>
-                            </div>
+                            <h2 class="text-lg font-bold text-cyan-400">Admin Master Dashboard</h2>
+                            <button onclick="lockAdminPanel()" class="bg-red-700 text-xs px-3 py-1.5 rounded-xl font-bold">Logout</button>
                         </div>
                         <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 space-y-3">
-                            <h3 class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-satellite-dish mr-1"></i> Live Active Tournaments & Room Controls</h3>
-                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs"><p class="text-slate-400">Loading active tournament controls...</p></div>
+                            <h3 class="text-sm font-bold text-cyan-400">Live Active Tournaments & Room Controls</h3>
+                            <div id="adminActiveTournamentsList" class="space-y-2 text-xs"><p class="text-slate-400">Loading...</p></div>
                         </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="bg-[#1f2937] p-4 rounded-xl border border-slate-700">
