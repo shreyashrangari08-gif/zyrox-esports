@@ -27,6 +27,7 @@
                 <a href="#" onclick="switchTab('matches')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-calendar-days w-5"></i> My Matches</a>
                 <a href="#" onclick="switchTab('leaderboard')" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-medal w-5"></i> Leaderboard</a>
                 <a href="#" onclick="openWalletModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-wallet w-5"></i> Wallet (<span id="sidebarWallet">₹0</span>)</a>
+                <a href="#" onclick="openContactModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition"><i class="fa-solid fa-headset w-5"></i> Contact Us</a>
                 <a href="#" id="navAdminTab" onclick="switchTab('admin')" class="hidden flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-950/40 transition"><i class="fa-solid fa-lock w-5"></i> Admin Portal</a>
             </nav>
         </div>
@@ -53,6 +54,9 @@
             <div class="flex items-center gap-4">
                 <button onclick="openWalletModal()" class="bg-[#1f2937] hover:bg-slate-700 text-amber-400 px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition border border-slate-700 cursor-pointer">
                     <i class="fa-solid fa-wallet"></i> ₹<span id="headerWalletTop">0</span>
+                </button>
+                <button onclick="openContactModal()" class="bg-[#1f2937] hover:bg-slate-700 text-emerald-400 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition border border-slate-700 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Support
                 </button>
                 <button class="bg-[#1f2937] hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl relative transition"><i class="fa-regular fa-bell"></i></button>
                 <div class="flex items-center gap-3 pl-2 border-l border-slate-700 cursor-pointer" onclick="switchTab('profile')">
@@ -107,7 +111,6 @@
 
                 <!-- GAMES HUB & DASHBOARD -->
                 <div id="tab-games" class="space-y-6 hidden">
-                    <!-- AUTO SLIDING BANNER CAROUSEL WITH NEW BGMI BANNERS -->
                     <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-slate-800 bg-[#111827] flex items-center justify-center">
                         <div id="welcomeCarousel" class="w-full h-full relative flex items-center justify-center">
                             <div class="absolute inset-0 transition-opacity duration-1000 opacity-100 slide-item flex items-center justify-center"><img src="images/banner1.jpg" class="w-full h-full object-cover"></div>
@@ -589,6 +592,20 @@
         </main>
     </div>
 
+    <!-- CONTACT US / WHATSAPP SUPPORT MODAL -->
+    <div id="contactModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-emerald-400"><i class="fa-brands fa-whatsapp mr-2"></i> ZYROX Support</h3>
+            <p class="text-xs text-slate-300">Need help with tournaments, wallet recharge or room IDs? Connect with our support team directly on WhatsApp or Call.</p>
+            <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-700 text-xs">
+                <p class="text-slate-400">Helpline Number / WhatsApp</p>
+                <p class="text-emerald-400 font-bold text-sm mt-0.5">+91 9699343711</p>
+            </div>
+            <a href="https://wa.me/919699343711?text=Hello%20ZYROX%20Support,%20I%20need%20help%20with%20my%20eSports%20account." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-2.5 rounded-xl text-white text-xs transition shadow-lg">Chat on WhatsApp Now</a>
+            <button onclick="closeContactModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2 rounded-xl text-xs transition cursor-pointer">Close</button>
+        </div>
+    </div>
+
     <!-- PROFILE EDIT MODAL -->
     <div id="profileEditModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-md w-full relative shadow-2xl space-y-4">
@@ -667,7 +684,7 @@
         let activeGameCategory = "Free Fire MAX";
         let pendingTourneyData = null;
 
-        // CAROUSEL SLIDER (INCLUDING NEW BGMI BANNERS)
+        // CAROUSEL SLIDER (BGMI SLIDES)
         let currentSlideIdx = 0;
         setInterval(() => {
             const slides = document.querySelectorAll('.slide-item');
@@ -679,7 +696,7 @@
             slides[currentSlideIdx].classList.add('opacity-100');
         }, 3500);
 
-        // LIVE COUNTDOWN TIMER
+        // LIVE COUNTDOWN
         setInterval(() => {
             const saved = JSON.parse(localStorage.getItem("zyrox_ff_settings"));
             if(saved && saved.timer) {
@@ -819,6 +836,10 @@
             hideDashboardUI();
             switchTab('auth');
         }
+
+        // CONTACT MODAL CONTROLS
+        function openContactModal() { document.getElementById("contactModal").classList.remove("hidden"); }
+        function closeContactModal() { document.getElementById("contactModal").classList.add("hidden"); }
 
         function selectGame(gameName) {
             activeGameCategory = gameName;
