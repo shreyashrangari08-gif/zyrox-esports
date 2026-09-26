@@ -602,7 +602,7 @@
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-md w-full relative shadow-2xl space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-amber-400"><i class="fa-solid fa-bell mr-2"></i> Live Admin Notifications</h3>
-                <button onclick="closeNotificationsModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeNotificationsModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="notificationsListContainer" class="space-y-3 max-h-80 overflow-y-auto text-xs">
                 <!-- Dynamic notifications -->
@@ -662,12 +662,14 @@
         </div>
     </div>
 
-    <!-- WALLET MODAL -->
+    <!-- WALLET MODAL WITH ROBUST QR GENERATION & FALLBACK -->
     <div id="walletModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
         <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-sm w-full text-center relative shadow-2xl space-y-3">
             <h3 class="text-lg font-bold text-amber-400 mb-1">Recharge Wallet</h3>
-            <p class="text-xs text-slate-400">Pay to UPI: <span class="text-cyan-300 font-bold">9699343711@ptaxis</span></p>
-            <div class="bg-white p-3 rounded-xl inline-block shadow"><img id="walletQrImg" src="" class="w-28 h-28 mx-auto"></div>
+            <p class="text-xs text-slate-400">Scan QR or Pay to UPI: <span class="text-cyan-300 font-bold">9699343711@ptaxis</span></p>
+            <div class="bg-white p-3 rounded-xl inline-block shadow relative">
+                <img id="walletQrImg" src="" class="w-28 h-28 mx-auto object-contain" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=9699343711@ptaxis';">
+            </div>
             <input type="number" id="topupAmount" oninput="updateWalletQr()" value="100" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-sm font-bold text-amber-300 text-center">
             <input type="text" id="topupUtr" placeholder="Enter 12-Digit UTR Number" class="w-full p-2.5 rounded-xl bg-[#1f2937] border border-slate-700 text-sm text-center text-white">
             <p id="utrMsg" class="text-xs font-semibold h-4"></p>
@@ -706,7 +708,7 @@
         let activeGameCategory = "Free Fire MAX";
         let pendingTourneyData = null;
 
-        // REAL-TIME NOTIFICATION CHECKER (POLLING EVERY 5 SECONDS)
+        // REAL-TIME NOTIFICATION CHECKER
         setInterval(() => {
             checkForNewNotifications();
         }, 5000);
@@ -731,7 +733,6 @@
         function checkForNewNotifications() {
             let allNotifs = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs")) || [];
             if(allNotifs.length > lastCheckedNotifCount) {
-                // New notification received! Trigger alarm sound and badge
                 lastCheckedNotifCount = allNotifs.length;
                 playAlarmSound();
                 updateNotificationBadge(allNotifs);
@@ -774,7 +775,6 @@
                         </div>
                     `;
                 });
-                // Mark all as read when opened
                 allNotifs.forEach(n => n.unread = false);
                 localStorage.setItem("zyrox_broadcast_notifs", JSON.stringify(allNotifs));
                 updateNotificationBadge(allNotifs);
@@ -1086,7 +1086,7 @@
             });
         }
 
-        // SECURE WALLET RECHARGE WITH UTR VERIFICATION & INSTANT RESPONSE
+        // WALLET RECHARGE & ROBUST QR GENERATOR
         function openWalletModal() { 
             updateWalletQr(); 
             document.getElementById("topupUtr").value = "";
@@ -1096,7 +1096,8 @@
         function closeWalletModal() { document.getElementById("walletModal").classList.add("hidden"); }
         function updateWalletQr() {
             const amt = document.getElementById("topupAmount").value || 100;
-            document.getElementById("walletQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=9699343711@ptaxis&am=${amt}`)}`;
+            const qrImg = document.getElementById("walletQrImg");
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=9699343711@ptaxis&am=${amt}`)}`;
         }
 
         async function verifyAndAddWallet() {
