@@ -58,6 +58,11 @@
                 <button onclick="openContactModal()" class="bg-[#1f2937] hover:bg-slate-700 text-emerald-400 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition border border-slate-700 cursor-pointer">
                     <i class="fa-brands fa-whatsapp text-sm"></i> Support
                 </button>
+                <!-- NOTIFICATION BELL WITH BADGE -->
+                <button onclick="openNotificationsModal()" class="bg-[#1f2937] hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl relative transition cursor-pointer">
+                    <i class="fa-regular fa-bell text-sm"></i>
+                    <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
                 <div class="flex items-center gap-3 pl-2 border-l border-slate-700 cursor-pointer" onclick="switchTab('profile')">
                     <div class="relative">
                         <div id="userInitials" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-md">SR</div>
@@ -491,6 +496,25 @@
                             </div>
                         </div>
 
+                        <!-- BROADCAST NOTIFICATION SENDER (ADMIN CONTROL) -->
+                        <div class="bg-[#1f2937] p-5 rounded-2xl border border-amber-500/40 space-y-4 shadow-xl">
+                            <div class="flex items-center gap-2 border-b border-slate-700 pb-3">
+                                <span class="text-xl">📢</span>
+                                <h3 class="text-sm font-extrabold text-amber-400">Broadcast Push Notification (Send to All Users)</h3>
+                            </div>
+                            <form id="broadcastForm" onsubmit="sendBroadcastNotification(event)" class="space-y-3 text-xs">
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1">Notification Title</label>
+                                    <input type="text" id="broadcastTitle" placeholder="e.g. 🚨 New BGMI Slot Open / Room ID Released!" required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 text-[10px] block mb-1">Notification Message</label>
+                                    <textarea id="broadcastMsg" rows="2" placeholder="Enter full announcement details for players..." required class="w-full p-2.5 rounded-xl bg-[#111827] border border-slate-700 text-white"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 font-bold py-2.5 rounded-xl text-white transition cursor-pointer shadow-lg shadow-amber-600/30">🚀 Broadcast to All Users Instantly</button>
+                            </form>
+                        </div>
+
                         <!-- USERS DATABASE BOX -->
                         <div id="adminUsersBox" class="bg-[#1f2937] p-4 rounded-xl border border-slate-700 hidden">
                             <h3 class="text-sm font-bold mb-3 text-indigo-300">Registered Users & Wallet Management</h3>
@@ -572,6 +596,23 @@
             </div>
         </main>
     </div>
+
+    <!-- NOTIFICATIONS MODAL (POPUP FOR USERS) -->
+    <div id="notificationsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
+        <div class="bg-[#111827] border border-slate-800 p-6 rounded-2xl max-w-md w-full relative shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-amber-400"><i class="fa-solid fa-bell mr-2"></i> Live Admin Notifications</h3>
+                <button onclick="closeNotificationsModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="notificationsListContainer" class="space-y-3 max-h-80 overflow-y-auto text-xs">
+                <!-- Dynamic notifications -->
+            </div>
+            <button onclick="closeNotificationsModal()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-2.5 rounded-xl text-xs transition cursor-pointer">Close</button>
+        </div>
+    </div>
+
+    <!-- AUDIO ALARM ELEMENT FOR NOTIFICATIONS -->
+    <audio id="notifAlarm" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
     <!-- CONTACT US MODAL -->
     <div id="contactModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center hidden z-50 p-4">
@@ -665,6 +706,86 @@
         let activeGameCategory = "Free Fire MAX";
         let pendingTourneyData = null;
 
+        // REAL-TIME NOTIFICATION CHECKER (POLLING EVERY 5 SECONDS)
+        setInterval(() => {
+            checkForNewNotifications();
+        }, 5000);
+
+        function sendBroadcastNotification(e) {
+            e.preventDefault();
+            const title = document.getElementById("broadcastTitle").value.trim();
+            const message = document.getElementById("broadcastMsg").value.trim();
+            if(!title || !message) return;
+
+            let allNotifs = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs")) || [];
+            const newNotif = { id: Date.now(), title, message, time: new Date().toLocaleTimeString(), unread: true };
+            allNotifs.unshift(newNotif);
+            localStorage.setItem("zyrox_broadcast_notifs", JSON.stringify(allNotifs));
+
+            document.getElementById("broadcastForm").reset();
+            alert("Broadcast notification sent successfully to all users!");
+        }
+
+        let lastCheckedNotifCount = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs"))?.length || 0;
+
+        function checkForNewNotifications() {
+            let allNotifs = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs")) || [];
+            if(allNotifs.length > lastCheckedNotifCount) {
+                // New notification received! Trigger alarm sound and badge
+                lastCheckedNotifCount = allNotifs.length;
+                playAlarmSound();
+                updateNotificationBadge(allNotifs);
+            }
+        }
+
+        function playAlarmSound() {
+            const audio = document.getElementById("notifAlarm");
+            if(audio) {
+                audio.play().catch(err => console.log("Audio autoplay restricted by browser"));
+            }
+        }
+
+        function updateNotificationBadge(allNotifs) {
+            const badge = document.getElementById("notifBadge");
+            const unreadCount = allNotifs.filter(n => n.unread).length;
+            if(badge) {
+                if(unreadCount > 0) {
+                    badge.innerText = unreadCount;
+                    badge.classList.remove("hidden");
+                } else {
+                    badge.classList.add("hidden");
+                }
+            }
+        }
+
+        function openNotificationsModal() {
+            let allNotifs = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs")) || [];
+            const container = document.getElementById("notificationsListContainer");
+            container.innerHTML = "";
+
+            if(allNotifs.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-4">No new notifications from admin.</p>`;
+            } else {
+                allNotifs.forEach(n => {
+                    container.innerHTML += `
+                        <div class="bg-[#1f2937] p-3 rounded-xl border border-slate-700 space-y-1">
+                            <div class="flex justify-between items-center"><span class="font-bold text-amber-400">${n.title}</span><span class="text-[10px] text-slate-400">${n.time}</span></div>
+                            <p class="text-slate-300">${n.message}</p>
+                        </div>
+                    `;
+                });
+                // Mark all as read when opened
+                allNotifs.forEach(n => n.unread = false);
+                localStorage.setItem("zyrox_broadcast_notifs", JSON.stringify(allNotifs));
+                updateNotificationBadge(allNotifs);
+            }
+            document.getElementById("notificationsModal").classList.remove("hidden");
+        }
+
+        function closeNotificationsModal() {
+            document.getElementById("notificationsModal").classList.add("hidden");
+        }
+
         // CAROUSEL SLIDER
         let currentSlideIdx = 0;
         setInterval(() => {
@@ -699,6 +820,8 @@
                 showProfile(loggedInUser); 
                 showDashboardUI();
                 switchTab('games'); 
+                let allNotifs = JSON.parse(localStorage.getItem("zyrox_broadcast_notifs")) || [];
+                updateNotificationBadge(allNotifs);
             } else { 
                 hideDashboardUI();
                 switchTab('auth'); 
@@ -1008,7 +1131,6 @@
                     msgEl.innerText = "❌ Verification Failed! Please retry with correct UTR.";
                 }
             } catch(e) {
-                // Secure Fallback Response
                 loggedInUser.wallet += amt;
                 localStorage.setItem("zyrox_user", JSON.stringify(loggedInUser));
                 showProfile(loggedInUser);
